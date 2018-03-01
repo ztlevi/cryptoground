@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "nodemon --exec babel-node --presets=env --ignore='node_modules' -- ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {
@@ -15,6 +16,10 @@
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "prettier": "^1.11.0"
   }
 }
