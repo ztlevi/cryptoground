@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "nodemon --exec babel-node --presets=env --ignore='node_modules' -- ./bin/www",
-    "start": "node ./bin/www"
+    "start": "node ./bin/dev"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "es6-promise": "^4.2.4",
     "express": "~4.15.5",
     "firebase": "^4.10.1",
+    "firebase-admin": "^5.9.1",
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
