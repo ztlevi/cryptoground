@@ -1,0 +1,19 @@
+.chartdiv {
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    top: 15%;
+}
+
+.intraday {
+    position: relative;
+    top: 180px;
+    width: 75%
+}
+
+.intradayintro {
+    font-size: 20px;
+    color: darkblue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
