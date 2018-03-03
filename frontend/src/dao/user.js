@@ -4,7 +4,7 @@ import * as cryptoConfigs from '../res/cryptoConfigs';
 import * as firebaseConfigs from '../res/firebaseConfigs';
 import * as firebaseUrls from '../res/firebaseUrls';
 
-const fetchUserBalance = (uid, idToken) => {
+export const fetchUserBalance = (uid, idToken) => {
   let endpoint = firebaseUrls.fetchFirebaseDbUrl(
     ['users', uid, 'balance'],
     idToken
@@ -15,6 +15,7 @@ const fetchUserBalance = (uid, idToken) => {
       .get(endpoint)
       .then(res => {
         if (res && res.data) {
+          console.log('balance', res.data);
           resolve(res.data);
         } else {
           reject(0);
@@ -24,7 +25,7 @@ const fetchUserBalance = (uid, idToken) => {
   });
 };
 
-const initUserBalance = (uid, idToken) => {
+export const initUserBalance = (uid, idToken) => {
   let endpoint = firebaseUrls.fetchFirebaseDbUrl(
     ['users', uid, 'balance'],
     idToken

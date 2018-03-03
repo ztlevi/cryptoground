@@ -18,6 +18,7 @@ import * as firebaseConfigs from '../res/firebaseConfigs';
 import * as authApi from '../dao/auth';
 import * as authActions from '../actions/auth';
 import * as userActions from '../actions/user';
+import * as userApi from '../dao/user';
 
 export function* sagaSignUp(action: Object) {
   try {
@@ -32,6 +33,15 @@ export function* sagaSignUp(action: Object) {
         email: userName,
       })
     );
+    // Init account balance
+    yield call(userApi.initUserBalance, authData.localId, authData.idToken);
+    // Fetch Balance
+    const balanceData = yield call(
+      userApi.fetchUserBalance,
+      authData.localId,
+      authData.idToken
+    );
+    yield put(userActions.updateUserBalance({ balance: balanceData }));
   } catch (err) {
     console.log(err);
     yield put(
@@ -56,7 +66,12 @@ export function* sagaSignIn(action: Object) {
         email: userName,
       })
     );
-    yield call();
+    const balanceData = yield call(
+      userApi.fetchUserBalance,
+      authData.localId,
+      authData.idToken
+    );
+    yield put(userActions.updateUserBalance({ balance: balanceData }));
   } catch (err) {
     console.log(err);
     yield put(
