@@ -26,3 +26,7 @@ export const fetchFirebaseDbUrl = (dirs: Array, idToken: String) => {
   }
   return `${FIREBASE_DATABASE_REST_URL}${path}.json?auth=${idToken || ''}`;
 };
+
+export const GET_FIREBASE_ERROR_MSG = err => {
+  return err.response.data.error.message;
+};

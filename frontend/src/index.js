@@ -8,12 +8,16 @@ import createSagaMiddleware from 'redux-saga';
 import { all, call } from 'redux-saga/effects';
 
 import dataReducer from './reducers/data';
+import authReducer from './reducers/auth';
 import * as dataSaga from './sagas/data';
+import authSaga from './sagas/auth';
+
 import './index.css';
 import App from './App';
 
 const rootReducer = combineReducers({
   data: dataReducer,
+  auth: authReducer,
 });
 
 function* rootSaga() {
@@ -21,6 +25,7 @@ function* rootSaga() {
     call(dataSaga.sagaRealTimeTask),
     call(dataSaga.sagaBatchDaylyTask),
     call(dataSaga.sagaBatchIntradayTask),
+    ...authSaga,
   ]);
 }
 

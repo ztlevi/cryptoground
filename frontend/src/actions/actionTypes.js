@@ -29,3 +29,12 @@ export const UPDATE_USER_INFO = 'UPDATE_USER_INFO';
 export const UPDATE_USER_BALANCE = 'UPDATE_USER_BALANCE';
 
 export const UPDATE_USER_TRADINGS = 'UPDATE_USER_TRADINGS';
+
+// Auth
+
+export const SAGA_SIGN_UP = 'SAGA_SIGN_UP';
+export const SAGA_SIGN_IN = 'SAGA_SIGN_IN';
+export const AUTH_INIT = 'AUTH_INIT';
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAIL = 'AUTH_FAIL';
