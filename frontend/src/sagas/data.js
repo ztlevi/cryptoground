@@ -10,10 +10,11 @@ export function* realTimePricingSyncBackend() {
     try {
         while(true) {
             const data = yield call(dataApi.fetchRealTimePriceFromBackend);
-            console.log(data);
+            // console.log(data);
             yield put( dataActions.updateRealTimePricing( data ));
             const state = yield select();
-            console.log('state', state.data.realTimePrice);
+            // console.log(state);
+            // console.log('state', state.data.realTimePrice);
             yield call( delay, 5000 );  
         }
     } catch (err) {

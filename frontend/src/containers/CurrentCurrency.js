@@ -59,7 +59,8 @@ class CurrentCurrency extends Component {
 
     render(){
        // console.log(this.state.dataProvider);
-
+        let data = this.props.data;
+        console.log(data);
         return (
             <div className ={classes.table}>
                 <p className={classes.font}>CryptoCurrency Market</p>
@@ -90,7 +91,8 @@ class CurrentCurrency extends Component {
 }
 
 CurrentCurrency.propTypes = {
-    onStartFetchRealTimeData: PropTypes.func
+    onStartFetchRealTimeData: PropTypes.func,
+    data: PropTypes.object
 }
 
 const mapStateToProps = state => {

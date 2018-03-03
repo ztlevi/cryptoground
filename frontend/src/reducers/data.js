@@ -34,7 +34,7 @@ const recurUpdateRealTimePrice = ( realTimePrice, payload ) => {
 const updateRealTimeData = ( state, action ) => {
     return {
         ...state,
-        realTimePrice: recurUpdateRealTimePrice( this.state.realTimePrice, action.payload )
+        realTimePrice: recurUpdateRealTimePrice( state.realTimePrice, action.payload )
     }
 }
 
