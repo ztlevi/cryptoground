@@ -14,10 +14,9 @@ export const updateUserBalance = payload => {
   };
 };
 
-export const sagaSyncUserBalance = payload => {
+export const sagaSyncUserBalance = () => {
   return {
-    type: actionTypes.UPDATE_USER_BALANCE,
-    payload: payload,
+    type: actionTypes.SAGA_SYNC_USER_BALANCE,
   };
 };
 
