@@ -48,8 +48,6 @@ const recurUpdateBatchData = (batchData, payload) => {
   for (let cryp in payload) {
     for (let cur in payload[cryp]) {
       for (let inter in payload[cryp][cur]) {
-        batchData[cryp] = {};
-        batchData[cryp][cur] = {};
         batchData[cryp][cur][inter] = payload[cryp][cur][inter];
       }
     }

@@ -108,8 +108,8 @@ function* batchDataIntradaySyncApi() {
       postData[fromSym][toSym][cryptoConfigs.intervalType.minute] = data;
       //console.log('postdata', postData);
       yield put(dataActions.updateBatchData(postData));
-      //const state = yield select();
-      //console.log('post state', state.data.batchData);
+      const state = yield select();
+      console.log('post state', state.data.batchData);
       yield call(delay, 1000 * 3600);
     }
   } catch (err) {

@@ -7,46 +7,43 @@ import classes from './Chart.css';
 import AmCharts from '@amcharts/amcharts3-react';
 import { Button } from 'antd';
 
-// Generate random data
-function generateData() {
-  var firstDate = new Date();
-
-  var dataProvider = [];
-
-  for (var i = 0; i < 100; ++i) {
-    var date = new Date(firstDate.getTime());
-
-    date.setDate(i);
-
-    dataProvider.push({
-      date: date,
-      value: Math.floor(Math.random() * 100),
-    });
-  }
-
-  return dataProvider;
-}
-
 // Component which contains the dynamic state for the chart
 class HistoricalData extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dataProvider: generateData(),
-      timer: null,
+      dataProvider: {},
     };
   }
 
-  componentDidMount() {
-    // this.setState({
-    //   // Update the chart dataProvider every 3 seconds
-    //   timer: setInterval(() => {
-    //     this.setState({
-    //       dataProvider: generateData()
-    //     });
-    //   }, 3000)
-    // });
+  generateData(props) {
+    console.log('in generateData', props.data.batchData);
+    var dataProvider = [];
+    var data = props.data.batchData['BTC'];
+    data = data['USD'];
+    data = data['day'];
+    for (var key in data) {
+      var date = new Date(data[key]['time'] * 1000);
+      dataProvider.push({
+        date: date,
+        open: data[key]['open'],
+        close: data[key]['close'],
+        high: data[key]['high'],
+        low: data[key]['low'],
+        volumn: data[key]['volumnto'] - data[key]['volumnfrom'],
+      });
+    }
+    return dataProvider;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('next', nextProps.data.batchData);
+
+    this.setState({
+      // Update the chart dataProvider
+      dataProvider: this.generateData(nextProps),
+    });
     //this.props.onStartFetchDaylyData();
   }
 
@@ -64,85 +61,110 @@ class HistoricalData extends Component {
   }
 
   render() {
-    let data = this.props.data;
-    console.log('rendered', data);
-
     const config = {
-      type: 'serial',
+      type: 'stock',
       theme: 'light',
-      marginRight: 40,
-      marginLeft: 40,
-      autoMarginOffset: 20,
-      mouseWheelZoomEnabled: true,
-      valueAxes: [
+      dataSets: [
         {
-          id: 'v1',
-          axisAlpha: 0,
-          position: 'left',
-          ignoreAxisWidth: true,
+          fieldMappings: [
+            {
+              fromField: 'open',
+              toField: 'open',
+            },
+            {
+              fromField: 'close',
+              toField: 'close',
+            },
+            {
+              fromField: 'high',
+              toField: 'high',
+            },
+            {
+              fromField: 'low',
+              toField: 'low',
+            },
+            {
+              fromField: 'volume',
+              toField: 'volume',
+            },
+            {
+              fromField: 'value',
+              toField: 'value',
+            },
+          ],
+          color: '#7f8da9',
+          dataProvider: this.state.dataProvider,
+          categoryField: 'date',
         },
       ],
       balloon: {
-        borderThickness: 1,
-        shadowAlpha: 0,
+        horizontalPadding: 13,
       },
-      graphs: [
+      panels: [
         {
-          id: 'g1',
-          balloon: {
-            drop: true,
-            adjustBorderColor: false,
-            color: '#ffffff',
-          },
-          bullet: 'round',
-          bulletBorderAlpha: 1,
-          bulletColor: '#FFFFFF',
-          bulletSize: 5,
-          hideBulletsCount: 50,
-          lineThickness: 2,
-          title: 'red line',
-          useLineColorForBulletBorder: true,
-          valueField: 'value',
-          balloonText: "<span style='font-size:18px;'>[[value]]</span>",
+          title: 'Value',
+          stockGraphs: [
+            {
+              id: 'g1',
+              type: 'candlestick',
+              openField: 'open',
+              closeField: 'close',
+              highField: 'high',
+              lowField: 'low',
+              valueField: 'close',
+              lineColor: '#7f8da9',
+              fillColors: '#7f8da9',
+              negativeLineColor: '#db4c3c',
+              negativeFillColors: '#db4c3c',
+              fillAlphas: 1,
+              balloonText:
+                'open:<b>[[open]]</b><br>close:<b>[[close]]</b><br>low:<b>[[low]]</b><br>high:<b>[[high]]</b>',
+              useDataSetColors: false,
+            },
+          ],
         },
       ],
-      chartScrollbar: {
-        graph: 'g1',
-        oppositeAxis: false,
-        offset: 30,
-        scrollbarHeight: 80,
-        backgroundAlpha: 0,
-        selectedBackgroundAlpha: 0.1,
-        selectedBackgroundColor: '#888888',
-        graphFillAlpha: 0,
-        graphLineAlpha: 0.5,
-        selectedGraphFillAlpha: 0,
-        selectedGraphLineAlpha: 1,
-        autoGridCount: true,
-        color: '#AAAAAA',
+      scrollBarSettings: {
+        graphType: 'line',
+        usePeriod: 'WW',
       },
-      chartCursor: {
-        pan: true,
-        valueLineEnabled: true,
+      panelsSettings: {
+        panEventsEnabled: true,
+      },
+      cursorSettings: {
+        valueBalloonsEnabled: true,
         valueLineBalloonEnabled: true,
-        cursorAlpha: 1,
-        cursorColor: '#258cbb',
-        limitToGraph: 'g1',
-        valueLineAlpha: 0.2,
-        valueZoomable: true,
+        valueLineEnabled: true,
       },
-      valueScrollbar: {
-        oppositeAxis: false,
-        offset: 50,
-        scrollbarHeight: 10,
+      periodSelector: {
+        position: 'bottom',
+        periods: [
+          {
+            period: 'DD',
+            count: 10,
+            label: '10 days',
+          },
+          {
+            period: 'MM',
+            selected: true,
+            count: 1,
+            label: '1 month',
+          },
+          {
+            period: 'YYYY',
+            count: 1,
+            label: '1 year',
+          },
+          {
+            period: 'YTD',
+            label: 'YTD',
+          },
+          {
+            period: 'MAX',
+            label: 'MAX',
+          },
+        ],
       },
-      categoryField: 'date',
-      categoryAxis: {
-        parseDates: true,
-        dashLength: 1,
-        minorGridEnabled: true,
-      },
-      dataProvider: this.state.dataProvider,
     };
 
     return (
@@ -173,7 +195,7 @@ HistoricalData.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    data: state.data.batchData,
+    data: state.data,
   };
 };
 
