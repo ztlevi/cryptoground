@@ -17,6 +17,7 @@ import * as cryptoConfigs from '../res/cryptoConfigs';
 import * as firebaseConfigs from '../res/firebaseConfigs';
 import * as authApi from '../dao/auth';
 import * as authActions from '../actions/auth';
+import * as userActions from '../actions/user';
 
 export function* sagaSignUp(action: Object) {
   try {
@@ -26,6 +27,11 @@ export function* sagaSignUp(action: Object) {
     const authData = yield call(authApi.signUpNewUser, userName, passWord);
     console.log('authData', authData);
     yield put(authActions.authSuccess(authData));
+    yield put(
+      userActions.updateUserInfo({
+        email: userName,
+      })
+    );
   } catch (err) {
     console.log(err);
     yield put(
@@ -45,6 +51,12 @@ export function* sagaSignIn(action: Object) {
     const authData = yield call(authApi.verifyPassword, userName, passWord);
     console.log('authData', authData);
     yield put(authActions.authSuccess(authData));
+    yield put(
+      userActions.updateUserInfo({
+        email: userName,
+      })
+    );
+    yield call();
   } catch (err) {
     console.log(err);
     yield put(

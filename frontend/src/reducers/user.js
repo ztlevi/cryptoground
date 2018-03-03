@@ -4,7 +4,6 @@ import * as cryptoConfigs from '../res/cryptoConfigs';
 const { cryptoType, currencyType } = cryptoConfigs;
 
 const initialState = {
-  userName: null,
   email: null,
   balance: {},
 };
@@ -20,7 +19,6 @@ for (let i in currencyType) {
 const updateUserInfo = (state, action) => {
   return {
     ...state,
-    userName: action.payload.userName,
     email: action.payload.email,
   };
 };

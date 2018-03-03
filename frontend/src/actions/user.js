@@ -1,13 +1,21 @@
 import * as actionTypes from './actionTypes';
 
-export const sagaSyncUserInfo = () => {
+export const updateUserInfo = payload => {
   return {
-    type: actionTypes.SAGA_SYNC_USER_INFO,
+    type: actionTypes.UPDATE_USER_INFO,
+    payload: payload,
   };
 };
 
-export const sagaSyncUserBalance = () => {
+export const sagaSyncUserBalance = payload => {
   return {
-    type: actionTypes.SAGA_SYNC_USER_BALANCE,
+    type: actionTypes.UPDATE_USER_BALANCE,
+    payload: payload,
+  };
+};
+
+export const sagaSyncUserInfo = () => {
+  return {
+    type: actionTypes.SAGA_SYNC_USER_INFO,
   };
 };

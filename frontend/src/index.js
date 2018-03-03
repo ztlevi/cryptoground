@@ -9,8 +9,10 @@ import { all, call } from 'redux-saga/effects';
 
 import dataReducer from './reducers/data';
 import authReducer from './reducers/auth';
+import userReducer from './reducers/user';
 import * as dataSaga from './sagas/data';
 import authSaga from './sagas/auth';
+import userSaga from './sagas/user';
 
 import './index.css';
 import App from './App';
@@ -18,6 +20,7 @@ import App from './App';
 const rootReducer = combineReducers({
   data: dataReducer,
   auth: authReducer,
+  user: userReducer,
 });
 
 function* rootSaga() {
@@ -25,6 +28,7 @@ function* rootSaga() {
     call(dataSaga.sagaRealTimeTask),
     call(dataSaga.sagaBatchDaylyTask),
     call(dataSaga.sagaBatchIntradayTask),
+    ...userSaga,
     ...authSaga,
   ]);
 }
