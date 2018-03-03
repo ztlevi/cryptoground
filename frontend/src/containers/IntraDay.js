@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 //import axios from 'axios';
 import { connect } from 'react-redux';
-import { Button } from 'antd';
+import { Row, Button, Col, Layout, Menu, Breadcrumb, Icon } from 'antd';
+const { Header, Content, Sider } = Layout;
 
-import classes from './Chart.css';
 import AmCharts from '@amcharts/amcharts3-react';
 import * as dataActions from '../actions/data';
 
@@ -115,7 +115,7 @@ class IntraDay extends Component {
         graph: 'g1',
         oppositeAxis: false,
         offset: 30,
-        scrollbarHeight: 80,
+        scrollbarHeight: 20,
         backgroundAlpha: 0,
         selectedBackgroundAlpha: 0.1,
         selectedBackgroundColor: '#888888',
@@ -131,7 +131,7 @@ class IntraDay extends Component {
         valueLineEnabled: true,
         valueLineBalloonEnabled: true,
         cursorAlpha: 1,
-        cursorColor: '#258cbb',
+        cursorColor: '#1e90ff',
         limitToGraph: 'g1',
         valueLineAlpha: 0.2,
         valueZoomable: true,
@@ -151,10 +151,8 @@ class IntraDay extends Component {
     };
 
     return (
-      <div id="intrayDay" className={classes.intraday}>
-        <p className={[classes.intradayintro, 'col'].join(' ')}>
-          Intra-day Dataflow{' '}
-        </p>
+      <div id="intrayDay">
+        <h4 style={{ textAlign: 'center' }}>Intra-day Dataflow</h4>
         <AmCharts.React
           style={{ width: '100%', height: '350px' }}
           options={config}
