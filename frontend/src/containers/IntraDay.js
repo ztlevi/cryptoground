@@ -15,20 +15,20 @@ import * as dataActions from '../actions/data';
 // Generate random data
 function generateData() {
     var firstDate = new Date();
-  
+
     var dataProvider = [];
-  
+
     for (var i = 0; i < 100; ++i) {
       var date = new Date(firstDate.getTime());
-  
+
       date.setDate(i);
-  
+
       dataProvider.push({
         date: date,
         value: Math.floor(Math.random() * 100)
       });
     }
-  
+
     return dataProvider;
 }
 
@@ -57,8 +57,8 @@ class IntraDay extends Component {
     componentWillUnmount() {
         clearInterval(this.state.timer);
     }
-    
-  
+
+
     render() {
         const config = {
             "type": "serial",
@@ -133,9 +133,9 @@ class IntraDay extends Component {
             },
             "dataProvider": this.state.dataProvider
         };
-      
+
         return (
-            <div className={classes.intraday}>
+            <div id="intrayDay" className={classes.intraday}>
                <p className={[classes.intradayintro, "col"].join(' ')}>Intra-day Dataflow </p>
                <AmCharts.React style={{width: "100%", height: "350px"}} options={config} />
             </div>
@@ -156,7 +156,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect( 
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(IntraDay);

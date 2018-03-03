@@ -7,20 +7,20 @@ import AmCharts from '@amcharts/amcharts3-react';
 // Generate random data
 function generateData() {
     var firstDate = new Date();
-  
+
     var dataProvider = [];
-  
+
     for (var i = 0; i < 100; ++i) {
       var date = new Date(firstDate.getTime());
-  
+
       date.setDate(i);
-  
+
       dataProvider.push({
         date: date,
         value: Math.floor(Math.random() * 100)
       });
     }
-  
+
     return dataProvider;
 }
 
@@ -28,7 +28,7 @@ function generateData() {
 class HistoricalData extends Component {
     constructor(props) {
         super(props);
-    
+
         this.state = {
           dataProvider: generateData(),
           timer: null
@@ -49,8 +49,8 @@ class HistoricalData extends Component {
     componentWillUnmount() {
         clearInterval(this.state.timer);
     }
-    
-  
+
+
     render() {
         const config = {
             "type": "serial",
@@ -125,28 +125,15 @@ class HistoricalData extends Component {
             },
             "dataProvider": this.state.dataProvider
         };
-      
+
         return (
-            <div className={classes.intraday}>
+            <div id="#historicalData" className={classes.intraday}>
                <p className={[classes.intradayintro, "col"].join(' ')}>Historical Dataflow </p>
                <AmCharts.React style={{width: "100%", height: "350px"}} options={config} />
             </div>
 
         );
     }
-}
-
-const mapStateToProps = state => {
-  return {
-      data: state.data
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-      onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() ),
-      onStopFetchRealTimeData: () => dispatch( dataActions.sagaStopSyncRealTimePricing() ) 
-  }
 }
 
 export default HistoricalData;

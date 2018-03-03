@@ -29,7 +29,7 @@ class CurrentCurrency extends Component {
 
     constructor(props) {
         super(props);
-    
+
         this.state = {
           dataProvider:[],
           timer: null
@@ -84,7 +84,7 @@ class CurrentCurrency extends Component {
                                 </tr>
                            ))
                         }
-                    </tbody>                   
+                    </tbody>
                 </table>
                 <Button type="primary" onClick={()=>this.onStart()}>Start</Button>
                 <Button type="primary" onClick={()=>this.onStop()}>Stop</Button>
@@ -104,15 +104,15 @@ const mapStateToProps = state => {
         data: state.data
     }
 };
-  
+
 const mapDispatchToProps = dispatch => {
     return {
         onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() ),
-        onStopFetchRealTimeData: () => dispatch( dataActions.sagaStopSyncRealTimePricing() ) 
+        onStopFetchRealTimeData: () => dispatch( dataActions.sagaStopSyncRealTimePricing() )
     }
 }
-  
-export default connect( 
+
+export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(CurrentCurrency);
