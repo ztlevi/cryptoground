@@ -54,6 +54,14 @@ class HistoricalData extends Component {
         //clearInterval(this.state.timer);
         //this.props.onStopFetchDaylyData();
     }
+    
+    onStart() {
+        this.props.onStartFetchDaylyData();
+    }
+
+    onStop() {
+        this.props.onStopFetchDaylyData();
+    }
 
     render() {
         let data = this.props.data;
@@ -145,4 +153,26 @@ class HistoricalData extends Component {
     }
 }
 
-export default HistoricalData;
+HistoricalData.propTypes = {
+  onStartFetchDaylyData: PropTypes.func,
+  onStopFetchDaylyData: PropTypes.func,
+  data: PropTypes.object
+}
+
+const mapStateToProps = state => {
+  return {
+      data: state.data.batchData
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onStartFetchDaylyData: () => dispatch( dataActions.sagaStartSyncBatchDaylyData() ),
+      onStopFetchDaylyData: () => dispatch( dataActions.sagaStopSyncBatchDaylyData() ) 
+  };
+}
+
+export default connect( 
+  mapStateToProps,
+  mapDispatchToProps
+)(HistoricalData);
