@@ -1,5 +1,6 @@
 const BUY = 1;
 const SELL = 0;
+const SUSPEND_EXPIRE = 24;
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -9,9 +10,8 @@ var firebase = require('../dao/firebase.js');
 
 router.use(bodyParser.json());
 router.post('/', function (req, res, next) {
-  // return new Promise((resolve, reject) => {
   console.log('Transaction requested');
-  var re = [];
+  var re = {};
 
   var userTokenId = req.body.idToken;
   // varify user token id
@@ -27,12 +27,14 @@ router.post('/', function (req, res, next) {
   var tradingToSym = req.body.tradingToSym;
   var price = req.body.tradingPrice;
   var amount = req.body.tradingAmount;
+  var timestamp = Date.now();
 
   // get marketPrice from firebase
   var marketPrice = 0;
   if (action == SELL && marketPrice <= price || action == BUY && marketPrice >= price) {
     // suspend
-    // adding to
+    // adding to pending list
+
     re['status'] = 210;
     re['message'] = 'Tansaction is pending';
   }
@@ -45,7 +47,6 @@ router.post('/', function (req, res, next) {
 
 
   res.jsonp(re);
-  // });
 });
 
 module.exports = router;
