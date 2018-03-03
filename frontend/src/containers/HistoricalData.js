@@ -54,18 +54,6 @@ class HistoricalData extends Component {
         //clearInterval(this.state.timer);
         //this.props.onStopFetchDaylyData();
     }
-<<<<<<< Updated upstream
-
-=======
-    
-    onStart() {
-        this.props.onStartFetchDaylyData();
-    }
-
-    onStop() {
-        this.props.onStopFetchDaylyData();
-    }
->>>>>>> Stashed changes
 
     render() {
         let data = this.props.data;
@@ -157,30 +145,4 @@ class HistoricalData extends Component {
     }
 }
 
-<<<<<<< Updated upstream
 export default HistoricalData;
-=======
-HistoricalData.propTypes = {
-  onStartFetchDaylyData: PropTypes.func,
-  onStopFetchDaylyData: PropTypes.func,
-  data: PropTypes.object
-}
-
-const mapStateToProps = state => {
-  return {
-      data: state.data.batchData
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-      onStartFetchDaylyData: () => dispatch( dataActions.sagaStartSyncBatchDaylyData() ),
-      onStopFetchDaylyData: () => dispatch( dataActions.sagaStopSyncBatchDaylyData() ) 
-  };
-}
-
-export default connect( 
-  mapStateToProps,
-  mapDispatchToProps
-)(HistoricalData);
->>>>>>> Stashed changes
