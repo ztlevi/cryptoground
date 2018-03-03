@@ -25,3 +25,4 @@ package-lock.json
 
 # admin service account key
 backend/res/service_account.json
+backend/dist
