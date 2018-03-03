@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 //import axios from 'axios';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
+import * as dataActions from '../actions/data';
 import classes from './table.css';
 
 function generateData() {
@@ -41,6 +44,7 @@ function generateData() {
 }
 
 class CurrentCurrency extends Component {
+
     constructor(props) {
         super(props);
     
@@ -49,20 +53,18 @@ class CurrentCurrency extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.onStartFetchRealTimeData();
+    }
+
     render(){
        // console.log(this.state.dataProvider);
-        var str = '';
-        for(var i = 0; i < this.state.dataProvider.length; i++){
-            var item = this.state.dataProvider[i];
-            str = str.concat('<tr><td>'+item.name+'</td><td>'+item.price+'</td></tr>');
-            console.log(str);
-        }
-        console.log(str);
 
         return (
             <div className ={classes.table}>
                 <p className={classes.font}>CryptoCurrency Market</p>
                 <div className = {classes.current}>
+                    <p></p>
                 </div>
                 <table className = "table">
                     <thead>
@@ -87,6 +89,23 @@ class CurrentCurrency extends Component {
     }
 }
 
-export default CurrentCurrency;
+CurrentCurrency.propTypes = {
+    onStartFetchRealTimeData: PropTypes.func
+}
 
-
+const mapStateToProps = state => {
+    return {
+        data: state.data
+    }
+};
+  
+const mapDispatchToProps = dispatch => {
+    return {
+        onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() )
+    }
+}
+  
+export default connect( 
+    mapStateToProps,
+    mapDispatchToProps
+)(CurrentCurrency);
