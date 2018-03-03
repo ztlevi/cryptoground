@@ -5,6 +5,7 @@ import IntraDay from '../../containers/IntraDay';
 import HistoricalData from '../../containers/HistoricalData';
 import CurrentCurrency from '../../containers/CurrentCurrency';
 import Transaction from '../../containers/Transaction';
+import LeaderBoard from '../../containers/LeaderBoard';
 
 class Databoard extends Component {
   render() {
@@ -20,6 +21,9 @@ class Databoard extends Component {
           </Col>
           <Col span={24}>
             <Transaction />
+          </Col>
+          <Col span={24}>
+            <LeaderBoard />
           </Col>
         </Row>
       </div>

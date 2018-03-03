@@ -84,21 +84,35 @@ export function* sagaRequestTrading(action) {
   }
 }
 
+const fakeLeaderBoard = () => {
+  let leaderBoard = [];
+  for (let i = 0; i < 200; ++i) {
+    leaderBoard.push({ userName: i.toString() });
+  }
+  return leaderBoard;
+};
+
 export function* sagaSyncLeaderBoard() {
   try {
-    yield 1;
+    //console.log('saga loading leader board');
     const state = yield select();
     const { uid, idToken } = state.auth;
     const { email } = state.user;
-    if (!uid || !idToken) {
-      return;
-    }
-    const leaderBoard = yield call(userApi.fetchLeaderBoard);
-    console.log('saga leaderBoard', leaderBoard);
-    yield put(userActions.updateLeaderBoard, {
-      email: email,
-      leaderBoard: leaderBoard,
-    });
+    // if (!uid || !idToken) {
+    //   console.log('no token');
+    //   return;
+    // }
+    const leaderBoard = fakeLeaderBoard();
+
+    //const leaderBoard = yield call(userApi.fetchLeaderBoard);
+    //console.log('saga leaderBoard', leaderBoard);
+    yield put(
+      userActions.updateLeaderBoard({
+        email: email || 'junzhiwa@usc.edu',
+        leaderBoard: leaderBoard,
+      })
+    );
+    console.log(state.leaderBoard);
   } catch (err) {
     console.log(err);
   }

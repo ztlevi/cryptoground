@@ -2,14 +2,14 @@ import * as actionTypes from '../actions/actionTypes';
 import * as userApi from '../dao/user';
 
 const initialState = {
-  leaderBoard: null,
+  leaderBoard: [],
   rank: -1,
 };
 
 const updateLeaderBoard = (state, action) => {
+  console.log('in reducer', action.payload.leaderBoard);
   return {
-    ...initialState,
-    leaderBoard: action.leaderBoard,
+    leaderBoard: [...action.payload.leaderBoard],
     rank: userApi.findRank(action.payload.email, action.payload.leaderBoard),
   };
 };
