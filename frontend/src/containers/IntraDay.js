@@ -30,7 +30,7 @@ function generateData() {
     }
   
     return dataProvider;
-  }
+}
 
 
 // Component which contains the dynamic state for the chart
@@ -137,8 +137,8 @@ class IntraDay extends Component {
       
         return (
             <div className={classes.intraday}>
-               <p className={classes.intradayintro}>Intra-day Dataflow </p>
-               <AmCharts.React style={{width: "100%", height: "500px"}} options={config} />
+               <p className={[classes.intradayintro, "col"].join(' ')}>Intra-day Dataflow </p>
+               <AmCharts.React style={{width: "100%", height: "350px"}} options={config} />
             </div>
 
         );

@@ -5,7 +5,7 @@ import classes from './NavigationItems.css';
 
 var style = {
     margin: '10px',
-    'font-weight': 'bold'
+    'fontWeight': 'bold'
 }
 const navigationItems = () => (
     <div className ={[classes.NavigationItems,"col-3"].join(' ')}>
