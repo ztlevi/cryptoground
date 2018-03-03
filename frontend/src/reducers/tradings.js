@@ -11,7 +11,7 @@ const updateTradingList = (state, action) => {
   };
 };
 
-const tradingsReducer = (state, action) => {
+const tradingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_USER_TRADINGS:
       return updateTradingList(state, action);
@@ -19,3 +19,5 @@ const tradingsReducer = (state, action) => {
       return state;
   }
 };
+
+export default tradingsReducer;

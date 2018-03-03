@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import IntraDay from '../../containers/IntraDay';
 import HistoricalData from '../../containers/HistoricalData';
 import CurrentCurrency from '../../containers/CurrentCurrency';
+import Transaction from '../../containers/Transaction';
 
 class Databoard extends Component {
   render() {
@@ -16,6 +17,9 @@ class Databoard extends Component {
           </Col>
           <Col span={6}>
             <CurrentCurrency />
+          </Col>
+          <Col span={24}>
+            <Transaction />
           </Col>
         </Row>
       </div>

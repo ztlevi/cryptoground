@@ -10,6 +10,9 @@ import { all, call } from 'redux-saga/effects';
 import dataReducer from './reducers/data';
 import authReducer from './reducers/auth';
 import userReducer from './reducers/user';
+import tradingReducer from './reducers/tradings';
+import leaderBoardReducer from './reducers/leaderBoard';
+
 import * as dataSaga from './sagas/data';
 import authSaga from './sagas/auth';
 import userSaga from './sagas/user';
@@ -21,6 +24,8 @@ const rootReducer = combineReducers({
   data: dataReducer,
   auth: authReducer,
   user: userReducer,
+  trading: tradingReducer,
+  leaderBoard: leaderBoardReducer,
 });
 
 function* rootSaga() {
