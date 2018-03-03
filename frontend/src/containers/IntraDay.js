@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 //import axios from 'axios';
+import { connect } from 'react-redux';
 
 import classes from './Chart.css';
 import AmCharts from '@amcharts/amcharts3-react';
-
+import * as dataActions from '../actions/data';
 
 //import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
@@ -144,4 +145,19 @@ class IntraDay extends Component {
     }
 }
 
-export default IntraDay;
+const mapStateToProps = state => {
+  return {
+    data: state.data
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() )
+  }
+}
+
+export default connect( 
+  mapStateToProps,
+  mapDispatchToProps
+)(IntraDay);
