@@ -37,7 +37,6 @@ function generateData() {
 class IntraDay extends Component {
     constructor(props) {
         super(props);
-    
         this.state = {
           dataProvider: generateData(),
           timer: null
