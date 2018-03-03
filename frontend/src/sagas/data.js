@@ -32,39 +32,60 @@ function* realTimePricingSyncApi() {
             let fromSyms = cryptoConfigs.cryptoType;
             let toSyms = cryptoConfigs.currencyType;
             const data = yield call(dataApi.fetchRealTimePriceFromApi, fromSyms, toSyms);
-            console.log(data);
+            //console.log(data);
             yield put( dataActions.updateRealTimePricing( data ));
             const state = yield select();
-            console.log('state', state.data.realTimePrice);
+            //console.log('state', state.data.realTimePrice);
             yield call( delay, 5000 );
         }
     } catch (err) {
         console.log(err);
+    } finally {
+        if(yield cancelled()){
+            console.log('Task finished');
+        }
     }
 }
 
-function* batchDataSyncApi() {
+function* batchDataDaylySyncApi() {
     try{
         while(true) {
             let fromSym = cryptoConfigs.cryptoType[0]; // BTC
             let toSym = cryptoConfigs.currencyType[0]; // USD
-            const data = yield call(dataApi.fetchDailyBatchDataFromApi, fromSym, toSym);
-            console.log(data);
-            yield put( dataActions.updateRealTimePricing( data ));
+            const data = yield call(dataApi.fetchDailyBatchDataFromApi, fromSym, toSym, 1); //Num of years
+            //console.log(data);
+            let postData = {};
+            postData[fromSym] = {};
+            postData[fromSym][toSym] = {};
+            postData[fromSym][toSym][cryptoConfigs.intervalType.dayly] = data;
+            //console.log('postdata', postData);
+            yield put( dataActions.updateBatchData( postData ));
             const state = yield select();
-            console.log('state', state.data.realTimePrice);
-            yield call( delay, 5000 );
+            //console.log('post state', state.data.batchData);
+            yield call( delay, 1000*3600 );
         }
     } catch (err) {
         console.log(err);
+    } finally {
+        if(yield cancelled()){
+            console.log('Task finished');
+        }
     }
 }
 
 export function* sagaBatchDaylyTask() {
     console.log('Saga Batch started');
-    while( yield take(actionTypes.SAGA_START_SYNC_BATCH_DATA)){
-        console.log('Start fetching batch');
+    while( yield take(actionTypes.SAGA_START_SYNC_BATCH_DAYLY_DATA)){
+        console.log('Start fetching batch dayly');
+        // Start fetching 
+        const batchDataDaylyTask = yield fork(batchDataDaylySyncApi);
 
+        // Receive stop signal
+        yield take(actionTypes.SAGA_STOP_SYNC_BATCH_DAYLY_DATA);
+        console.log('Finish fetching');
+
+        // Cancel task
+        yield cancel(batchDataDaylyTask);
     }
 }
 
@@ -76,7 +97,7 @@ export function* sagaRealTimeTask() {
         const syncRealTimePricingTask = yield fork(realTimePricingSyncBackend);
 
         // Receive stop signal
-        yield take(actionTypes.SAGA_STOP_SYNC_REAL_TIME_PRICING) 
+        yield take(actionTypes.SAGA_STOP_SYNC_REAL_TIME_PRICING);
         console.log('Finish fetching');
         // Cancel task
         yield cancel(syncRealTimePricingTask);

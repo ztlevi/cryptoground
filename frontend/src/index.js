@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
 });
 
 function *rootSaga() {
-    yield all([ call(dataSaga.sagaRealTimeTask) ]);
+    yield all([ call(dataSaga.sagaRealTimeTask), call(dataSaga.sagaBatchDaylyTask) ]);
 } 
 
 const sagaMiddleware = createSagaMiddleware();

@@ -28,7 +28,7 @@ export const fetchDailyBatchDataFromApi = (fromSym, toSym, numOfYears) => {
     console.log(url);
     return new Promise((resolve, reject) => {
         axios.get(url)
-        .then( response => resolve(response.data) )
+        .then( response => resolve(response.data.Data) )
         .catch( err => reject(err) );
     });
 }

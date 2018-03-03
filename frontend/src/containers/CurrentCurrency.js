@@ -46,7 +46,7 @@ class CurrentCurrency extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('next', nextProps.data.realTimePrice)
+        // console.log('next', nextProps.data.realTimePrice)
         this.setState({
             dataProvider: this.generateData(nextProps)
         })

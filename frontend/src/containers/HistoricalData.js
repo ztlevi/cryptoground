@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 //import axios from 'axios';
 import * as dataActions from '../actions/data';
 import classes from './Chart.css';
 import AmCharts from '@amcharts/amcharts3-react';
+import { Button } from 'antd';
 
 // Generate random data
 function generateData() {
@@ -36,22 +39,38 @@ class HistoricalData extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-          // Update the chart dataProvider every 3 seconds
-          timer: setInterval(() => {
-            this.setState({
-              dataProvider: generateData()
-            });
-          }, 3000)
-        });
+        // this.setState({
+        //   // Update the chart dataProvider every 3 seconds
+        //   timer: setInterval(() => {
+        //     this.setState({
+        //       dataProvider: generateData()
+        //     });
+        //   }, 3000)
+        // });
+        //this.props.onStartFetchDaylyData();
     }
 
     componentWillUnmount() {
-        clearInterval(this.state.timer);
+        //clearInterval(this.state.timer);
+        //this.props.onStopFetchDaylyData();
+    }
+<<<<<<< Updated upstream
+
+=======
+    
+    onStart() {
+        this.props.onStartFetchDaylyData();
     }
 
+    onStop() {
+        this.props.onStopFetchDaylyData();
+    }
+>>>>>>> Stashed changes
 
     render() {
+        let data = this.props.data;
+        console.log('rendered', data);
+
         const config = {
             "type": "serial",
             "theme": "light",
@@ -130,10 +149,38 @@ class HistoricalData extends Component {
             <div id="#historicalData" className={classes.intraday}>
                <p className={[classes.intradayintro, "col"].join(' ')}>Historical Dataflow </p>
                <AmCharts.React style={{width: "100%", height: "350px"}} options={config} />
+               <Button type="primary" onClick={()=>this.onStart()}>Start</Button>
+               <Button type="primary" onClick={()=>this.onStop()}>Stop</Button>
             </div>
 
         );
     }
 }
 
+<<<<<<< Updated upstream
 export default HistoricalData;
+=======
+HistoricalData.propTypes = {
+  onStartFetchDaylyData: PropTypes.func,
+  onStopFetchDaylyData: PropTypes.func,
+  data: PropTypes.object
+}
+
+const mapStateToProps = state => {
+  return {
+      data: state.data.batchData
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onStartFetchDaylyData: () => dispatch( dataActions.sagaStartSyncBatchDaylyData() ),
+      onStopFetchDaylyData: () => dispatch( dataActions.sagaStopSyncBatchDaylyData() ) 
+  };
+}
+
+export default connect( 
+  mapStateToProps,
+  mapDispatchToProps
+)(HistoricalData);
+>>>>>>> Stashed changes
