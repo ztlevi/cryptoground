@@ -110,7 +110,7 @@ function* batchDataIntradaySyncApi() {
       yield put(dataActions.updateBatchData(postData));
       const state = yield select();
       console.log('post state', state.data.batchData);
-      yield call(delay, 1000 * 3600);
+      yield call(delay, 1000 * 60);
     }
   } catch (err) {
     console.log(err);
