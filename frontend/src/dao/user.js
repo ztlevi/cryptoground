@@ -48,3 +48,23 @@ export const initUserBalance = (uid, idToken) => {
       .catch(err => reject(err));
   });
 };
+
+export const fetchUserTradingList = (uid, idToken) => {
+  let url = firebaseUrls.fetchFirebaseDbUrl(
+    ['users', uid, 'tradings'],
+    idToken
+  );
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(res => {
+        if (res && res.data) {
+          console.log('tradingList', res.data);
+          resolve(res.data);
+        } else {
+          reject(0);
+        }
+      })
+      .catch(err => reject(err));
+  });
+};

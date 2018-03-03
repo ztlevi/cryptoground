@@ -5,7 +5,7 @@ import * as cryptoConfigs from '../res/cryptoConfigs';
 import * as firebaseConfigs from '../res/firebaseConfigs';
 import * as firebaseUrls from '../res/firebaseUrls';
 
-const requestTrading = payload => {
+export const requestTrading = payload => {
   let url = cryptoUrls.localhostTradingRequestUrl;
   return new Promise((resolve, reject) => {
     axios

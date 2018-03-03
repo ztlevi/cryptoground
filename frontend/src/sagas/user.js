@@ -16,11 +16,13 @@ import * as actionTypes from '../actions/actionTypes';
 import * as cryptoConfigs from '../res/cryptoConfigs';
 import * as userActions from '../actions/user';
 import * as userApi from '../dao/user';
+import * as tradingApi from '../dao/trading';
 
 export function* sagaSyncUserBalance() {
   try {
     const state = yield select();
-    if (state.auth.uid) {
+    console.log('saga Sync user balance');
+    if (state.auth.uid && state.auth.idToken) {
       const balanceData = yield call(
         userApi.fetchUserBalance,
         state.auth.uid,
@@ -39,7 +41,52 @@ export function* sagaSyncUserInfo() {
   yield 1;
 }
 
+export function* sagaSyncTradingList() {
+  try {
+    const state = yield select();
+    const { uid, idToken } = state.auth;
+    if (!uid || !idToken) {
+      return;
+    }
+    const tradingList = yield call(userApi.fetchUserTradingList, uid, idToken);
+
+    // Update local trading list
+    console.log('tradingList', tradingList);
+    yield put(userActions.updateTradingList(tradingList));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* sagaRequestTrading(action) {
+  try {
+    const state = yield select();
+    const { uid, idToken } = state.auth;
+    if (!uid || !idToken) {
+      return;
+    }
+    console.log('post trading request', action.payload);
+    yield 1;
+    // Request trading
+    const res = yield call(tradingApi.requestTrading, action.payload);
+
+    // Update balance account
+    yield call(sagaSyncUserBalance);
+
+    // Fetch trading list from firebase
+    const tradingList = yield call(userApi.fetchUserTradingList, uid, idToken);
+
+    // Update local trading list
+    console.log('tradingList', tradingList);
+    yield put(userActions.updateTradingList(tradingList));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export default [
   takeEvery(actionTypes.SAGA_SYNC_USER_BALANCE, sagaSyncUserBalance),
   takeEvery(actionTypes.SAGA_SYNC_USER_INFO, sagaSyncUserInfo),
+  takeEvery(actionTypes.SAGA_REQUEST_TRADING, sagaRequestTrading),
+  takeEvery(actionTypes.SAGA_SYNC_USER_TRADINGS, sagaSyncTradingList),
 ];

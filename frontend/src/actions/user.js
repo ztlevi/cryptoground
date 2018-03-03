@@ -25,3 +25,17 @@ export const sagaSyncUserInfo = () => {
     type: actionTypes.SAGA_SYNC_USER_INFO,
   };
 };
+
+export const sagaRequestTrading = payload => {
+  return {
+    type: actionTypes.SAGA_REQUEST_TRADING,
+    payloda: payload,
+  };
+};
+
+export const updateTradingList = tradingList => {
+  return {
+    type: actionTypes.UPDATE_USER_TRADINGS,
+    tradingList: tradingList,
+  };
+};
