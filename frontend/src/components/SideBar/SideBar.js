@@ -6,46 +6,66 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 export default class SideBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false,
+    };
+  }
+
+  onCollapse = collapsed => {
+    console.log(collapsed);
+    this.setState({ collapsed });
+  };
+
   render() {
     return (
-      <Sider width={200} style={{ background: '#fff' }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
+      <Sider
+        collapsible
+        collapsed={this.state.collapsed}
+        onCollapse={this.onCollapse}
+      >
+        <div className="logo" />
+        <Menu theme="dark" mode="inline">
           <SubMenu
-            key="sub1"
+            key="chart"
             title={
               <span>
-                <Icon type="line-chart" />subnav 1
+                <Icon type="line-chart" />
+                <span>Chart</span>
               </span>
             }
           >
-            <Menu.Item key="1">
+            <Menu.Item key="chart1">
               <Link to="#intrayDay">Intray Day</Link>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="chart2">
               <Link to="#historicalData">Historical Data</Link>
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="chart3">
               <Link to="#tradingForm">Trading Form</Link>
             </Menu.Item>
           </SubMenu>
           <SubMenu
-            key="sub2"
+            key="user"
             title={
               <span>
-                <Icon type="user" />User
+                <Icon type="user" />
+                <span>User</span>
               </span>
             }
           >
-            <Menu.Item key="5">option5</Menu.Item>
-            <Menu.Item key="6">option6</Menu.Item>
-            <Menu.Item key="7">option7</Menu.Item>
-            <Menu.Item key="8">option8</Menu.Item>
+            <Menu.Item key="user1">Account</Menu.Item>
+            <Menu.Item key="user2">Trading History</Menu.Item>
           </SubMenu>
+          <Menu.Item key="rank">
+            <Icon type="bars" />
+            <span>Ranking</span>
+          </Menu.Item>
+          <Menu.Item key="team">
+            <Icon type="team" />
+            <span>Team</span>
+          </Menu.Item>
         </Menu>
       </Sider>
     );

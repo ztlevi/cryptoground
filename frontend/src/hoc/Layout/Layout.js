@@ -4,8 +4,6 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-import Aux from '../Aux/Aux';
-import classes from './Layout.css';
 import Navigation from '../../components/Navigation/Navigation';
 import Databoard from '../../components/Databoard/Databoard';
 import SideBar from '../../components/SideBar/SideBar';
