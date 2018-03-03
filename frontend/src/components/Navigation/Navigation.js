@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Row, Button, Col, Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Input, Row, Button, Col, Layout, Menu, Breadcrumb, Icon } from 'antd';
 import PropTypes from 'prop-types';
 //import axios from 'axios';
 import { connect } from 'react-redux';
@@ -13,8 +13,8 @@ class Navigation extends Component {
     super(props);
     this.state = {
       userStatus: 0,
-      userName: 'junzhiwa@usc.edu',
-      passWord: 'password',
+      userName: '',
+      passWord: '',
     };
   }
 
@@ -26,7 +26,31 @@ class Navigation extends Component {
     }
   }
 
+  userNameEmitEmpty = () => {
+    this.userNameInput.focus();
+    this.setState({ userName: '' });
+  };
+  passWordEmitEmpty = () => {
+    this.passWordInput.focus();
+    this.setState({ passWord: '' });
+  };
+  onChangeUserName = e => {
+    this.setState({ userName: e.target.value });
+  };
+  onChangePassWord = e => {
+    this.setState({ passWord: e.target.value });
+  };
+
   render() {
+    const { userName, passWord } = this.state;
+    const suffix = userName ? (
+      <Icon type="close-circle" onClick={this.userNameEmitEmpty} />
+    ) : null;
+
+    const suffix2 = passWord ? (
+      <Icon type="close-circle" onClick={this.passWordEmitEmpty} />
+    ) : null;
+
     return (
       <Header className="header">
         <div className="logo" />
@@ -40,6 +64,30 @@ class Navigation extends Component {
             <Icon type="rocket" />
             <span>Cryptoground</span>
           </Menu.Item>
+
+          {/* userName and Password input here */}
+          <Menu.Item key="input_userName">
+            <Input
+              placeholder="Enter your username"
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              suffix={suffix}
+              value={userName}
+              onChange={this.onChangeUserName}
+              ref={node => (this.userNameInput = node)}
+            />
+          </Menu.Item>
+          <Menu.Item key="input_passWord">
+            <Input
+              placeholder="Enter your password"
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="password"
+              suffix={suffix2}
+              value={passWord}
+              onChange={this.onChangePassWord}
+              ref={node => (this.passWordInput = node)}
+            />
+          </Menu.Item>
+
           {this.state.userStatus === 0 && (
             <Menu.Item key="2" className="float-right">
               <Button
