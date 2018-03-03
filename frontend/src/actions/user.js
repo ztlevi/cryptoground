@@ -1,0 +1,1 @@
+export const sagaUpdateUserInfo = userInfo => {};
