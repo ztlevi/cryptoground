@@ -3,7 +3,7 @@ import * as axios from 'axios';
 import { cryptoType } from '../res/cryptoConfigs';
 import { cryptoRealtimeRequestUrl } from '../utils/cryptoDataUrls';
 
-export let cachedCryptoPrice = null;
+export let cachedCryptoPrice = {};
 
 export const updateCurrencyPrice = () => {
   let toSyms = ['USD'];
