@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import axios from 'axios';
-
+import * as dataActions from '../actions/data';
 import classes from './Chart.css';
 import AmCharts from '@amcharts/amcharts3-react';
 
@@ -134,6 +134,19 @@ class HistoricalData extends Component {
 
         );
     }
+}
+
+const mapStateToProps = state => {
+  return {
+      data: state.data
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() ),
+      onStopFetchRealTimeData: () => dispatch( dataActions.sagaStopSyncRealTimePricing() ) 
+  }
 }
 
 export default HistoricalData;

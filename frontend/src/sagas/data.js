@@ -6,7 +6,7 @@ import * as dataApi from '../dao/data';
 import * as actionTypes from '../actions/actionTypes';
 import * as cryptoConfigs from '../res/cryptoConfigs';
 
-export function* realTimePricingSyncBackend() {
+function* realTimePricingSyncBackend() {
     try {
         while(true) {
             const data = yield call(dataApi.fetchRealTimePriceFromBackend);
@@ -26,7 +26,7 @@ export function* realTimePricingSyncBackend() {
     }
 }
 
-export function* realTimePricingSyncApi() {
+function* realTimePricingSyncApi() {
     try{
         while(true) {
             let fromSyms = cryptoConfigs.cryptoType;
@@ -43,10 +43,35 @@ export function* realTimePricingSyncApi() {
     }
 }
 
-export function* sagaTask() {
-    console.log('Saga started');
+function* batchDataSyncApi() {
+    try{
+        while(true) {
+            let fromSym = cryptoConfigs.cryptoType[0]; // BTC
+            let toSym = cryptoConfigs.currencyType[0]; // USD
+            const data = yield call(dataApi.fetchDailyBatchDataFromApi, fromSym, toSym);
+            console.log(data);
+            yield put( dataActions.updateRealTimePricing( data ));
+            const state = yield select();
+            console.log('state', state.data.realTimePrice);
+            yield call( delay, 5000 );
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export function* sagaBatchDaylyTask() {
+    console.log('Saga Batch started');
+    while( yield take(actionTypes.SAGA_START_SYNC_BATCH_DATA)){
+        console.log('Start fetching batch');
+
+    }
+}
+
+export function* sagaRealTimeTask() {
+    console.log('Saga realtime started');
     while( yield take(actionTypes.SAGA_START_SYNC_REAL_TIME_PRICING) ){
-        console.log('Start fetching');
+        console.log('Start fetching realtime');
         // Start fetching 
         const syncRealTimePricingTask = yield fork(realTimePricingSyncBackend);
 
@@ -57,7 +82,5 @@ export function* sagaTask() {
         yield cancel(syncRealTimePricingTask);
     }
 }
-
-export default sagaTask;
 
 

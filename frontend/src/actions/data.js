@@ -20,9 +20,15 @@ export const sagaSyncRealTimePricing = () => {
     }
 }
 
-export const sagaFetchBatchData = (fromSym, toSym, interval, limit, aggregate=1) => {
+export const sagaStartSyncBatchData = (fromSym, toSym, interval, limit, aggregate=1) => {
     return {
-        type: actionTypes.SAGA_FETCH_BATCH_DATA
+        type: actionTypes.SAGA_START_SYNC_BATCH_DATA
+    }
+}
+
+export const sagaStopSyncBatchData = () => {
+    return {
+        type: actionTypes.SAGA_STOP_SYNC_BATCH_DATA
     }
 }
 

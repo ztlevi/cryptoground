@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import { all, call } from 'redux-saga/effects';
 
 import dataReducer  from './reducers/data';
-import dataSaga from './sagas/data';
+import * as dataSaga from './sagas/data';
 import './index.css';
 import App from './App';
 
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
 });
 
 function *rootSaga() {
-    yield all([ call(dataSaga) ]);
+    yield all([ call(dataSaga.sagaRealTimeTask) ]);
 } 
 
 const sagaMiddleware = createSagaMiddleware();
