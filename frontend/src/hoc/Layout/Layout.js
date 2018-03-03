@@ -5,6 +5,7 @@ import classes from './Layout.css';
 import Navigation from '../../components/Navigation/Navigation';
 import Toolbar from '../../components/Toolbar/Toolbar';
 import IntraDay from '../../containers/IntraDay';
+import { Button } from 'antd';
 
 class Layout extends Component {
     
@@ -14,6 +15,7 @@ class Layout extends Component {
                 <Toolbar />
                 <Navigation />
                 <IntraDay />
+                <Button type="primary">Button</Button>
             </Aux>
        );
    }
