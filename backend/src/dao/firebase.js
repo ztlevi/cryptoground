@@ -10,7 +10,7 @@ admin.initializeApp({
 });
 
 // As an admin, the app has access to read and write all data, regardless of Security Rules
-let db = admin.database();
+const db = admin.database();
 
 const INFO_TYPE = {
   name: 'name',
@@ -73,7 +73,7 @@ const getUserInfo = (userId, type) => {
 
 // handle trading request
 // append a new trading to the existing trading history
-const setTrading = (userId, tradingId, tradingData) => {
+export const setTrading = (userId, tradingId, tradingData) => {
   console.log('Push new trading to firebase...');
 
   return new Promise((resolve, reject) => {
@@ -97,7 +97,7 @@ const setTrading = (userId, tradingId, tradingData) => {
   });
 };
 
-const fetchTrading = userId => {
+export const fetchTrading = userId => {
   return new Promise((resolve, reject) => {
     db
       .ref('users/' + userId + '/trading')
@@ -110,7 +110,33 @@ const fetchTrading = userId => {
   });
 };
 
-const verifyIdToken = idToken => {
+export const fetchUserBalance = uid => {
+  return new Promise((resolve, reject) => {
+    db
+      .ref('users/' + uid + '/balance')
+      .once('value')
+      .then(response => {
+        if (!response) resolve(0);
+        let userBalance = response.val();
+        resolve(userBalance);
+      })
+      .catch(e => reject(e));
+  });
+};
+
+export const updateUserBalance = (uid, newBalance) => {
+  return new Promise((resolve, reject) => {
+    db
+      .ref('users/' + uid + '/balance')
+      .set(newBalance)
+      .then(() => {
+        resolve(1);
+      })
+      .catch(e => reject(e));
+  });
+};
+
+export const verifyIdToken = idToken => {
   return new Promise((resolve, reject) => {
     admin
       .auth()
@@ -123,12 +149,4 @@ const verifyIdToken = idToken => {
         reject(error);
       });
   });
-};
-
-module.exports = {
-  setUserInfo,
-  getUserInfo,
-  setTrading,
-  fetchTrading,
-  verifyIdToken,
 };
