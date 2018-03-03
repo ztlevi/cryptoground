@@ -39,7 +39,7 @@ class HistoricalData extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log('next', nextProps.data.batchData);
+    console.log('next', nextProps.data.batchData);
 
     this.setState({
       // Update the chart dataProvider
@@ -139,6 +139,7 @@ class HistoricalData extends Component {
       },
       periodSelector: {
         position: 'bottom',
+        inputFieldWidth: 120,
         periods: [
           {
             period: 'DD',
