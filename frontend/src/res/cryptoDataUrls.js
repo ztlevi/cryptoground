@@ -1,6 +1,7 @@
 export const cryptoRootUrl = 'https://min-api.cryptocompare.com/data';
 export const localhostUrl = 'http://localhost:4000/get_price';
-
+export const localhostTradingRequestUrl =
+  'http://localhost:4000/trading_request';
 /**
  * generate crypto request to fetch multiple symbols price
  * @param fromSyms: Array
