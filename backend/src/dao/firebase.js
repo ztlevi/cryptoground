@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 
 // Fetch the service account key JSON file contents
-let serviceAccount = require('../res/service_account.json');
+let serviceAccount = require('../../res/service_account.json');
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
