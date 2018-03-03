@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Button, Col, Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { Header, Content, Sider } = Layout;
+import {buttonStyle} from '../styles/GlobalStyles'
 
 import AmCharts from '@amcharts/amcharts3-react';
 import * as dataActions from '../actions/data';
@@ -157,12 +158,14 @@ class IntraDay extends Component {
           style={{ width: '100%', height: '350px' }}
           options={config}
         />
-        <Button type="primary" onClick={() => this.onStart()}>
-          Start
-        </Button>
-        <Button type="primary" onClick={() => this.onStop()}>
-          Stop
-        </Button>
+        <div style={{ textAlign:"center" }}>
+          <Button style={buttonStyle} type="primary" onClick={() => this.onStart()}>
+            Start
+          </Button>
+          <Button style={buttonStyle} type="primary" onClick={() => this.onStop()}>
+            Stop
+          </Button>
+        </div>
       </div>
     );
   }
