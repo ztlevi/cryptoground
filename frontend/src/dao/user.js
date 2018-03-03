@@ -68,3 +68,30 @@ export const fetchUserTradingList = (uid, idToken) => {
       .catch(err => reject(err));
   });
 };
+
+export const fetchLeaderBoard = () => {
+  let url = firebaseUrls.fetchFirebaseDbUrl(['leaderBoard']);
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(res => {
+        if (res && res.data) {
+          console.log('leaderBoard', res.data);
+          resolve(res.data);
+        } else {
+          reject(0);
+        }
+      })
+      .catch(err => reject(err));
+  });
+};
+
+export const findRank = (email, leaderBoard) => {
+  for (let i in leaderBoard) {
+    const obj = leaderBoard[i];
+    if (email === obj.userName) {
+      return i;
+    }
+  }
+  return -1;
+};

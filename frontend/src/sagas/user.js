@@ -84,9 +84,30 @@ export function* sagaRequestTrading(action) {
   }
 }
 
+export function* sagaSyncLeaderBoard() {
+  try {
+    yield 1;
+    const state = yield select();
+    const { uid, idToken } = state.auth;
+    const { email } = state.user;
+    if (!uid || !idToken) {
+      return;
+    }
+    const leaderBoard = yield call(userApi.fetchLeaderBoard);
+    console.log('saga leaderBoard', leaderBoard);
+    yield put(userActions.updateLeaderBoard, {
+      email: email,
+      leaderBoard: leaderBoard,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export default [
   takeEvery(actionTypes.SAGA_SYNC_USER_BALANCE, sagaSyncUserBalance),
   takeEvery(actionTypes.SAGA_SYNC_USER_INFO, sagaSyncUserInfo),
   takeEvery(actionTypes.SAGA_REQUEST_TRADING, sagaRequestTrading),
   takeEvery(actionTypes.SAGA_SYNC_USER_TRADINGS, sagaSyncTradingList),
+  takeEvery(actionTypes.SAGA_SYNC_LEADER_BOARD, sagaSyncLeaderBoard),
 ];

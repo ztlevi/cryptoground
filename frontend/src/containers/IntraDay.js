@@ -58,7 +58,7 @@ class IntraDay extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('next', nextProps.data.batchData);
+    //console.log('next', nextProps.data.batchData);
     this.setState({
       // Update the chart dataProvider
       dataProvider: this.generateData(nextProps),
@@ -159,7 +159,7 @@ class IntraDay extends Component {
       periodSelector: {
         position: 'bottom',
         dateFormat: 'YYYY-MM-DD JJ:NN',
-        inputFieldWidth: 150,
+        inputFieldWidth: 170,
         periods: [
           {
             period: 'hh',
