@@ -9,6 +9,7 @@ var debug = require('debug')('backend:server');
 var http = require('http');
 
 import { cachedCryptoPrice, updateCurrencyPrice } from '../dao/api';
+import { resolveSuspendedList } from '../utils/suspendedList';
 /**
  * Get port from environment and store in Express.
  */
@@ -91,4 +92,9 @@ setInterval(() => {
   updateCurrencyPrice().then(() => {
     console.log(cachedCryptoPrice);
   });
+}, 10000);
+
+// resolve suspendedList, see if we can proceed some request or delete the expire request
+setInterval(() => {
+  resolveSuspendedList();
 }, 10000);
