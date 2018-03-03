@@ -5,7 +5,7 @@ import classes from './Layout.css';
 import Navigation from '../../components/Navigation/Navigation';
 import Toolbar from '../../components/Toolbar/Toolbar';
 import Databoard from '../../components/Databoard/Databoard';
-import TradingForm from '../../components/TradingForm/TradingForm';
+//import TradingForm from '../../components/TradingForm/TradingForm';
 
 class Layout extends Component {
     
@@ -15,7 +15,7 @@ class Layout extends Component {
                 <Toolbar />
                 <Navigation />
                 <Databoard />
-                <TradingForm />
+                {/**<TradingForm />**/}
             </Aux>
        );
    }
