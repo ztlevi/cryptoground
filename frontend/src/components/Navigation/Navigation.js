@@ -67,27 +67,35 @@ class Navigation extends Component {
           </Menu.Item>
 
           {/* userName and Password input here */}
-          <Menu.Item key="input_userName">
-            <Input
-              placeholder="Enter your username"
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              suffix={suffix}
-              value={userName}
-              onChange={this.onChangeUserName}
-              ref={node => (this.userNameInput = node)}
-            />
-          </Menu.Item>
-          <Menu.Item key="input_passWord">
-            <Input
-              placeholder="Enter your password"
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="password"
-              suffix={suffix2}
-              value={passWord}
-              onChange={this.onChangePassWord}
-              ref={node => (this.passWordInput = node)}
-            />
-          </Menu.Item>
+          {this.state.userStatus === 0 && (
+            <Menu.Item key="input_userName">
+              <Input
+                placeholder="Enter your username"
+                prefix={
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                suffix={suffix}
+                value={userName}
+                onChange={this.onChangeUserName}
+                ref={node => (this.userNameInput = node)}
+              />
+            </Menu.Item>
+          )}
+          {this.state.userStatus === 0 && (
+            <Menu.Item key="input_passWord">
+              <Input
+                placeholder="Enter your password"
+                prefix={
+                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
+                type="password"
+                suffix={suffix2}
+                value={passWord}
+                onChange={this.onChangePassWord}
+                ref={node => (this.passWordInput = node)}
+              />
+            </Menu.Item>
+          )}
 
           {this.state.userStatus === 0 && (
             <Menu.Item key="2" className="float-right">
@@ -96,7 +104,7 @@ class Navigation extends Component {
                   this.props.onSignUp(this.state.userName, this.state.passWord)
                 }
               >
-                Sign up
+                <Icon type="user-add" />Sign up
               </Button>
             </Menu.Item>
           )}
@@ -107,10 +115,11 @@ class Navigation extends Component {
                   this.props.onSignIn(this.state.userName, this.state.passWord)
                 }
               >
-                Sign in
+                <Icon type="login" />Sign in
               </Button>
             </Menu.Item>
           )}
+
           {this.state.userStatus === 1 && (
             <Menu.Item key="3" className="float-right">
               <Button>
@@ -120,7 +129,9 @@ class Navigation extends Component {
           )}
           {this.state.userStatus === 1 && (
             <Menu.Item key="4" className="float-right">
-              <Button onClick={() => this.props.onSignOut()}>Sign out</Button>
+              <Button onClick={() => this.props.onSignOut()}>
+                <Icon type="logout" />Sign out
+              </Button>
             </Menu.Item>
           )}
         </Menu>
