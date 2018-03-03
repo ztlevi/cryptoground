@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import { Button } from 'antd';
 import * as dataActions from '../actions/data';
 import classes from './table.css';
 
@@ -53,8 +53,16 @@ class CurrentCurrency extends Component {
         };
     }
 
-    componentDidMount() {
+    onStart() {
         this.props.onStartFetchRealTimeData();
+    }
+
+    onStop() {
+        this.props.onStopFetchRealTimeData();
+    }
+
+    componentDidMount() {
+        //this.props.onStartFetchRealTimeData();
     }
 
     render(){
@@ -85,6 +93,8 @@ class CurrentCurrency extends Component {
                         }
                     </tbody>                   
                 </table>
+                <Button type="primary" onClick={()=>this.onStart()}>Start</Button>
+                <Button type="primary" onClick={()=>this.onStop()}>Stop</Button>
             </div>
         );
     }
@@ -92,6 +102,7 @@ class CurrentCurrency extends Component {
 
 CurrentCurrency.propTypes = {
     onStartFetchRealTimeData: PropTypes.func,
+    onStopFetchRealTimeData: PropTypes.func,
     data: PropTypes.object
 }
 
@@ -103,7 +114,8 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = dispatch => {
     return {
-        onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() )
+        onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() ),
+        onStopFetchRealTimeData: () => dispatch( dataActions.sagaStopSyncRealTimePricing() ) 
     }
 }
   

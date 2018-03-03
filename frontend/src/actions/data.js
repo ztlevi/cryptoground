@@ -25,3 +25,9 @@ export const sagaFetchBatchData = (fromSym, toSym, interval, limit, aggregate=1)
         type: actionTypes.SAGA_FETCH_BATCH_DATA
     }
 }
+
+export const sagaStopSyncRealTimePricing = () => {
+    return {
+        type: actionTypes.SAGA_STOP_SYNC_REAL_TIME_PRICING
+    }
+}
