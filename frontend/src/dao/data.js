@@ -52,7 +52,7 @@ export const fetchIntradayBatchDataFromApi = (fromSym, toSym, numOfDays) => {
   return new Promise((resolve, reject) => {
     axios
       .get(url)
-      .then(response => resolve(response.data))
+      .then(response => resolve(response.data.Data))
       .catch(err => reject(err));
   });
 };

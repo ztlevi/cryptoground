@@ -39,8 +39,8 @@ class IntraDay extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataProvider: generateData(),
-      timer: null,
+      dataProvider: [],
+      //timer: null,
     };
   }
 
@@ -55,7 +55,9 @@ class IntraDay extends Component {
     // });
   }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) {
+    console.log('next', nextProps.data.batchData);
+  }
 
   onStart() {
     this.props.onStartFetchBatchIntradayData();
@@ -157,6 +159,12 @@ class IntraDay extends Component {
           style={{ width: '100%', height: '350px' }}
           options={config}
         />
+        <Button type="primary" onClick={() => this.onStart()}>
+          Start
+        </Button>
+        <Button type="primary" onClick={() => this.onStop()}>
+          Stop
+        </Button>
       </div>
     );
   }
@@ -170,7 +178,7 @@ IntraDay.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    data: state.data.batchData,
+    data: state.data,
   };
 };
 

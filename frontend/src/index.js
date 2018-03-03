@@ -20,6 +20,7 @@ function* rootSaga() {
   yield all([
     call(dataSaga.sagaRealTimeTask),
     call(dataSaga.sagaBatchDaylyTask),
+    call(dataSaga.sagaBatchIntradayTask),
   ]);
 }
 

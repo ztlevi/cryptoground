@@ -18,7 +18,7 @@ class HistoricalData extends Component {
   }
 
   generateData(props) {
-    console.log('in generateData', props.data.batchData);
+    //console.log('in generateData', props.data.batchData);
     var dataProvider = [];
     var data = props.data.batchData['BTC'];
     data = data['USD'];
@@ -38,7 +38,7 @@ class HistoricalData extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('next', nextProps.data.batchData);
+    //console.log('next', nextProps.data.batchData);
 
     this.setState({
       // Update the chart dataProvider
