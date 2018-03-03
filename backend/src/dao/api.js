@@ -6,7 +6,7 @@ import { cryptoRealtimeRequestUrl } from '../utils/cryptoDataUrls';
 export let cachedCryptoPrice = {};
 
 export const updateCurrencyPrice = () => {
-  let toSyms = ['USD'];
+  let toSyms = ['USD', 'EUR'];
 
   return new Promise((resolve, reject) => {
     axios
