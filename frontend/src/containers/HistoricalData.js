@@ -6,6 +6,8 @@ import * as dataActions from '../actions/data';
 import AmCharts from '@amcharts/amcharts3-react';
 import { Button } from 'antd';
 
+import { buttonStyle } from '../styles/GlobalStyles';
+
 // Component which contains the dynamic state for the chart
 class HistoricalData extends Component {
   constructor(props) {
@@ -168,17 +170,27 @@ class HistoricalData extends Component {
 
     return (
       <div id="#historicalData">
-        <h4 style={{textAlign:'center'}}>Historical Dataflow</h4>
+        <h4 style={{ textAlign: 'center' }}>Historical Dataflow</h4>
         <AmCharts.React
           style={{ width: '100%', height: '350px' }}
           options={config}
         />
-        <Button type="primary" onClick={() => this.onStart()}>
-          Start
-        </Button>
-        <Button type="primary" onClick={() => this.onStop()}>
-          Stop
-        </Button>
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            style={buttonStyle}
+            type="primary"
+            onClick={() => this.onStart()}
+          >
+            Start
+          </Button>
+          <Button
+            style={buttonStyle}
+            type="primary"
+            onClick={() => this.onStop()}
+          >
+            Stop
+          </Button>
+        </div>
       </div>
     );
   }

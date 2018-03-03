@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import * as dataActions from '../actions/data';
+import { buttonStyle } from '../styles/GlobalStyles';
 
 class CurrentCurrency extends Component {
   generateData(props) {
@@ -76,12 +77,14 @@ class CurrentCurrency extends Component {
             ))}
           </tbody>
         </table>
-        <Button type="primary" onClick={() => this.onStart()}>
-          Start
-        </Button>
-        <Button type="primary" onClick={() => this.onStop()}>
-          Stop
-        </Button>
+        <div style={{ textAlign: 'center' }}>
+          <Button style={buttonStyle} type="primary" onClick={() => this.onStart()}>
+            Start
+          </Button>
+          <Button style={buttonStyle} type="primary" onClick={() => this.onStop()}>
+            Stop
+          </Button>
+        </div>
       </div>
     );
   }
