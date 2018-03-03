@@ -26,7 +26,7 @@ export function verifyTradingRequest(
     } else {
       // success
       newBalance[from] -= amount;
-      newBalance[to] += amount * marketPrice[to];
+      newBalance[to] += amount * price;
       if (newBalance[from] < 0) {
         re['status'] = 'failed';
       } else {
@@ -41,7 +41,7 @@ export function verifyTradingRequest(
       re['status'] = 'suspend';
     } else {
       // success
-      newBalance[from] -= amount * marketPrice[from];
+      newBalance[from] -= amount * price;
       newBalance[to] += amount;
       if (newBalance[from] < 0) {
         re['status'] = 'failed';
