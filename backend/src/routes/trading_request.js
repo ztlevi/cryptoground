@@ -14,12 +14,16 @@ router.post('/', function (req, res, next) {
   var re = {};
 
   var userTokenId = req.body.idToken;
-  // varify user token id
-  // if (firebase.verifyIdToken(userTokenId) == 0) {
-  // 	re['status'] = 400;
-  // 	re['message'] = 'Invalid user token id';
-  // 	res.jsonp(re);
-  // }
+  varify user token id
+  if (firebase.verifyIdToken(userTokenId) == 0) {
+  	re['status'] = 400;
+  	re['message'] = 'Invalid user token id';
+  	res.jsonp(re);
+  }
+  else {
+    var uid = firbase.getUserId();
+    var tradingId = firebase.getTradingId();
+  }
 
   // 0 for sell, 1 for buy
   var action = req.body.tradingType;
@@ -28,23 +32,114 @@ router.post('/', function (req, res, next) {
   var price = req.body.tradingPrice;
   var amount = req.body.tradingAmount;
   var timestamp = Date.now();
+  var expiration = req.body.expiration;
+
+  var pendingTrading = {
+    'uid': uid,
+    'tradingId': tradingId,
+    'tradingType': action,
+    'tradingFromSym': tradingFromSym,
+    'tradingToSym': tradingToSym,
+    'tradingPrice': price,
+    'tradingAmount': amount,
+    'timestamp': timestamp,
+    'expiration': exiration
+  }
 
   // get marketPrice from firebase
   var marketPrice = 0;
-  if (action == SELL && marketPrice <= price || action == BUY && marketPrice >= price) {
-    // suspend
-    // adding to pending list
+  if (action == SELL) {
+    marketPrice = firebase.getMarcketPrice(tradingFromSym);
+    if (marketPrice <= price) {
+      // suspend
+      // adding to pending list
+      if (firebase.pushToSuspendList(pendingTrading)) {
+        re['status'] = 210;
+        re['message'] = 'Tansaction is pending';
+      }
+      else {
+        re['status'] = 500;
+        re['message'] = 'Failed';
+      }
+    }
+    else {
+      // success
+      // firebase operation
+      if (firebase.setTrading(uid, tradingId, {    
+        'tradingType': action,
+        'tradingFromSym': tradingFromSym,
+        'tradingToSym': tradingToSym,
+        'tradingPrice': price,
+        'tradingAmount': amount
+      })) {
+        var userBalance = firebase.getUserInfo(uid, balance);
+        userBalance[tradingFromSym] -= amount;
+        userBalance[tradingToSym] += amount * price;
 
-    re['status'] = 210;
-    re['message'] = 'Tansaction is pending';
+        if (firebase.updateUser(uid, balance)) {
+          re['status'] = 200;
+          re['message'] = 'Success';
+        }
+        else {
+          firebase.removeTrading(uid, tradingId);
+          re['status'] = 500;
+          re['message'] = 'Failed';
+        }
+      }
+      else {
+        re['status'] = 500;
+        re['message'] = 'Failed';
+      }
+    }
+  }
+  else if (action == BUY) {
+    marketPrice = firebase.getMarcketPrice(tradingToSym);
+    if (marketPrice >= price) {
+      // suspend
+      // adding to pending list
+      if (firebase.pushToSuspendList(pendingTrading)) {
+        re['status'] = 210;
+        re['message'] = 'Tansaction is pending';
+      }
+      else {
+        re['status'] = 500;
+        re['message'] = 'Failed';
+      }
+    }
+    else {
+      // success
+      // firebase operation
+      if (firebase.setTrading(uid, tradingId, {    
+        'tradingType': action,
+        'tradingFromSym': tradingFromSym,
+        'tradingToSym': tradingToSym,
+        'tradingPrice': price,
+        'tradingAmount': amount
+      })) {
+        var userBalance = firebase.getUserInfo(uid, balance);
+        userBalance[tradingFromSym] -= amount * price;
+        userBalance[tradingToSym] += amount;
+
+        if (firebase.updateUser(uid, balance, )) {
+          re['status'] = 200;
+          re['message'] = 'Success';
+        }
+        else {
+          firebase.removeTrading(uid, tradingId);
+          re['status'] = 500;
+          re['message'] = 'Failed';
+        }
+      }
+      else {
+        re['status'] = 500;
+        re['message'] = 'Failed';
+      }
+    }
   }
   else {
-    // success
-    // firebase operation
-    re['status'] = 200;
-    re['message'] = 'Success';
+    re['status'] = 500;
+    re['message'] = 'Failed';
   }
-
 
   res.jsonp(re);
 });
