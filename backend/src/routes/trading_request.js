@@ -1,7 +1,3 @@
-const BUY = 1;
-const SELL = 0;
-const SUSPEND_EXPIRE = 24;
-
 var express = require('express');
 var router = express.Router();
 
