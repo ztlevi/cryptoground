@@ -9,7 +9,7 @@ export const requestType = {
 export const intervalType = {
   dayly: 'day',
   hourly: 'hour',
-  minute: 'minute'
+  minute: 'minute',
 };
 
 export const cryptoType = ['BTC', 'ETH', 'LTC', 'TRX', 'ETC'];

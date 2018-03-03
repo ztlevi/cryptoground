@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 //import axios from 'axios';
 import { connect } from 'react-redux';
 
@@ -9,154 +9,158 @@ import * as dataActions from '../actions/data';
 //import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 // const instance = axios.create({
-    // baseURL: 'https://min-api.cryptocompare.com/data'
+// baseURL: 'https://min-api.cryptocompare.com/data'
 // });
 
 // Generate random data
 function generateData() {
-    var firstDate = new Date();
+  var firstDate = new Date();
 
-    var dataProvider = [];
+  var dataProvider = [];
 
-    for (var i = 0; i < 100; ++i) {
-      var date = new Date(firstDate.getTime());
+  for (var i = 0; i < 100; ++i) {
+    var date = new Date(firstDate.getTime());
 
-      date.setDate(i);
+    date.setDate(i);
 
-      dataProvider.push({
-        date: date,
-        value: Math.floor(Math.random() * 100)
-      });
-    }
+    dataProvider.push({
+      date: date,
+      value: Math.floor(Math.random() * 100),
+    });
+  }
 
-    return dataProvider;
+  return dataProvider;
 }
-
 
 // Component which contains the dynamic state for the chart
 class IntraDay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          dataProvider: generateData(),
-          timer: null
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataProvider: generateData(),
+      timer: null,
+    };
+  }
 
-    componentDidMount() {
+  componentDidMount() {
+    this.setState({
+      // Update the chart dataProvider every 3 seconds
+      timer: setInterval(() => {
         this.setState({
-          // Update the chart dataProvider every 3 seconds
-          timer: setInterval(() => {
-            this.setState({
-              dataProvider: generateData()
-            });
-          }, 3000)
+          dataProvider: generateData(),
         });
-    }
+      }, 3000),
+    });
+  }
 
-    componentWillUnmount() {
-        clearInterval(this.state.timer);
-    }
+  componentWillUnmount() {
+    clearInterval(this.state.timer);
+  }
 
+  render() {
+    const config = {
+      type: 'serial',
+      theme: 'light',
+      marginRight: 40,
+      marginLeft: 40,
+      autoMarginOffset: 20,
+      mouseWheelZoomEnabled: true,
+      valueAxes: [
+        {
+          id: 'v1',
+          axisAlpha: 0,
+          position: 'left',
+          ignoreAxisWidth: true,
+        },
+      ],
+      balloon: {
+        borderThickness: 1,
+        shadowAlpha: 0,
+      },
+      graphs: [
+        {
+          id: 'g1',
+          balloon: {
+            drop: true,
+            adjustBorderColor: false,
+            color: '#ffffff',
+          },
+          bullet: 'round',
+          bulletBorderAlpha: 1,
+          bulletColor: '#FFFFFF',
+          bulletSize: 5,
+          hideBulletsCount: 50,
+          lineThickness: 2,
+          title: 'red line',
+          useLineColorForBulletBorder: true,
+          valueField: 'value',
+          balloonText: "<span style='font-size:18px;'>[[value]]</span>",
+        },
+      ],
+      chartScrollbar: {
+        graph: 'g1',
+        oppositeAxis: false,
+        offset: 30,
+        scrollbarHeight: 80,
+        backgroundAlpha: 0,
+        selectedBackgroundAlpha: 0.1,
+        selectedBackgroundColor: '#888888',
+        graphFillAlpha: 0,
+        graphLineAlpha: 0.5,
+        selectedGraphFillAlpha: 0,
+        selectedGraphLineAlpha: 1,
+        autoGridCount: true,
+        color: '#AAAAAA',
+      },
+      chartCursor: {
+        pan: true,
+        valueLineEnabled: true,
+        valueLineBalloonEnabled: true,
+        cursorAlpha: 1,
+        cursorColor: '#258cbb',
+        limitToGraph: 'g1',
+        valueLineAlpha: 0.2,
+        valueZoomable: true,
+      },
+      valueScrollbar: {
+        oppositeAxis: false,
+        offset: 50,
+        scrollbarHeight: 10,
+      },
+      categoryField: 'date',
+      categoryAxis: {
+        parseDates: true,
+        dashLength: 1,
+        minorGridEnabled: true,
+      },
+      dataProvider: this.state.dataProvider,
+    };
 
-    render() {
-        const config = {
-            "type": "serial",
-            "theme": "light",
-            "marginRight": 40,
-            "marginLeft": 40,
-            "autoMarginOffset": 20,
-            "mouseWheelZoomEnabled": true,
-            "valueAxes": [{
-              "id": "v1",
-              "axisAlpha": 0,
-              "position": "left",
-              "ignoreAxisWidth": true
-            }],
-            "balloon": {
-              "borderThickness": 1,
-              "shadowAlpha": 0
-            },
-            "graphs": [{
-              "id": "g1",
-              "balloon":{
-                "drop": true,
-                "adjustBorderColor": false,
-                "color":"#ffffff"
-              },
-              "bullet": "round",
-              "bulletBorderAlpha": 1,
-              "bulletColor": "#FFFFFF",
-              "bulletSize": 5,
-              "hideBulletsCount": 50,
-              "lineThickness": 2,
-              "title": "red line",
-              "useLineColorForBulletBorder": true,
-              "valueField": "value",
-              "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
-            }],
-            "chartScrollbar": {
-              "graph": "g1",
-              "oppositeAxis": false,
-              "offset":30,
-              "scrollbarHeight": 80,
-              "backgroundAlpha": 0,
-              "selectedBackgroundAlpha": 0.1,
-              "selectedBackgroundColor": "#888888",
-              "graphFillAlpha": 0,
-              "graphLineAlpha": 0.5,
-              "selectedGraphFillAlpha": 0,
-              "selectedGraphLineAlpha": 1,
-              "autoGridCount": true,
-              "color":"#AAAAAA"
-            },
-            "chartCursor": {
-              "pan": true,
-              "valueLineEnabled": true,
-              "valueLineBalloonEnabled": true,
-              "cursorAlpha":1,
-              "cursorColor":"#258cbb",
-              "limitToGraph":"g1",
-              "valueLineAlpha":0.2,
-              "valueZoomable": true
-            },
-            "valueScrollbar":{
-              "oppositeAxis": false,
-              "offset":50,
-              "scrollbarHeight":10
-            },
-            "categoryField": "date",
-            "categoryAxis": {
-              "parseDates": true,
-              "dashLength": 1,
-              "minorGridEnabled": true
-            },
-            "dataProvider": this.state.dataProvider
-        };
-
-        return (
-            <div id="intrayDay" className={classes.intraday}>
-               <p className={[classes.intradayintro, "col"].join(' ')}>Intra-day Dataflow </p>
-               <AmCharts.React style={{width: "100%", height: "350px"}} options={config} />
-            </div>
-
-        );
-    }
+    return (
+      <div id="intrayDay" className={classes.intraday}>
+        <p className={[classes.intradayintro, 'col'].join(' ')}>
+          Intra-day Dataflow{' '}
+        </p>
+        <AmCharts.React
+          style={{ width: '100%', height: '350px' }}
+          options={config}
+        />
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
   return {
-    data: state.data
-  }
+    data: state.data,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onStartFetchRealTimeData: () => dispatch( dataActions.sagaSyncRealTimePricing() )
-  }
-}
+    onStartFetchRealTimeData: () =>
+      dispatch(dataActions.sagaSyncRealTimePricing()),
+  };
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IntraDay);
+export default connect(mapStateToProps, mapDispatchToProps)(IntraDay);

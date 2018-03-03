@@ -1,6 +1,8 @@
-console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://github.com/amcharts/amcharts3-react/blob/master/documentation/Migrating%20to%202.0.md#migrating-to-amcharts-react-plugin-20");
+console.warn(
+  'Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://github.com/amcharts/amcharts3-react/blob/master/documentation/Migrating%20to%202.0.md#migrating-to-amcharts-react-plugin-20'
+);
 
-(function () {
+(function() {
   function getType(x) {
     // TODO make this faster ?
     return {}.toString.call(x);
@@ -9,7 +11,6 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
   function hasOwnKey(obj, key) {
     return {}.hasOwnProperty.call(obj, key);
   }
-
 
   function copyObject(x) {
     var output = {};
@@ -40,21 +41,20 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
   // TODO what about regexps, etc. ?
   function copy(x) {
     switch (getType(x)) {
-    case "[object Array]":
-      return copyArray(x);
+      case '[object Array]':
+        return copyArray(x);
 
-    case "[object Object]":
-      return copyObject(x);
+      case '[object Object]':
+        return copyObject(x);
 
-    // TODO is this necessary ?
-    case "[object Date]":
-      return new Date(x.getTime());
+      // TODO is this necessary ?
+      case '[object Date]':
+        return new Date(x.getTime());
 
-    default:
-      return x;
+      default:
+        return x;
     }
   }
-
 
   function isNaN(x) {
     return x !== x;
@@ -63,7 +63,6 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
   function isNumberEqual(x, y) {
     return x === y || (isNaN(x) && isNaN(y));
   }
-
 
   function removeChartListeners(chart, x, y) {
     if (x !== y) {
@@ -90,8 +89,10 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
           var yValue = y[j];
 
           // TODO is this correct ?
-          if (xValue.event  === yValue.event &&
-              xValue.method === yValue.method) {
+          if (
+            xValue.event === yValue.event &&
+            xValue.method === yValue.method
+          ) {
             has = true;
             break;
           }
@@ -104,7 +105,6 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
       }
     }
   }
-
 
   function updateArray(a, x, y) {
     var didUpdate = false;
@@ -123,7 +123,6 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
           if (update(a, i, x[i], y[i])) {
             didUpdate = true;
           }
-
         } else {
           // TODO make this faster ?
           a[i] = copy(y[i]);
@@ -136,7 +135,6 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
     return didUpdate;
   }
 
-
   function update(obj, key, x, y) {
     var didUpdate = false;
 
@@ -146,44 +144,44 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
 
       if (xType === yType) {
         switch (xType) {
-        case "[object Array]":
-          if (updateArray(obj[key], x, y)) {
-            didUpdate = true;
-          }
-          break;
+          case '[object Array]':
+            if (updateArray(obj[key], x, y)) {
+              didUpdate = true;
+            }
+            break;
 
-        case "[object Object]":
-          if (updateObject(obj[key], x, y)) {
-            didUpdate = true;
-          }
-          break;
+          case '[object Object]':
+            if (updateObject(obj[key], x, y)) {
+              didUpdate = true;
+            }
+            break;
 
-        case "[object Date]":
-          if (x.getTime() !== y.getTime()) {
-            // TODO make this faster ?
-            obj[key] = copy(y);
-            didUpdate = true;
-          }
-          break;
+          case '[object Date]':
+            if (x.getTime() !== y.getTime()) {
+              // TODO make this faster ?
+              obj[key] = copy(y);
+              didUpdate = true;
+            }
+            break;
 
-        case "[object Number]":
-          if (!isNumberEqual(x, y)) {
-            // TODO is the copy necessary ?
-            obj[key] = copy(y);
-            didUpdate = true;
-          }
-          break;
+          case '[object Number]':
+            if (!isNumberEqual(x, y)) {
+              // TODO is the copy necessary ?
+              obj[key] = copy(y);
+              didUpdate = true;
+            }
+            break;
 
-        default:
-          if (x !== y) {
-            // TODO is the copy necessary ?
-            obj[key] = copy(y);
-            didUpdate = true;
-          }
-          break;
+          default:
+            if (x !== y) {
+              // TODO is the copy necessary ?
+              obj[key] = copy(y);
+              didUpdate = true;
+            }
+            break;
         }
 
-      // TODO is this correct ?
+        // TODO is this correct ?
       } else {
         // TODO make this faster ?
         obj[key] = copy(y);
@@ -204,7 +202,7 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
           // TODO make this faster ?
           if (hasOwnKey(oldObj, key)) {
             // TODO should this count as an update ?
-            if (key === "listeners") {
+            if (key === 'listeners') {
               // TODO make this faster ?
               removeChartListeners(chart, oldObj[key], newObj[key]);
             }
@@ -212,7 +210,6 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
             if (update(chart, key, oldObj[key], newObj[key])) {
               didUpdate = true;
             }
-
           } else {
             // TODO make this faster ?
             chart[key] = copy(newObj[key]);
@@ -224,7 +221,7 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
       // TODO use Object.keys ?
       for (var key in oldObj) {
         if (hasOwnKey(oldObj, key) && !hasOwnKey(newObj, key)) {
-          if (key === "listeners") {
+          if (key === 'listeners') {
             removeChartListeners(chart, oldObj[key], []);
           }
 
@@ -237,28 +234,27 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
     return didUpdate;
   }
 
-
   var id = 0;
 
   AmCharts.React = React.createClass({
-    getInitialState: function () {
+    getInitialState: function() {
       return {
-        id: "__AmCharts_React_" + (++id) + "__",
-        chart: null
+        id: '__AmCharts_React_' + ++id + '__',
+        chart: null,
       };
     },
 
-    componentDidMount: function () {
+    componentDidMount: function() {
       // AmCharts mutates the config object, so we have to make a deep copy to prevent that
       var props = copy(this.props);
 
       this.setState({
-        chart: AmCharts.makeChart(this.state.id, props)
+        chart: AmCharts.makeChart(this.state.id, props),
       });
     },
 
     // TODO is this correct ? should this use componentWillUpdate instead ?
-    componentDidUpdate: function (oldProps) {
+    componentDidUpdate: function(oldProps) {
       var didUpdate = updateObject(this.state.chart, oldProps, this.props);
 
       // TODO make this faster
@@ -267,20 +263,20 @@ console.warn("Version 1.0 is outdated. Please upgrade to version 2.0:\nhttps://g
       }
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount: function() {
       if (this.state.chart) {
         this.state.chart.clear();
       }
     },
 
-    render: function () {
+    render: function() {
       return React.DOM.div({
         id: this.state.id,
         style: {
-          width: this.props.width || "100%",
-          height: this.props.height || "100%"
-        }
+          width: this.props.width || '100%',
+          height: this.props.height || '100%',
+        },
       });
-    }
+    },
   });
 })();
