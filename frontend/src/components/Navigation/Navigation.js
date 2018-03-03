@@ -59,6 +59,7 @@ class Navigation extends Component {
           mode="horizontal"
           defaultSelectedKeys={['1']}
           style={{ lineHeight: '64px' }}
+          selectable={false}
         >
           <Menu.Item key="1">
             <Icon type="rocket" />
