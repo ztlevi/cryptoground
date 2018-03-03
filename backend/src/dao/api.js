@@ -6,11 +6,11 @@ import { cryptoRealtimeRequestUrl } from '../utils/cryptoDataUrls';
 export let cachedCryptoPrice = null;
 
 export const updateCurrencyPrice = () => {
-  let fromSyms = ['USD'];
+  let toSyms = ['USD'];
 
   return new Promise((resolve, reject) => {
     axios
-      .get(cryptoRealtimeRequestUrl(fromSyms, cryptoType))
+      .get(cryptoRealtimeRequestUrl(cryptoType, toSyms))
       .then(response => {
         if (response.status === 200) {
           console.log('Fetch cryptocurrency price succeed!!!');
