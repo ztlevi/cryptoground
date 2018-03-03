@@ -41,7 +41,7 @@ export const resolveSuspendedList = () => {
   let newSuspendedList = new Set();
   suspendedList.forEach((request, i) => {
     let currentTime = new Date().getTime() / 1000;
-    if (request.timestamp + expiration < currentTime) {
+    if (request.timestamp + request.expiration < currentTime) {
       newSuspendedList.add(request);
     }
   });

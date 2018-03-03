@@ -92,9 +92,9 @@ setInterval(() => {
   updateCurrencyPrice().then(() => {
     console.log(cachedCryptoPrice);
   });
-}, 10000);
+}, 5000);
 
 // resolve suspendedList, see if we can proceed some request or delete the expire request
 setInterval(() => {
   resolveSuspendedList();
-}, 10000);
+}, 5000);
