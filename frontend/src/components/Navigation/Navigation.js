@@ -21,7 +21,8 @@ class Navigation extends Component {
           style={{ lineHeight: '64px' }}
         >
           <Menu.Item key="1">
-            <Icon type="rocket" />Cryptoground
+            <Icon type="rocket" />
+            <span>Cryptoground</span>
           </Menu.Item>
           {this.state.userStatus === 0 && (
             <Menu.Item key="2" className="float-right">

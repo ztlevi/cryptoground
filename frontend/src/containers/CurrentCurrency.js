@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import * as dataActions from '../actions/data';
-import classes from './table.css';
 
 class CurrentCurrency extends Component {
   generateData(props) {
@@ -57,12 +56,9 @@ class CurrentCurrency extends Component {
     // console.log(this.state.dataProvider);
     let data = this.props.data;
     return (
-      <div className={classes.table}>
-        <p className={classes.font}>CryptoCurrency Market</p>
-        <div className={classes.current}>
-          <p />
-        </div>
-        <table className="table">
+      <div>
+        <h5 style={{textAlign:'center'}}>Cryptocurrency Market</h5>
+        <table className="table" style={{fontSize:15}}>
           <thead>
             <tr>
               <th> Name </th>

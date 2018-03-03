@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'antd';
 
 import IntraDay from '../../containers/IntraDay';
 import HistoricalData from '../../containers/HistoricalData';
@@ -8,9 +9,15 @@ class Databoard extends Component {
   render() {
     return (
       <div>
-        <IntraDay />
-        <CurrentCurrency />
-        <HistoricalData />
+        <Row>
+          <Col span={18}>
+            <IntraDay />
+            <HistoricalData />
+          </Col>
+          <Col span={6}>
+            <CurrentCurrency />
+          </Col>
+        </Row>
       </div>
     );
   }

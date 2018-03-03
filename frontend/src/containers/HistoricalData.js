@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 //import axios from 'axios';
 import * as dataActions from '../actions/data';
-import classes from './Chart.css';
 import AmCharts from '@amcharts/amcharts3-react';
 import { Button } from 'antd';
 
@@ -168,10 +167,8 @@ class HistoricalData extends Component {
     };
 
     return (
-      <div id="#historicalData" className={classes.intraday}>
-        <p className={[classes.intradayintro, 'col'].join(' ')}>
-          Historical Dataflow{' '}
-        </p>
+      <div id="#historicalData">
+        <h4 style={{textAlign:'center'}}>Historical Dataflow</h4>
         <AmCharts.React
           style={{ width: '100%', height: '350px' }}
           options={config}
