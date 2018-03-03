@@ -4,7 +4,7 @@ import Aux from '../Aux/Aux';
 import classes from './Layout.css';
 import Navigation from '../../components/Navigation/Navigation';
 import Toolbar from '../../components/Toolbar/Toolbar';
-import IntraDay from '../../containers/IntraDay';
+import Databoard from '../../components/Databoard/Databoard';
 
 class Layout extends Component {
     
@@ -13,7 +13,7 @@ class Layout extends Component {
             <Aux>
                 <Toolbar />
                 <Navigation />
-                <IntraDay />
+                <Databoard />
             </Aux>
        );
    }

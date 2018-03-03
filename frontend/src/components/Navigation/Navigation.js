@@ -11,10 +11,10 @@ const navigation = () => (
   <div className ={classes.Navigation}>
     <ul className = "nav nav-pills nav-fill" style={style}>
       <li className = "nav-item nav-link">  
-        <NavLink to='/' exact>Historical Daily</NavLink>
+        <NavLink to='/' exact>Intra-Day</NavLink>
       </li>
       <li className = "nav-item nav-link">
-        <NavLink to='/'>Intra-Day</NavLink>
+        <NavLink to='/'>Historical Daily</NavLink>
       </li>
       <li className = "nav-item nav-link">
         <NavLink to='/'>Trading</NavLink>
