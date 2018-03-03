@@ -3,14 +3,12 @@ const SELL = 0;
 const SUSPEND_EXPIRE = 24;
 
 var express = require('express');
-// var bodyParser = require('body-parser');
 var router = express.Router();
 
 var firebase = require('../dao/firebase');
 import { cachedCryptoPrice } from '../dao/api';
 import { verifyTradingRequest } from '../utils/trading_verification';
 
-// router.use(bodyParser.json());
 router.post('/', function(req, res, next) {
   firebase.verifyIdToken(req.body.idToken).then(uid => {
     if (!uid) {
