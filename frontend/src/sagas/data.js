@@ -78,6 +78,37 @@ function* batchDataDaylySyncApi() {
       //console.log('postdata', postData);
       yield put(dataActions.updateBatchData(postData));
       const state = yield select();
+      console.log('post state', state.data.batchData);
+      yield call(delay, 1000 * 3600);
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    if (yield cancelled()) {
+      console.log('Task finished');
+    }
+  }
+}
+
+function* batchDataIntradaySyncApi() {
+  try {
+    while (true) {
+      let fromSym = cryptoConfigs.cryptoType[0]; // BTC
+      let toSym = cryptoConfigs.currencyType[0]; // USD
+      const data = yield call(
+        dataApi.fetchIntradayBatchDataFromApi,
+        fromSym,
+        toSym,
+        1
+      ); //Num of years
+      //console.log(data);
+      let postData = {};
+      postData[fromSym] = {};
+      postData[fromSym][toSym] = {};
+      postData[fromSym][toSym][cryptoConfigs.intervalType.minute] = data;
+      //console.log('postdata', postData);
+      yield put(dataActions.updateBatchData(postData));
+      //const state = yield select();
       //console.log('post state', state.data.batchData);
       yield call(delay, 1000 * 3600);
     }
@@ -90,8 +121,20 @@ function* batchDataDaylySyncApi() {
   }
 }
 
+export function* sagaBatchIntradayTask() {
+  console.log('Saga Batch intraday started');
+  while (yield take(actionTypes.SAGA_START_SYNC_BATCH_INTRADAY_DATA)) {
+    console.log('Start fetching batch intraday');
+    // Start fetching
+    const batchDataIntradayTask = yield fork(batchDataIntradaySyncApi);
+    // Receive stop signal
+    yield take(actionTypes.SAGA_STOP_SYNC_BATCH_INTRADAY_DATA);
+    console.log('Finish fetching');
+  }
+}
+
 export function* sagaBatchDaylyTask() {
-  console.log('Saga Batch started');
+  console.log('Saga Batch dayly started');
   while (yield take(actionTypes.SAGA_START_SYNC_BATCH_DAYLY_DATA)) {
     console.log('Start fetching batch dayly');
     // Start fetching

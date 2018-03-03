@@ -8,14 +8,14 @@ const initialState = {
 };
 // realTimePrice['BTC']['USD'] means 1 BTC worth how much USD
 for (let i in cryptoType) {
+  initialState.realTimePrice[cryptoType[i]] = {};
+  initialState.batchData[cryptoType[i]] = {};
   for (let j in currencyType) {
-    initialState.realTimePrice[cryptoType[i]] = {};
     initialState.realTimePrice[cryptoType[i]][currencyType[j]] = 0;
+    initialState.batchData[cryptoType[i]][currencyType[j]] = {};
     for (let k in intervalType) {
       // batchData['BTC']['USD']['DAYLY']
       // See https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=10
-      initialState.batchData[cryptoType[i]] = {};
-      initialState.batchData[cryptoType[i]][currencyType[j]] = {};
       initialState.batchData[cryptoType[i]][currencyType[j]][
         intervalType[k]
       ] = [];
@@ -23,6 +23,7 @@ for (let i in cryptoType) {
   }
 }
 
+console.log('initial state', initialState);
 const recurUpdateRealTimePrice = (realTimePrice, payload) => {
   for (let cryp in payload) {
     for (let cur in payload[cryp]) {

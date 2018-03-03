@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 //import axios from 'axios';
 import { connect } from 'react-redux';
+import { Button } from 'antd';
 
 import classes from './Chart.css';
 import AmCharts from '@amcharts/amcharts3-react';
@@ -43,14 +45,24 @@ class IntraDay extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      // Update the chart dataProvider every 3 seconds
-      timer: setInterval(() => {
-        this.setState({
-          dataProvider: generateData(),
-        });
-      }, 3000),
-    });
+    // this.setState({
+    //   // Update the chart dataProvider every 3 seconds
+    //   timer: setInterval(() => {
+    //     this.setState({
+    //       dataProvider: generateData(),
+    //     });
+    //   }, 3000),
+    // });
+  }
+
+  componentWillReceiveProps(nextProps) {}
+
+  onStart() {
+    this.props.onStartFetchBatchIntradayData();
+  }
+
+  onStop() {
+    this.props.onStopFetchBatchIntradayData();
   }
 
   componentWillUnmount() {
@@ -150,16 +162,24 @@ class IntraDay extends Component {
   }
 }
 
+IntraDay.propTypes = {
+  onStartFetchBatchIntradayData: PropTypes.func,
+  onStopFetchBatchIntradayData: PropTypes.func,
+  data: PropTypes.object,
+};
+
 const mapStateToProps = state => {
   return {
-    data: state.data,
+    data: state.data.batchData,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onStartFetchRealTimeData: () =>
-      dispatch(dataActions.sagaSyncRealTimePricing()),
+    onStartFetchBatchIntradayData: () =>
+      dispatch(dataActions.sagaStartSyncBatchIntradayData()),
+    onStopFetchBatchIntradayData: () =>
+      dispatch(dataActions.sagaStopSyncBatchIntradayData()),
   };
 };
 

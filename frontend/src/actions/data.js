@@ -20,6 +20,12 @@ export const sagaSyncRealTimePricing = () => {
   };
 };
 
+export const sagaStopSyncRealTimePricing = () => {
+  return {
+    type: actionTypes.SAGA_STOP_SYNC_REAL_TIME_PRICING,
+  };
+};
+
 export const sagaStartSyncBatchDaylyData = () => {
   return {
     type: actionTypes.SAGA_START_SYNC_BATCH_DAYLY_DATA,
@@ -32,8 +38,14 @@ export const sagaStopSyncBatchDaylyData = () => {
   };
 };
 
-export const sagaStopSyncRealTimePricing = () => {
+export const sagaStartSyncBatchIntradayData = () => {
   return {
-    type: actionTypes.SAGA_STOP_SYNC_REAL_TIME_PRICING,
+    type: actionTypes.SAGA_START_SYNC_BATCH_INTRADAY_DATA,
+  };
+};
+
+export const sagaStopSyncBatchIntradayData = () => {
+  return {
+    type: actionTypes.SAGA_STOP_SYNC_BATCH_INTRADAY_DATA,
   };
 };
