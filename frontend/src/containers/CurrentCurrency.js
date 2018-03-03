@@ -6,50 +6,34 @@ import { Button } from 'antd';
 import * as dataActions from '../actions/data';
 import classes from './table.css';
 
-function generateData() {
-    var currency = [];
-    var i = 0;
-    currency.push({
-       key: i,
-       name: 'Bitcoin',
-       price: 11418
-    });
-    i += 1;
-    currency.push({
-        key: i,
-        name: 'Ethereum',
-        price: 865
-    });
-    i += 1;
-    currency.push({
-        key: i,
-        name: 'Ripple',
-        price: 0.908
-    });
-    i += 1;
-    currency.push({
-        key: i,
-        name: 'Bitcoin Cash',
-        price: 1282
-    });
-    i += 1;
-    currency.push({
-        key: i,
-        name: 'Cardano',
-        price: 0.294668
-    });
-
-    //console.log(currency);
-    return currency;
-}
 
 class CurrentCurrency extends Component {
+
+    generateData(props) {
+        var currency = [];
+        var i = 0;
+        var data = props.data.realTimePrice;
+        for(var key in data){
+            currency.push({
+                key: i,
+                name: key,
+                USD: data[key]['USD'],
+                EUR: data[key]['EUR']
+            });
+            i += 1;
+        }
+    
+        //console.log(currency);
+        return currency;
+    }
 
     constructor(props) {
         super(props);
     
         this.state = {
-          dataProvider: generateData()
+          dataProvider:[],
+          timer: null
+
         };
     }
 
@@ -61,8 +45,15 @@ class CurrentCurrency extends Component {
         this.props.onStopFetchRealTimeData();
     }
 
-    componentDidMount() {
-        //this.props.onStartFetchRealTimeData();
+    componentWillReceiveProps(nextProps) {
+        console.log('next', nextProps.data.realTimePrice)
+        this.setState({
+            dataProvider: this.generateData(nextProps)
+        })
+        //console.log('props', props.data.realTimePrice)
+    }
+    componentWillUnmount() {
+        //clearInterval(this.state.timer);
     }
 
     render(){
@@ -79,7 +70,8 @@ class CurrentCurrency extends Component {
                     <thead>
                         <tr>
                             <th> Name </th>
-                            <th> Price($) </th>
+                            <th> USD </th>
+                            <th> EUR </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,7 +79,8 @@ class CurrentCurrency extends Component {
                            this.state.dataProvider.map(item =>(
                                <tr key={item.key}>
                                    <td> {item.name} </td>
-                                   <td> {item.price} </td>
+                                   <td> {item.USD} </td>
+                                   <td> {item.EUR} </td>
                                 </tr>
                            ))
                         }
