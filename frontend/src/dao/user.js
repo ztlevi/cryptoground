@@ -50,10 +50,7 @@ export const initUserBalance = (uid, idToken) => {
 };
 
 export const fetchUserTradingList = (uid, idToken) => {
-  let url = firebaseUrls.fetchFirebaseDbUrl(
-    ['users', uid, 'tradings'],
-    idToken
-  );
+  let url = firebaseUrls.fetchFirebaseDbUrl(['users', uid, 'trading'], idToken);
   return new Promise((resolve, reject) => {
     axios
       .get(url)

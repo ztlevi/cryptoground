@@ -7,6 +7,7 @@ import HistoricalData from '../../containers/HistoricalData';
 import CurrentCurrency from '../../containers/CurrentCurrency';
 import Transaction from '../../containers/Transaction';
 import LeaderBoard from '../../containers/LeaderBoard';
+import TradingHistory from '../../containers/TradingHistory';
 
 class Databoard extends Component {
   render() {
@@ -42,7 +43,7 @@ class Databoard extends Component {
         />
         <Route path="/ranking" component={LeaderBoard} />
         <Route path="/user/account" component={null} />
-        <Route path="/user/history" component={null} />
+        <Route path="/user/history" component={TradingHistory} />
         <Redirect from="/" to="/charts" />
       </Switch>
     );

@@ -33,6 +33,12 @@ export const sagaRequestTrading = payload => {
   };
 };
 
+export const sagaSyncTradingList = () => {
+  return {
+    type: actionTypes.SAGA_SYNC_USER_TRADINGS,
+  };
+};
+
 export const updateTradingList = tradingList => {
   return {
     type: actionTypes.UPDATE_USER_TRADINGS,
