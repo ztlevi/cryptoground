@@ -73,8 +73,8 @@ class LeaderBoard extends Component {
         <h4 style={{ textAlign: 'center' }}>Leader Board</h4>
         <h5 style={{ textAlign: 'left', color: 'rgb(23, 118, 250)' }}>
           {this.state.rank == -1
-            ? 'Please log in to check your rank.'
-            : 'Your rank:' + this.state.rank}
+            ? 'Please log in and check your rank.'
+            : 'Your rank:' + (this.state.rank + 1)}
         </h5>
         <table className="table" style={{ fontSize: 15, textAlign: 'center' }}>
           <thead>
