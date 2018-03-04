@@ -12,7 +12,7 @@ const toggleTradingRequestModal = (state, action) => {
     ...state,
     tradingResponseModal: {
       isOpen: action.isOpen,
-      text: action.isOpen ? action.text : null,
+      text: action.isOpen ? action.info : null,
     },
   };
 };

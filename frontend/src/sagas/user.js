@@ -71,11 +71,9 @@ export function* sagaRequestTrading(action) {
     const res = yield call(tradingApi.requestTrading, action.payload);
 
     console.log('response of trading request', res);
-    if (res.status === 'complete') {
-      yield put(userActions.toggleTradingResponseModal(status.message, true));
-    } else {
-      yield put(userActions.toggleTradingResponseModal(res, true));
-    }
+
+    yield put(userActions.toggleTradingResponseModal(res.message, true));
+
     // Update balance account
     yield call(sagaSyncUserBalance);
 
