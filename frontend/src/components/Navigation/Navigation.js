@@ -123,7 +123,8 @@ class Navigation extends Component {
           {this.state.userStatus === 1 && (
             <Menu.Item key="3" className="float-right">
               <Button>
-                <Icon type="user" />User
+                <Icon type="user" />
+                {this.props.userName || 'User'}
               </Button>
             </Menu.Item>
           )}
@@ -145,11 +146,13 @@ Navigation.propTypes = {
   onSignUp: PropTypes.func,
   onSignOut: PropTypes.func,
   auth: PropTypes.object,
+  userName: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    userName: state.user.email,
   };
 };
 
