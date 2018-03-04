@@ -12,6 +12,7 @@ import authReducer from './reducers/auth';
 import userReducer from './reducers/user';
 import tradingReducer from './reducers/tradings';
 import leaderBoardReducer from './reducers/leaderBoard';
+import modalReducer from './reducers/modal';
 
 import * as dataSaga from './sagas/data';
 import authSaga from './sagas/auth';
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   trading: tradingReducer,
   leaderBoard: leaderBoardReducer,
+  modal: modalReducer,
 });
 
 function* rootSaga() {

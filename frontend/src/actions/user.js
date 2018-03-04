@@ -52,3 +52,11 @@ export const sagaSyncLeaderBoard = () => {
     type: actionTypes.SAGA_SYNC_LEADER_BOARD,
   };
 };
+
+export const toggleTradingResponseModal = (info, isOpen) => {
+  return {
+    type: actionTypes.TOGGLE_TRADING_RESPONSE_MODAL,
+    info: info,
+    isOpen: isOpen,
+  };
+};

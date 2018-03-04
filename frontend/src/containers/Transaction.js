@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { InputNumber, Button, Dropdown, Menu } from 'antd';
+import { InputNumber, Button, Dropdown, Menu, Modal } from 'antd';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -65,10 +65,10 @@ class Transaction extends Component {
     let payload = {};
     payload.idToken = this.props.idToken;
     payload.tradingType = 'SELL';
-    payload.tradingPrice = this.state.buyPrice;
-    payload.tradingAmount = this.state.buyAmount;
-    payload.tradingFromSym = this.state.buyFromSym;
-    payload.tradingToSym = this.state.buyToSym;
+    payload.tradingPrice = this.state.sellPrice;
+    payload.tradingAmount = this.state.sellAmount;
+    payload.tradingFromSym = this.state.sellFromSym;
+    payload.tradingToSym = this.state.sellToSym;
     //console.log(payload);
     this.props.onSell(payload);
   }
@@ -101,6 +101,9 @@ class Transaction extends Component {
     });
   }
 
+  handleOk() {
+    this.props.toggleTradingResponseModal(null, false);
+  }
   render() {
     let buyFromMenu = (
       <Menu onClick={e => this.onBuyFromChange(e.key)}>
@@ -132,6 +135,15 @@ class Transaction extends Component {
           height: '100%',
         }}
       >
+        <Modal
+          visible={this.props.isModalOpen}
+          onOk={e => this.handleOk(e)}
+          onCancel={e => this.handleOk(e)}
+          footer={null}
+          wrapClassName="vertical-center-modal"
+        >
+          {this.props.text}
+        </Modal>
         <div
           style={{
             display: 'flex',
@@ -280,11 +292,16 @@ Transaction.propTypes = {
   onSell: PropTypes.func,
   onBuy: PropTypes.func,
   idToken: PropTypes.string,
+  isModalOpen: PropTypes.bool,
+  text: PropTypes.string,
+  toggleTradingResponseModal: PropTypes.func,
 };
 
 const mapStateToProps = state => {
   return {
     idToken: state.auth.idToken,
+    isModalOpen: state.modal.tradingResponseModal.isOpen,
+    text: state.modal.tradingResponseModal.text,
   };
 };
 
@@ -292,6 +309,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onBuy: payload => dispatch(userActions.sagaRequestTrading(payload)),
     onSell: payload => dispatch(userActions.sagaRequestTrading(payload)),
+    toggleTradingResponseModal: (text, isOpen) =>
+      dispatch(userActions.toggleTradingResponseModal(text, isOpen)),
   };
 };
 
