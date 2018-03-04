@@ -1,7 +1,8 @@
 export const cryptoRootUrl = 'https://min-api.cryptocompare.com/data';
-export const localhostUrl = 'http://localhost:4000/get_price';
+export const localhostUrl =
+  'https://cryptoground-backend.herokuapp.com/get_price';
 export const localhostTradingRequestUrl =
-  'http://localhost:4000/trading_request';
+  'https://cryptoground-backend.herokuapp.com/trading_request';
 /**
  * generate crypto request to fetch multiple symbols price
  * @param fromSyms: Array

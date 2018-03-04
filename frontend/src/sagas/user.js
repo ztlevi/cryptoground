@@ -98,27 +98,35 @@ const fakeLeaderBoard = () => {
 
 export function* sagaSyncLeaderBoard() {
   try {
-    //console.log('saga loading leader board');
-    const state = yield select();
-    const { uid, idToken } = state.auth;
-    const { email } = state.user;
-    // if (!uid || !idToken) {
-    //   console.log('no token');
-    //   return;
-    // }
-    //const leaderBoard = fakeLeaderBoard();
+    while (true) {
+      console.log('saga loading leader board');
+      const state = yield select();
+      const { idToken } = state.auth;
+      const { email } = state.user;
+      // if (!uid || !idToken) {
+      //   console.log('no token');
+      //   return;
+      // }
+      //const leaderBoard = fakeLeaderBoard();
 
-    const leaderBoard = yield call(userApi.fetchLeaderBoard, idToken);
-    console.log('saga leaderBoard', leaderBoard);
-    yield put(
-      userActions.updateLeaderBoard({
-        email: email || 'junzhiwa@usc.edu',
-        leaderBoard: leaderBoard,
-      })
-    );
-    console.log(state.leaderBoard);
+      const leaderBoard = yield call(userApi.fetchLeaderBoard, idToken);
+      //console.log('saga leaderBoard', leaderBoard);
+      console.log('email', email);
+      yield put(
+        userActions.updateLeaderBoard({
+          email: email,
+          leaderBoard: leaderBoard,
+        })
+      );
+      console.log(state.leaderBoard);
+      yield call(delay, 60 * 1000 * 2);
+    }
   } catch (err) {
     console.log(err);
+  } finally {
+    if (yield cancelled()) {
+      console.log('Task finished');
+    }
   }
 }
 
@@ -127,5 +135,5 @@ export default [
   takeEvery(actionTypes.SAGA_SYNC_USER_INFO, sagaSyncUserInfo),
   takeEvery(actionTypes.SAGA_REQUEST_TRADING, sagaRequestTrading),
   takeEvery(actionTypes.SAGA_SYNC_USER_TRADINGS, sagaSyncTradingList),
-  takeEvery(actionTypes.SAGA_SYNC_LEADER_BOARD, sagaSyncLeaderBoard),
+  //takeEvery(actionTypes.SAGA_SYNC_LEADER_BOARD, sagaSyncLeaderBoard),
 ];

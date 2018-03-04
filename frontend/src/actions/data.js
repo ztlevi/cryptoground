@@ -49,3 +49,15 @@ export const sagaStopSyncBatchIntradayData = () => {
     type: actionTypes.SAGA_STOP_SYNC_BATCH_INTRADAY_DATA,
   };
 };
+
+export const sagaStartSyncLeaderBoard = () => {
+  return {
+    type: actionTypes.SAGA_START_SYNC_LEADER_BOARD,
+  };
+};
+
+export const sagaStopSyncLeaderBoard = () => {
+  return {
+    type: actionTypes.SAGA_STOP_SYNC_LEADER_BOARD,
+  };
+};

@@ -35,6 +35,7 @@ function* rootSaga() {
     call(dataSaga.sagaRealTimeTask),
     call(dataSaga.sagaBatchDaylyTask),
     call(dataSaga.sagaBatchIntradayTask),
+    call(dataSaga.sagaSyncLeaderBoardTask),
     ...userSaga,
     ...authSaga,
   ]);

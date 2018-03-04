@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as userActions from '../actions/user';
+import * as dataActions from '../actions/data';
 
 class LeaderBoard extends Component {
   constructor(props) {
@@ -37,14 +38,18 @@ class LeaderBoard extends Component {
   }
 
   componentDidMount() {
-    this.props.onLoadLeaderBoard();
+    this.props.onStartSyncLeaderBoard();
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('leaderBoard from component!', nextProps.leaderBoard);
+    console.log('leaderBoard', nextProps.leaderBoard);
     this.setState({
       leaderBoard: this.generateData(nextProps.leaderBoard),
     });
+  }
+
+  componentWillUnmount() {
+    this.props.onStopSyncLeaderBoard();
   }
 
   onLoadMore = () => {
@@ -94,7 +99,8 @@ class LeaderBoard extends Component {
 LeaderBoard.propTypes = {
   leaderBoard: PropTypes.array,
   rank: PropTypes.number,
-  onLoadLeaderBoard: PropTypes.func,
+  onStartSyncLeaderBoard: PropTypes.func,
+  onStopSyncLeaderBoard: PropTypes.func,
 };
 
 const mapStateToProps = state => {
@@ -106,7 +112,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoadLeaderBoard: () => dispatch(userActions.sagaSyncLeaderBoard()),
+    onStartSyncLeaderBoard: () =>
+      dispatch(dataActions.sagaStartSyncLeaderBoard()),
+    onStopSyncLeaderBoard: () =>
+      dispatch(dataActions.sagaStopSyncLeaderBoard()),
   };
 };
 
