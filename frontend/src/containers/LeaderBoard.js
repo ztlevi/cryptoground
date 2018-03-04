@@ -92,11 +92,10 @@ class LeaderBoard extends Component {
                 key={item.key}
                 style={{
                   color:
-                    item.key == this.state.rank - 1
+                    item.key == this.state.rank
                       ? 'rgb(23, 118, 250)'
                       : 'rgb(66, 66, 68)',
-                  fontWeight:
-                    item.key == this.state.rank - 1 ? 'bold' : 'normal',
+                  fontWeight: item.key == this.state.rank ? 'bold' : 'normal',
                 }}
               >
                 <td> {item.key + 1} </td>
