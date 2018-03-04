@@ -13,6 +13,7 @@ import * as dataActions from '../actions/data';
 import * as dataApi from '../dao/data';
 import * as actionTypes from '../actions/actionTypes';
 import * as cryptoConfigs from '../res/cryptoConfigs';
+import { sagaSyncLeaderBoard } from './user';
 
 function* realTimePricingSyncBackend() {
   try {
@@ -130,6 +131,9 @@ export function* sagaBatchIntradayTask() {
     // Receive stop signal
     yield take(actionTypes.SAGA_STOP_SYNC_BATCH_INTRADAY_DATA);
     console.log('Finish fetching');
+
+    // Cancel task
+    yield cancel(batchDataIntradayTask);
   }
 }
 
@@ -158,8 +162,22 @@ export function* sagaRealTimeTask() {
 
     // Receive stop signal
     yield take(actionTypes.SAGA_STOP_SYNC_REAL_TIME_PRICING);
-    console.log('Finish fetching');
+    console.log('Finish fetching realtime');
     // Cancel task
     yield cancel(syncRealTimePricingTask);
+  }
+}
+
+export function* sagaSyncLeaderBoardTask() {
+  console.log('Saga sync leaderboard started');
+  while (yield take(actionTypes.SAGA_START_SYNC_LEADER_BOARD)) {
+    console.log('Start fetching leaderBoard');
+    const syncLeaderBoardTask = yield fork(sagaSyncLeaderBoard);
+
+    // Receive stop signal
+    yield take(actionTypes.SAGA_STOP_SYNC_LEADER_BOARD);
+    console.log('Finish fetching leaderBoard');
+
+    yield cancel(syncLeaderBoardTask);
   }
 }

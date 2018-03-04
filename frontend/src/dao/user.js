@@ -73,7 +73,7 @@ export const fetchLeaderBoard = idToken => {
       .get(url)
       .then(res => {
         if (res && res.data) {
-          console.log('leaderBoard', res.data);
+          console.log('leaderboard', res.data);
           resolve(res.data);
         } else {
           reject(0);
@@ -86,7 +86,7 @@ export const fetchLeaderBoard = idToken => {
 export const findRank = (email, leaderBoard) => {
   for (let i in leaderBoard) {
     const obj = leaderBoard[i];
-    if (email === obj.userName) {
+    if (email === obj.email) {
       return i;
     }
   }

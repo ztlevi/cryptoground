@@ -45,7 +45,7 @@ export default class SideBar extends Component {
               <NavLink to="/charts/histoday">Historical Data</NavLink>
             </Menu.Item>
             <Menu.Item key="chart3" style={{ fontSize: '125%' }}>
-              <NavLink to="/trading">Trading Form</NavLink>
+              <NavLink to="/trading">Buy & Sell</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu
@@ -57,9 +57,9 @@ export default class SideBar extends Component {
               </span>
             }
           >
-            <Menu.Item key="user1" style={{ fontSize: '125%' }}>
-              <NavLink to="/user/account">Account</NavLink>
-            </Menu.Item>
+            {/* <Menu.Item key="user1" style={{ fontSize: '125%' }}>
+                <NavLink to="/user/account">Account</NavLink>
+                </Menu.Item> */}
             <Menu.Item key="user2" style={{ fontSize: '125%' }}>
               <NavLink to="/user/history">Trading History</NavLink>
             </Menu.Item>
