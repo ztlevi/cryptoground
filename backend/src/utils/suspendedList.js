@@ -2,19 +2,25 @@ import { verifyTradingRequest } from './trading_verification';
 var firebase = require('../dao/firebase');
 import { cachedCryptoPrice } from '../dao/api';
 
-export let suspendedList = {}; // uid => key => data
-firebase
-  .fetchSuspendedList()
-  .then(data => {
-    suspendedList = data.val();
-  })
-  .catch(e => {
-    // firebase.uploadSuspendedList(suspendedList).then(re => {
-    //   if (!re) return;
-    //   console.log('Upload an empty suspended list');
-    // });
-    return;
-  });
+export var suspendedList = {}; // uid => key => data
+export let firstUpdateSuspendedList = () => {
+  console.log('First fetch suspendedList!!!');
+
+  firebase
+    .fetchSuspendedList()
+    .then(data => {
+      if (!data) console.log('SuspendedList is empty!');
+      suspendedList = data;
+      console.log(suspendedList);
+    })
+    .catch(e => {
+      // firebase.uploadSuspendedList(suspendedList).then(re => {
+      //   if (!re) return;
+      //   console.log('Upload an empty suspended list');
+      // });
+      return;
+    });
+};
 
 export const addToSuspendedList = (uid, key, trading_request) => {
   if (!suspendedList[uid]) suspendedList[uid] = [];
@@ -67,7 +73,7 @@ export const resolveSuspendedList = () => {
         let verifyResult = verifyTradingRequest(
           req,
           response,
-          cachedCryptoPrice
+          cachedCryptoPrice,
         );
         if (verifyResult.status === 'complete') {
           // update Firebase's balance
@@ -79,7 +85,7 @@ export const resolveSuspendedList = () => {
             .then(response => {
               if (!response)
                 console.log(
-                  "Cannot update user's new balance or push to the new trading record, request failed!"
+                  "Cannot update user's new balance or push to the new trading record, request failed!",
                 );
               console.log('Trading request has been approved!');
             })
