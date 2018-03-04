@@ -22,6 +22,8 @@ class Transaction extends Component {
       buyToSym: 'BTC',
       sellFromSym: 'BTC',
       sellToSym: 'USD',
+      confirmModal: false,
+      transType: null,
     };
   }
 
@@ -77,6 +79,31 @@ class Transaction extends Component {
     this.props.onSell(payload);
   }
 
+  onConfirm() {
+    if (this.state.transType === 'BUY') {
+      this.onBuy();
+    } else if (this.state.transType === 'SELL') {
+      this.onSell();
+    }
+    this.setState({
+      confirmModal: false,
+    });
+  }
+
+  onClickSell() {
+    this.setState({
+      confirmModal: true,
+      transType: 'SELL',
+    });
+  }
+
+  onClickBuy() {
+    this.setState({
+      confirmModal: true,
+      transType: 'BUY',
+    });
+  }
+
   onBuyFromChange(key) {
     console.log(key);
     this.setState({
@@ -107,6 +134,9 @@ class Transaction extends Component {
 
   handleOk() {
     this.props.toggleTradingResponseModal(null, false);
+    this.setState({
+      confirmModal: false,
+    });
   }
   render() {
     let buyFromMenu = (
@@ -140,6 +170,7 @@ class Transaction extends Component {
         }}
       >
         <Modal
+          title=" "
           visible={this.props.isModalOpen}
           onOk={e => this.handleOk(e)}
           onCancel={e => this.handleOk(e)}
@@ -147,6 +178,17 @@ class Transaction extends Component {
           wrapClassName="vertical-center-modal"
         >
           {this.props.text}
+        </Modal>
+        <Modal
+          title=" "
+          visible={this.state.confirmModal}
+          onOk={() => this.onConfirm()}
+          onCancel={e => this.handleOk(e)}
+          okText="confirm"
+          cancelText="cancel"
+          wrapClassName="vertical-center-modal"
+        >
+          Please confirm this transaction request or cancel it.
         </Modal>
         <div
           style={{
@@ -245,7 +287,7 @@ class Transaction extends Component {
                 fontSize: '20px',
               }}
               type="primary"
-              onClick={() => this.onBuy()}
+              onClick={() => this.onClickBuy()}
               disabled={
                 !this.props.idToken ||
                 this.state.buyAmount <= 0 ||
@@ -351,7 +393,7 @@ class Transaction extends Component {
                 fontSize: '20px',
               }}
               type="primary"
-              onClick={() => this.onSell()}
+              onClick={() => this.onClickSell()}
               disabled={
                 !this.props.idToken ||
                 this.state.sellAmount <= 0 ||
