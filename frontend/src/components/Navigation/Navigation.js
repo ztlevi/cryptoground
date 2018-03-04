@@ -52,8 +52,7 @@ class Navigation extends Component {
     ) : null;
 
     return (
-      <Header className="header">
-        <div className="logo" />
+      <Header className="header" style={{ paddingLeft: 0 }}>
         <Menu
           theme="dark"
           mode="horizontal"
@@ -61,9 +60,15 @@ class Navigation extends Component {
           style={{ lineHeight: '64px' }}
           selectable={false}
         >
+<<<<<<< Updated upstream
           <Menu.Item key="1">
             <Icon type="rocket" style={{ fontSize: '250%' }} />
             <span style={{ fontSize: '170%' }}>CryptoGround</span>
+=======
+          <Menu.Item style={{ width: '200px' }} key="1">
+            <Icon type="rocket" />
+            <span style={{ fontSize: '20px' }}>Cryptoground</span>
+>>>>>>> Stashed changes
           </Menu.Item>
 
           {/* userName and Password input here */}

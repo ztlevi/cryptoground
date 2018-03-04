@@ -229,7 +229,7 @@ class Transaction extends Component {
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                margin: '8px',
+                margin: '10px',
               }}
             >
               <span style={{ width: '40%' }}>Price</span>
@@ -257,25 +257,23 @@ class Transaction extends Component {
               />
             </div>
             <div
-              style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}
+              style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
             >
-              <span style={{ width: '40%' }}>Using balance</span>
-              <Dropdown.Button
-                overlay={buyFromMenu}
-                style={{ width: '50%', fontSize: '20px' }}
-              >
+              <span style={{ width: '40%', fontSize: '20px' }}>
+                Using balance
+              </span>
+              <Dropdown.Button overlay={buyFromMenu}>
                 {this.state.buyFromSym}
               </Dropdown.Button>
             </div>
 
             <div
-              style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}
+              style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
             >
-              <span style={{ width: '40%' }}>Cryptocurrency type</span>
-              <Dropdown.Button
-                overlay={buyToMenu}
-                style={{ width: '50%', fontSize: '20px' }}
-              >
+              <span style={{ width: '40%', fontSize: '20px' }}>
+                Cryptocurrency type
+              </span>
+              <Dropdown.Button overlay={buyToMenu}>
                 {this.state.buyToSym}
               </Dropdown.Button>
             </div>
@@ -364,11 +362,10 @@ class Transaction extends Component {
             <div
               style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
             >
-              <span style={{ width: '40%' }}>Using balance</span>
-              <Dropdown.Button
-                overlay={buyFromMenu}
-                style={{ width: '50%', fontSize: '20px' }}
-              >
+              <span style={{ width: '40%', fontSize: '20px' }}>
+                Using balance
+              </span>
+              <Dropdown.Button overlay={buyFromMenu}>
                 {this.state.buyFromSym}
               </Dropdown.Button>
             </div>
@@ -376,11 +373,10 @@ class Transaction extends Component {
             <div
               style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
             >
-              <span style={{ width: '40%' }}>Cryptocurrency type</span>
-              <Dropdown.Button
-                overlay={buyToMenu}
-                style={{ width: '50%', fontSize: '20px' }}
-              >
+              <span style={{ width: '40%', fontSize: '20px' }}>
+                Cryptocurrency type
+              </span>
+              <Dropdown.Button overlay={buyToMenu}>
                 {this.state.buyToSym}
               </Dropdown.Button>
             </div>

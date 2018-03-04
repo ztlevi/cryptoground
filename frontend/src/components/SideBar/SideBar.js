@@ -25,7 +25,6 @@ export default class SideBar extends Component {
         collapsed={this.state.collapsed}
         onCollapse={this.onCollapse}
       >
-        <div className="logo" />
         <Menu theme="dark" mode="inline">
           <SubMenu
             key="chart"
@@ -51,9 +50,9 @@ export default class SideBar extends Component {
           <SubMenu
             key="user"
             title={
-              <span style={{ fontSize: '150%' }}>
+              <span>
                 <Icon type="user" />
-                <span>User</span>
+                <span style={{ fontSize: '150%' }}>User</span>
               </span>
             }
           >
