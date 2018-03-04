@@ -63,12 +63,13 @@ class TradingHistory extends Component {
 
   delete(item) {
     var dataList = [...this.state.dataProvider];
-    var index = dataList.indexOf(item);
-    dataList.splice(index, 1);
+    //var index = dataList.indexOf(item);
+    //dataList.splice(index, 1);
+    dataList = dataList.filter(i => i !== item);
     this.setState({
       dataProvider: dataList,
     });
-    console.log('delete dataList', index, dataList);
+    console.log('delete dataList', dataList);
   }
 
   render() {
@@ -92,7 +93,7 @@ class TradingHistory extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.dataProvider.map((item, i) => (
+            {this.state.dataProvider.map(item => (
               <tr key={item.key}>
                 <td> {item.key} </td>
                 <td> {new Date(item.timestamp * 1000).toString()} </td>
@@ -111,8 +112,7 @@ class TradingHistory extends Component {
                   <Button
                     type="danger"
                     disabled={item.status != 'suspend'}
-                    onClick={this.delete.bind(this)}
-                    item={item}
+                    onClick={() => this.delete(item)}
                   >
                     Cancle
                   </Button>
@@ -127,7 +127,7 @@ class TradingHistory extends Component {
 }
 
 TradingHistory.propTypes = {
-  tradingList: PropTypes.object,
+  tradingList: PropTypes.array,
   onLoadTradingList: PropTypes.func,
 };
 

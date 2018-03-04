@@ -106,10 +106,10 @@ export function* sagaSyncLeaderBoard() {
     //   console.log('no token');
     //   return;
     // }
-    const leaderBoard = fakeLeaderBoard();
+    //const leaderBoard = fakeLeaderBoard();
 
-    //const leaderBoard = yield call(userApi.fetchLeaderBoard);
-    //console.log('saga leaderBoard', leaderBoard);
+    const leaderBoard = yield call(userApi.fetchLeaderBoard, idToken);
+    console.log('saga leaderBoard', leaderBoard);
     yield put(
       userActions.updateLeaderBoard({
         email: email || 'junzhiwa@usc.edu',

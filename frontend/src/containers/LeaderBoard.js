@@ -19,122 +19,73 @@ class LeaderBoard extends Component {
     };
   }
 
+  generateData(props) {
+    console.log('generate', props.length, props);
+    var dataList = [];
+    for (var i = 0; i < props.length; i += 1) {
+      console.log(i, props[i].assets);
+      dataList.push({
+        key: i,
+        userName: props[i].email,
+        USD: props[i].assets['USD'],
+        BTC: props[i]['assets']['BTC'],
+        ROI: props[i]['assets']['ROI'],
+      });
+    }
+
+    return dataList;
+  }
+
   componentDidMount() {
     this.props.onLoadLeaderBoard();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('leaderBoard from component!', nextProps.leaderBoard);
     this.setState({
-      loading: false,
+      leaderBoard: this.generateData(nextProps.leaderBoard),
     });
   }
 
   onLoadMore = () => {
     console.log(this.props.leaderBoard);
     console.log('loading more');
-    this.setState(
-      {
-        loadingMore: true,
-        length: this.state.length + 5,
-        leaderBoard: this.props.leaderBoard.slice(
-          0,
-          Math.min(this.state.length + 5, this.props.leaderBoard.length)
-        ),
-      },
-      () => {
-        window.dispatchEvent(new Event('resize'));
-      }
-    );
+    this.setState({
+      loadingMore: true,
+      length: this.state.length + 5,
+      leaderBoard: this.props.leaderBoard.slice(
+        0,
+        Math.min(this.state.length + 5, this.props.leaderBoard.length)
+      ),
+    });
   };
 
   render() {
-    const { loading, loadingMore, showLoadingMore, leaderBoard } = this.state;
-    const loadMore = showLoadingMore ? (
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
-        {/**{loadingMore && <Spin />}**/}
-        {true && <Button onClick={this.onLoadMore}>loading more</Button>}
-      </div>
-    ) : null;
     return (
-      <div
-        style={{
-          width: '85%',
-          margin: '10px',
-          boxAlign: 'center',
-          position: 'relative',
-          left: '5%',
-        }}
-      >
-        <h4 style={{ textAlign: 'center' }}>Leading Board</h4>
-        <p
-          style={{
-            fontSize: 20,
-            fontStyle: 'bold',
-            borderBottom: 'solid',
-            borderWidth: 2,
-            borderBottomColor: 'rgb(1,21,41)',
-          }}
-        >
-          Rank
-          <span style={{ marginLeft: '18%', marginRight: '10%' }}>
-            Username
-          </span>
-          <span style={{ marginLeft: '1%', marginRight: '5%' }}>USD</span>
-          <span style={{ marginLeft: '7%', marginRight: '5%' }}>BCT</span>
-          <span style={{ marginLeft: '5%', marginRight: '3%' }}>ROI</span>
-        </p>
-        <List
-          style={{ width: '100%', margin: '10 10 10 10' }}
-          loading={loading}
-          itemLayout="horizontal"
-          loadMore={loadMore}
-          dataSource={leaderBoard}
-          renderItem={item => (
-            <List.Item>
-              <List.Item.Meta title={item.userName} />
-              <div
-                style={{
-                  fontSize: '20px',
-                  marginLeft: '20%',
-                  marginRight: '20%',
-                }}
-              >
-                {item.userName}
-              </div>
-              <div
-                style={{
-                  fontSize: '20px',
-                  marginLeft: '15%',
-                  marginRight: '15%',
-                }}
-              >
-                Content
-              </div>
-              <div
-                style={{
-                  fontSize: '20px',
-                  marginLeft: '15%',
-                  marginRight: '15%',
-                }}
-              >
-                Content
-              </div>
-              <div
-                style={{
-                  fontSize: '20px',
-                  marginLeft: '15%',
-                  marginRight: '15%',
-                }}
-              >
-                Content
-              </div>
-            </List.Item>
-          )}
-        />
+      <div style={{ marginLeft: 10, marginTop: 15 }}>
+        <h4 style={{ textAlign: 'center' }}>Leader Board</h4>
+        <table className="table" style={{ fontSize: 15, textAlign: 'center' }}>
+          <thead>
+            <tr>
+              <th> Rank </th>
+              <th> UserName </th>
+              <th> USD </th>
+              <th> BTC </th>
+              <th> ROI </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.leaderBoard.map(item => (
+              <tr key={item.key}>
+                <td> {item.rank} </td>
+                <td> {item.userName} </td>
+                <td> {item.USD.toFixed(4)} </td>
+                <td> {item.BTC.toFixed(4)} </td>
+                <td> {item.ROI.toFixed(4)} </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }

@@ -66,8 +66,8 @@ export const fetchUserTradingList = (uid, idToken) => {
   });
 };
 
-export const fetchLeaderBoard = () => {
-  let url = firebaseUrls.fetchFirebaseDbUrl(['leaderBoard']);
+export const fetchLeaderBoard = idToken => {
+  let url = firebaseUrls.fetchFirebaseDbUrl(['leaderboard'], idToken);
   return new Promise((resolve, reject) => {
     axios
       .get(url)
