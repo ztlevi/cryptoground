@@ -17,6 +17,7 @@ export const requestTrading = payload => {
 
 export const cancelTrading = payload => {
   let url = cryptoUrls.localhostCancelTradingUrl;
+  console.log('payload', payload);
   return new Promise((resolve, reject) => {
     axios
       .post(url, payload)

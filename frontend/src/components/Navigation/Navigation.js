@@ -62,8 +62,8 @@ class Navigation extends Component {
           selectable={false}
         >
           <Menu.Item key="1">
-            <Icon type="rocket" />
-            <span>Cryptoground</span>
+            <Icon type="rocket" style={{ fontSize: '250%' }} />
+            <span style={{ fontSize: '170%' }}>Cryptoground</span>
           </Menu.Item>
 
           {/* userName and Password input here */}

@@ -99,7 +99,7 @@ export function* sagaCancelTrading(action) {
     console.log('Start cancel trading');
     const res = yield call(tradingApi.cancelTrading, action.payload);
 
-    yield put(userActions.toggleTradingResponseModal(res.message, true));
+    yield put(userActions.toggleTradingResponseModal(res.data.message, true));
 
     console.log('Cancel result', res);
     // Update balance account

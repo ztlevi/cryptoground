@@ -82,6 +82,7 @@ class TradingHistory extends Component {
     // });
     // console.log('delete dataList', dataList);
     console.log(this.state.alteredData[timestamp]);
+    this.props.onCancelTradingRequest(this.state.alteredData[timestamp]);
   }
 
   render() {
@@ -139,6 +140,7 @@ class TradingHistory extends Component {
 TradingHistory.propTypes = {
   tradingList: PropTypes.object,
   onLoadTradingList: PropTypes.func,
+  onCancelTradingRequest: PropTypes.func,
 };
 
 const mapStateToProps = state => {

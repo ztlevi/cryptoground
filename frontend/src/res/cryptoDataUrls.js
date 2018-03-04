@@ -1,4 +1,8 @@
 export const cryptoRootUrl = 'https://min-api.cryptocompare.com/data';
+export const localHost = 'http://localhost:4000';
+// export const localhostUrl = `${localHost}/get_price`;
+// export const localhostTradingRequestUrl = `${localHost}/trading_request`;
+// export const localhostCancelTradingUrl = `${localHost}/cancel_trading`;
 export const localhostUrl =
   'https://cryptoground-backend.herokuapp.com/get_price';
 export const localhostTradingRequestUrl =
