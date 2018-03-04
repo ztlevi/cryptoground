@@ -60,7 +60,6 @@ class CurrentCurrency extends Component {
 
   render() {
     // console.log(this.state.dataProvider);
-    let data = this.props.data;
     return (
       <div style={{ marginLeft: 10, marginTop: 15 }}>
         <h4 style={{ textAlign: 'center' }}>Cryptocurrency Market</h4>
