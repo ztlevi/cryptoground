@@ -49,17 +49,22 @@ class CurrentCurrency extends Component {
     });
     //console.log('props', props.data.realTimePrice)
   }
+
+  componentDidMount() {
+    this.onStart();
+  }
+
   componentWillUnmount() {
-    //clearInterval(this.state.timer);
+    this.onStop();
   }
 
   render() {
     // console.log(this.state.dataProvider);
     let data = this.props.data;
     return (
-      <div style={{marginLeft:10}}>
-        <h5 style={{textAlign:'center'}}>Cryptocurrency Market</h5>
-        <table className="table" style={{fontSize:15}}>
+      <div style={{ marginLeft: 10, marginTop: 15 }}>
+        <h4 style={{ textAlign: 'center' }}>Cryptocurrency Market</h4>
+        <table className="table" style={{ fontSize: 15, textAlign: 'center' }}>
           <thead>
             <tr>
               <th> Name </th>
@@ -77,14 +82,6 @@ class CurrentCurrency extends Component {
             ))}
           </tbody>
         </table>
-        <div style={{ textAlign: 'center' }}>
-          <Button style={buttonStyle} type="primary" onClick={() => this.onStart()}>
-            Start
-          </Button>
-          <Button style={buttonStyle} type="primary" onClick={() => this.onStop()}>
-            Stop
-          </Button>
-        </div>
       </div>
     );
   }

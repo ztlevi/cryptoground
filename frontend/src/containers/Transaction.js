@@ -149,70 +149,95 @@ class Transaction extends Component {
             display: 'flex',
             flexDirection: 'column',
             width: '50%',
-            margin: '5px',
+            margin: '8px',
           }}
         >
           <p
             style={{
-              margin: '8px',
-              width: '88%',
-              borderRadius: '10px',
-              backgroundColor: 'rgb(187, 228, 130)',
+              width: '35%',
+              borderTopLeftRadius: '10px',
+              borderTopRightRadius: '10px',
+              backgroundColor: 'rgb(50, 180, 245)',
               color: 'white',
               fontStyle: 'bold',
               fontSize: '20px',
               textAlign: 'center',
+              margin: 0,
             }}
           >
             <b>Buying</b>
           </p>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Price</span>
-            <InputNumber
-              style={{ width: '50%' }}
-              key="0"
-              min={0.0001}
-              defaultValue={10000}
-              value={this.state.buyPrice}
-              onChange={value => this.onChangeBuyPrice(value)}
-            />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Amount</span>
-            <InputNumber
-              style={{ width: '50%' }}
-              key="1"
-              min={0.0001}
-              defaultValue={1}
-              value={this.state.buyAmount}
-              onChange={value => this.onChangeBuyAmount(value)}
-            />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Using balance</span>
-            <Dropdown.Button overlay={buyFromMenu} style={{ width: '50%' }}>
-              {this.state.buyFromSym}
-            </Dropdown.Button>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Cryptocurrency type</span>
-            <Dropdown.Button overlay={buyToMenu} style={{ width: '50%' }}>
-              {this.state.buyToSym}
-            </Dropdown.Button>
-          </div>
-          <Button
-            style={{ margin: '8px', width: '88%', borderRadius: '10px' }}
-            type="primary"
-            onClick={() => this.onBuy()}
-            disabled={
-              !this.props.idToken ||
-              !this.state.buyAmount ||
-              !this.state.buyPrice
-            }
+          <div
+            style={{
+              border: 'solid',
+              borderTopRightRadius: '10px',
+              borderBottomRightRadius: '10px',
+              borderBottomLeftRadius: '10px',
+              borderColor: 'rgb(50, 180, 245)',
+              borderWidth: 2,
+              margin: 0,
+            }}
           >
-            Buy
-          </Button>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                margin: '8px',
+              }}
+            >
+              <span style={{ width: '40%' }}>Price</span>
+              <InputNumber
+                style={{ width: '50%' }}
+                key="0"
+                min={0.0001}
+                defaultValue={10000}
+                value={this.state.buyPrice}
+                onChange={value => this.onChangeBuyPrice(value)}
+              />
+            </div>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
+            >
+              <span style={{ width: '40%', fontSize: '20px' }}>Amount</span>
+              <InputNumber
+                style={{ width: '50%' }}
+                key="1"
+                min={0.0001}
+                defaultValue={1}
+                value={this.state.buyAmount}
+                onChange={value => this.onChangeBuyAmount(value)}
+              />
+            </div>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}
+            >
+              <span style={{ width: '40%' }}>Using balance</span>
+              <Dropdown.Button overlay={buyFromMenu} style={{ width: '50%' }}>
+                {this.state.buyFromSym}
+              </Dropdown.Button>
+            </div>
+
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}
+            >
+              <span style={{ width: '40%' }}>Cryptocurrency type</span>
+              <Dropdown.Button overlay={buyToMenu} style={{ width: '50%' }}>
+                {this.state.buyToSym}
+              </Dropdown.Button>
+            </div>
+            <Button
+              style={{ margin: '8px', width: '88%', borderRadius: '10px' }}
+              type="primary"
+              onClick={() => this.onBuy()}
+              disabled={
+                !this.props.idToken ||
+                !this.state.buyAmount ||
+                !this.state.buyPrice
+              }
+            >
+              Buy
+            </Button>
+          </div>
         </div>
 
         <div
@@ -220,68 +245,97 @@ class Transaction extends Component {
             display: 'flex',
             flexDirection: 'column',
             width: '50%',
-            margin: '3px',
+            margin: '5px',
           }}
         >
           <p
             style={{
-              margin: '8px',
-              width: '88%',
-              borderRadius: '10px',
-              backgroundColor: '#e0a2bc',
+              width: '35%',
+              borderTopLeftRadius: '10px',
+              borderTopRightRadius: '10px',
+              backgroundColor: 'rgb(225,110,174)',
               color: 'white',
               textAlign: 'center',
+              fontStyle: 'bold',
               fontSize: '20px',
+              margin: 0,
             }}
           >
             <b>Selling</b>
           </p>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Price</span>
-            <InputNumber
-              style={{ width: '50%' }}
-              key="0"
-              min={0.0001}
-              defaultValue={10000}
-              value={this.state.sellPrice}
-              onChange={value => this.onChangeSellPrice(value)}
-            />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Amount</span>
-            <InputNumber
-              style={{ width: '50%' }}
-              key="1"
-              min={0.0001}
-              defaultValue={1}
-              value={this.state.sellAmount}
-              onChange={value => this.onChangeSellAmount(value)}
-            />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Cryptocurrency type</span>
-            <Dropdown.Button overlay={sellFromMenu} style={{ width: '50%' }}>
-              {this.state.sellFromSym}
-            </Dropdown.Button>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}>
-            <span style={{ width: '40%' }}>Add to balance</span>
-            <Dropdown.Button overlay={sellToMenu} style={{ width: '50%' }}>
-              {this.state.sellToSym}
-            </Dropdown.Button>
-          </div>
-          <Button
-            style={{ margin: '8px', width: '88%', borderRadius: '10px' }}
-            type="primary"
-            onClick={() => this.onSell()}
-            disabled={
-              !this.props.idToken ||
-              !this.state.sellAmount ||
-              !this.state.sellPrice
-            }
+          <div
+            style={{
+              border: 'solid',
+              borderTopRightRadius: '10px',
+              borderBottomRightRadius: '10px',
+              borderBottomLeftRadius: '10px',
+              borderColor: 'rgb(225,110,174)',
+              borderWidth: 2,
+              margin: 0,
+            }}
           >
-            Sell
-          </Button>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
+            >
+              <span style={{ width: '40%', fontSize: '20px' }}>Price</span>
+              <InputNumber
+                style={{ width: '50%', fontSize: '20px' }}
+                key="0"
+                min={0.0001}
+                defaultValue={10000}
+                value={this.state.sellPrice}
+                onChange={value => this.onChangeSellPrice(value)}
+              />
+            </div>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
+            >
+              <span style={{ width: '40%', fontSize: '20px' }}>Amount</span>
+              <InputNumber
+                style={{ width: '50%', fontSize: '20px' }}
+                key="1"
+                min={0.0001}
+                defaultValue={1}
+                value={this.state.sellAmount}
+                onChange={value => this.onChangeSellAmount(value)}
+              />
+            </div>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
+            >
+              <span style={{ width: '40%' }}>Using balance</span>
+              <Dropdown.Button overlay={buyFromMenu} style={{ width: '50%' }}>
+                {this.state.buyFromSym}
+              </Dropdown.Button>
+            </div>
+
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
+            >
+              <span style={{ width: '40%' }}>Cryptocurrency type</span>
+              <Dropdown.Button overlay={buyToMenu} style={{ width: '50%' }}>
+                {this.state.buyToSym}
+              </Dropdown.Button>
+            </div>
+
+            <Button
+              style={{
+                margin: '8px',
+                width: '88%',
+                borderRadius: '10px',
+                fontSize: '20px',
+              }}
+              type="primary"
+              onClick={() => this.onSell()}
+              disabled={
+                !this.props.idToken ||
+                !this.state.sellAmount ||
+                !this.state.sellPrice
+              }
+            >
+              Sell
+            </Button>
+          </div>
         </div>
       </div>
     );

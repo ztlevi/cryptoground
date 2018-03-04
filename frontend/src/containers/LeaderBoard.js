@@ -69,7 +69,30 @@ class LeaderBoard extends Component {
           left: '5%',
         }}
       >
-        <p style={{ fontSize: '40px', textAlign: 'center' }}>Leading Board</p>
+        <h4 style={{ textAlign: 'center' }}>Leading Board</h4>
+        <p
+          style={{
+            fontSize: 20,
+            fontStyle: 'bold',
+            borderBottom: 'solid',
+            borderWidth: 2,
+            borderBottomColor: 'rgb(1,21,41)',
+          }}
+        >
+          Rank
+          <span style={{ marginLeft: '18%', marginRight: '10%' }}>
+            Username
+          </span>
+          <span style={{ marginLeft: '1%', marginRight: '5%' }}>
+            USD balance
+          </span>
+          <span style={{ marginLeft: '7%', marginRight: '5%' }}>
+            BCT balance
+          </span>
+          <span style={{ marginLeft: '5%', marginRight: '3%' }}>
+            Total balance
+          </span>
+        </p>
         <List
           style={{ width: '100%', margin: '10 10 10 10' }}
           loading={loading}

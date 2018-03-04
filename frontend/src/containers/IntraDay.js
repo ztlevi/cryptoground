@@ -46,17 +46,6 @@ class IntraDay extends Component {
     return dataProvider;
   }
 
-  componentDidMount() {
-    // this.setState({
-    //   // Update the chart dataProvider every 3 seconds
-    //   timer: setInterval(() => {
-    //     this.setState({
-    //       dataProvider: generateData(),
-    //     });
-    //   }, 3000),
-    // });
-  }
-
   componentWillReceiveProps(nextProps) {
     //console.log('next', nextProps.data.batchData);
     this.setState({
@@ -73,8 +62,12 @@ class IntraDay extends Component {
     this.props.onStopFetchBatchIntradayData();
   }
 
+  componentDidMount() {
+    this.onStart();
+  }
+
   componentWillUnmount() {
-    clearInterval(this.state.timer);
+    this.onStop();
   }
 
   render() {
@@ -191,28 +184,12 @@ class IntraDay extends Component {
     };
 
     return (
-      <div id="intraDay">
+      <div style={{ marginLeft: 10, marginTop: 15 }}>
         <h4 style={{ textAlign: 'center' }}>Intra-day Dataflow</h4>
         <AmCharts.React
           style={{ width: '100%', height: '350px' }}
           options={config}
         />
-        <div style={{ textAlign: 'center' }}>
-          <Button
-            style={buttonStyle}
-            type="primary"
-            onClick={() => this.onStart()}
-          >
-            Start
-          </Button>
-          <Button
-            style={buttonStyle}
-            type="primary"
-            onClick={() => this.onStop()}
-          >
-            Stop
-          </Button>
-        </div>
       </div>
     );
   }

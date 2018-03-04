@@ -48,9 +48,12 @@ class HistoricalData extends Component {
     //this.props.onStartFetchDaylyData();
   }
 
+  componentDidMount() {
+    this.onStart();
+  }
+
   componentWillUnmount() {
-    //clearInterval(this.state.timer);
-    //this.props.onStopFetchDaylyData();
+    this.onStop();
   }
 
   onStart() {
@@ -170,29 +173,13 @@ class HistoricalData extends Component {
     };
 
     return (
-      <div>
+      <div style={{ marginLeft: 10, marginTop: 15 }}>
         <h4 style={{ textAlign: 'center' }}>Historical Dataflow</h4>
 
         <AmCharts.React
           style={{ width: '100%', height: '350px' }}
           options={config}
         />
-        <div style={{ textAlign: 'center' }}>
-          <Button
-            style={buttonStyle}
-            type="primary"
-            onClick={() => this.onStart()}
-          >
-            Start
-          </Button>
-          <Button
-            style={buttonStyle}
-            type="primary"
-            onClick={() => this.onStop()}
-          >
-            Stop
-          </Button>
-        </div>
       </div>
     );
   }
