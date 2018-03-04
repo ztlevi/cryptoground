@@ -12,10 +12,35 @@ class Databoard extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/charts" exact component={CurrentCurrency} />
-        <Route path="/charts/intraday" component={IntraDay} />
-        <Route path="/charts/histoday" component={HistoricalData} />
-        <Route path="/charts/trading" component={Transaction} />
+        <Route path="/charts" exact render={() => <CurrentCurrency />} />
+        <Route
+          path="/charts/intraday"
+          render={() => (
+            <div>
+              <CurrentCurrency />
+              <IntraDay />
+            </div>
+          )}
+        />
+        <Route
+          path="/charts/histoday"
+          render={() => (
+            <div>
+              <CurrentCurrency />
+              <HistoricalData />
+            </div>
+          )}
+        />
+        <Route
+          path="/trading"
+          render={() => (
+            <div>
+              <CurrentCurrency />
+              <Transaction />
+            </div>
+          )}
+        />
+        <Route path="/ranking" component={LeaderBoard} />
       </Switch>
     );
   }

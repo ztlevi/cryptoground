@@ -45,7 +45,7 @@ export default class SideBar extends Component {
               <NavLink to="/charts/histoday">Historical Data</NavLink>
             </Menu.Item>
             <Menu.Item key="chart3">
-              <NavLink to="/charts/trading">Trading Form</NavLink>
+              <NavLink to="/trading">Trading Form</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu
