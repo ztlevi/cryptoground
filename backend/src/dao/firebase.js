@@ -18,7 +18,7 @@ export const uploadSuspendedList = suspendedList => {
 
     db
       .ref('suspendedList/')
-      .set(suspendedList)
+      .set(JSON.stringify(suspendedList))
       .then(() => {
         resolve(1);
       })
@@ -32,7 +32,8 @@ export const fetchSuspendedList = () => {
       .ref('suspendedList/')
       .once('value')
       .then(response => {
-        let result = response.val();
+        let result = JSON.parse(response.val());
+        if (!result) resolve(0);
         resolve(result);
       })
       .catch(e => {
