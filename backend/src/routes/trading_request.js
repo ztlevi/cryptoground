@@ -10,7 +10,7 @@ import { addToSuspendedList } from '../utils/suspendedList';
 router.post('/', function(req, res, next) {
   firebase.verifyIdToken(req.body.idToken).then(uid => {
     if (!uid) {
-      res.send('User verify failed!!!');
+      res.jsonp({ status: 'failed', message: 'User verify failed!!!' });
       return;
     }
 
@@ -26,7 +26,10 @@ router.post('/', function(req, res, next) {
 
     firebase.fetchUserBalance(uid).then(response => {
       if (!response) {
-        res.send('Fetching user balance failed!!!');
+        res.jsonp({
+          status: 'failed',
+          message: 'Fetching user balance failed!!!',
+        });
         return;
       }
       let verifyResult = verifyTradingRequest(req, response, cachedCryptoPrice);
@@ -39,9 +42,11 @@ router.post('/', function(req, res, next) {
           firebase.updateUserBalance(uid, verifyResult.balance),
         ]).then(response => {
           if (!response)
-            res.send(
-              "Cannot update user's new balance or push to the new trading record, request failed!"
-            );
+            res.jsonp({
+              status: 'failed',
+              message:
+                "Cannot update user's new balance or push to the new trading record, request failed!",
+            });
           res.jsonp({
             status: 'complete',
             message: 'Trading request has been approved!',
@@ -61,7 +66,10 @@ router.post('/', function(req, res, next) {
             });
           })
           .catch(e => {
-            res.send('Suspend status: pushing to tradingList failed');
+            res.jsonp({
+              status: 'failed',
+              message: 'Suspend status: pushing to tradingList failed',
+            });
           });
       } else {
         // push failed status request to tradingList
