@@ -43,10 +43,8 @@ export const resolveSuspendedList = () => {
 
   suspendedList = newSuspendedList;
 
-  console.log('Update suspendedList!!!!!');
-  console.log(suspendedList);
   firebase.uploadSuspendedList(suspendedList).then(response => {
-    console.log(response);
+    console.log('Update suspendedList!!!!!');
   });
 
   // process trading request

@@ -2,7 +2,6 @@ import * as admin from 'firebase-admin';
 
 // Fetch the service account key JSON file contents
 let serviceAccount = require('../res/service_account.json');
-import { suspendedList } from '../utils/suspendedList';
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -117,6 +116,9 @@ export const verifyIdToken = idToken => {
       .auth()
       .verifyIdToken(idToken)
       .then(decodedToken => {
+        if (!decodedToken) {
+          reject(new Error('Cannot verifyIdToken'));
+        }
         let uid = decodedToken.uid;
         resolve(uid);
       })
@@ -126,28 +128,37 @@ export const verifyIdToken = idToken => {
   });
 };
 
-export const listAllUsers = (uidToEmailList) => {
+export const listAllUsers = uidToEmailList => {
   // List batch of users, 1000 at a time.
-  return new Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) => {
     admin
       .auth()
       .listUsers(1000)
       .then(listUsersResult => {
         let users = listUsersResult.users;
-        for(let i in users){
+        for (let i in users) {
           let userRecord = users[i];
           uidToEmailList.push({
             uid: userRecord.uid,
-            email: userRecord.email
-          })
+            email: userRecord.email,
+          });
         }
         resolve(uidToEmailList);
       })
       .catch(error => {
         reject(error);
       });
-  })
+  });
 };
 
-
-
+export const uploadLeaderBoard = board => {
+  return new Promise((resolve, reject) => {
+    db
+      .ref('leaderboard/')
+      .set(board)
+      .then(() => {
+        resolve(1);
+      })
+      .catch(e => reject(e));
+  });
+};
