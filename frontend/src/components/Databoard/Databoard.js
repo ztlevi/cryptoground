@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
+import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
 
 import IntraDay from '../../containers/IntraDay';
 import HistoricalData from '../../containers/HistoricalData';
@@ -10,23 +11,12 @@ import LeaderBoard from '../../containers/LeaderBoard';
 class Databoard extends Component {
   render() {
     return (
-      <div className="gutter-example">
-        <Row gutter={16}>
-          <Col className="gutter-row" span={18}>
-            <IntraDay />
-            <HistoricalData />
-          </Col>
-          <Col className="gutter-row" span={6}>
-            <CurrentCurrency />
-          </Col>
-          <Col span={24}>
-            <Transaction />
-          </Col>
-          <Col span={24}>
-            <LeaderBoard />
-          </Col>
-        </Row>
-      </div>
+      <Switch>
+        <Route path="/charts" exact component={CurrentCurrency} />
+        <Route path="/charts/intraday" component={IntraDay} />
+        <Route path="/charts/histoday" component={HistoricalData} />
+        <Route path="/charts/trading" component={Transaction} />
+      </Switch>
     );
   }
 }

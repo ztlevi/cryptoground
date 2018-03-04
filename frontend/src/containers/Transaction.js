@@ -129,6 +129,7 @@ class Transaction extends Component {
           flexDirection: 'row',
           width: '100%',
           margin: '10 10 10 10',
+          height: '100%',
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', width: '50%' }}>

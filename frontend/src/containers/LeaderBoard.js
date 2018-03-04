@@ -30,7 +30,10 @@ class LeaderBoard extends Component {
     this.setState({
       //loadingMore: true,
       length: this.state.length + 20,
-      leaderBoard: this.props.leaderBoard.slice(0, this.state.length + 20),
+      leaderBoard: this.props.leaderBoard.slice(
+        0,
+        Math.min(this.state.length + 20, this.props.leaderBoard.length)
+      ),
     });
   };
 

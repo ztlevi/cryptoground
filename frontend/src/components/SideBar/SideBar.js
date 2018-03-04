@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { SubMenu } = Menu;
@@ -30,20 +30,22 @@ export default class SideBar extends Component {
           <SubMenu
             key="chart"
             title={
-              <span>
-                <Icon type="line-chart" />
-                <span>Chart</span>
-              </span>
+              <NavLink to="/charts">
+                <span>
+                  <Icon type="line-chart" />
+                  <span>Chart</span>
+                </span>
+              </NavLink>
             }
           >
             <Menu.Item key="chart1">
-              <Link to="#intrayDay">Intray Day</Link>
+              <NavLink to="/charts/intraday">Intray Day</NavLink>
             </Menu.Item>
             <Menu.Item key="chart2">
-              <Link to="#historicalData">Historical Data</Link>
+              <NavLink to="/charts/histoday">Historical Data</NavLink>
             </Menu.Item>
             <Menu.Item key="chart3">
-              <Link to="#tradingForm">Trading Form</Link>
+              <NavLink to="/charts/trading">Trading Form</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu
@@ -55,16 +57,24 @@ export default class SideBar extends Component {
               </span>
             }
           >
-            <Menu.Item key="user1">Account</Menu.Item>
-            <Menu.Item key="user2">Trading History</Menu.Item>
+            <Menu.Item key="user1">
+              <NavLink to="/user/account">Account</NavLink>
+            </Menu.Item>
+            <Menu.Item key="user2">
+              <NavLink to="/user/history">Trading History</NavLink>
+            </Menu.Item>
           </SubMenu>
           <Menu.Item key="rank">
-            <Icon type="bars" />
-            <span>Ranking</span>
+            <NavLink to="/ranking">
+              <Icon type="bars" />
+              <span>Ranking</span>
+            </NavLink>
           </Menu.Item>
           <Menu.Item key="team">
-            <Icon type="team" />
-            <span>Team</span>
+            <NavLink to="/team">
+              <Icon type="team" />
+              <span>Team</span>
+            </NavLink>
           </Menu.Item>
         </Menu>
       </Sider>

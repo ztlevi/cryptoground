@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Router, Switch, NavLink, Redirect } from 'react-router-dom';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -11,11 +12,11 @@ import SideBar from '../../components/SideBar/SideBar';
 class MyLayout extends Component {
   render() {
     return (
-      <Layout>
+      <Layout style={{ height: '100vh' }}>
         <Navigation />
-        <Layout>
+        <Layout style={{ height: '100%' }}>
           <SideBar />
-          <Layout style={{ padding: '0 24px 24px' }}>
+          <Layout style={{ height: '100%', padding: '0 24px 24px' }}>
             {/* <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>List</Breadcrumb.Item>
@@ -29,7 +30,6 @@ class MyLayout extends Component {
                 minHeight: 280,
               }}
             >
-              {/* <Navigation /> */}
               <Databoard />
             </Content>
           </Layout>
