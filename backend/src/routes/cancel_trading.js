@@ -15,10 +15,15 @@ router.post('/', function(req, res, next) {
     let cancelKey = req.body.key;
 
     if (!suspendedList || !suspendedList[uid]) {
-      res.jsonp({
-        status: 'failed',
-        message: 'Cannot cancel because suspendedList is empty!!!',
-      });
+      firebase
+        .updateUserTradingStatus(uid, cancelKey, 'cancelled')
+        .then(response => {
+          res.jsonp({
+            // Return ture for previous suspended items
+            status: 'cancelled',
+            message: 'Cancel the suspended trading request successfully!',
+          });
+        });
       return;
     }
     let i = 0;
@@ -27,8 +32,8 @@ router.post('/', function(req, res, next) {
       if (key && key === cancelKey) {
         firebase
           .updateUserTradingStatus(uid, key, 'cancelled')
-          .then(res => {
-            if (!res)
+          .then(response => {
+            if (!response)
               res.jsonp({
                 status: 'failed',
                 message: 'Cannot updateUserTradingStatus to cancel!!!',
@@ -47,11 +52,6 @@ router.post('/', function(req, res, next) {
       }
       i++;
     }
-    res.jsonp({
-      status: 'failed',
-      message:
-        'Cannot cancel because the suspended request is not in suspendedList',
-    });
   });
 });
 

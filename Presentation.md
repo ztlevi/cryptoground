@@ -1,8 +1,8 @@
 # Cryptoground
 
-## LINK
+#### https://cryptoground.herokuapp.com
 
-Front End: Junzhi Wang, Jian Shi
+Front End: Junzhi Wang, Wei Li
 
 Back End: Ting Zhou, Jian Shi
 
