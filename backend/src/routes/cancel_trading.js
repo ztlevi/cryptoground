@@ -25,8 +25,6 @@ router.post('/', function(req, res, next) {
     while (i < suspendedList[uid].length) {
       let key = suspendedList[uid][i].key;
       if (key && key === cancelKey) {
-        console.log(key);
-        suspendedList[uid] = suspendedList[uid].slice(i, 1);
         firebase
           .updateUserTradingStatus(uid, key, 'cancelled')
           .then(res => {
@@ -36,6 +34,7 @@ router.post('/', function(req, res, next) {
                 message: 'Cannot updateUserTradingStatus to cancel!!!',
               });
 
+            suspendedList[uid] = suspendedList[uid].slice(i, 1);
             res.jsonp({
               status: 'cancelled',
               message: 'Cancel the suspended trading request successfully!',
