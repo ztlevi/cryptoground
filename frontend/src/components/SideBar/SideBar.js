@@ -33,47 +33,47 @@ export default class SideBar extends Component {
               <NavLink to="/charts">
                 <span>
                   <Icon type="line-chart" />
-                  <span>Chart</span>
+                  <span style={{ fontSize: '150%' }}>Chart</span>
                 </span>
               </NavLink>
             }
           >
-            <Menu.Item key="chart1">
+            <Menu.Item key="chart1" style={{ fontSize: '125%' }}>
               <NavLink to="/charts/intraday">Intray Day</NavLink>
             </Menu.Item>
-            <Menu.Item key="chart2">
+            <Menu.Item key="chart2" style={{ fontSize: '125%' }}>
               <NavLink to="/charts/histoday">Historical Data</NavLink>
             </Menu.Item>
-            <Menu.Item key="chart3">
+            <Menu.Item key="chart3" style={{ fontSize: '125%' }}>
               <NavLink to="/trading">Trading Form</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu
             key="user"
             title={
-              <span>
+              <span style={{ fontSize: '150%' }}>
                 <Icon type="user" />
                 <span>User</span>
               </span>
             }
           >
-            <Menu.Item key="user1">
+            <Menu.Item key="user1" style={{ fontSize: '125%' }}>
               <NavLink to="/user/account">Account</NavLink>
             </Menu.Item>
-            <Menu.Item key="user2">
+            <Menu.Item key="user2" style={{ fontSize: '125%' }}>
               <NavLink to="/user/history">Trading History</NavLink>
             </Menu.Item>
           </SubMenu>
           <Menu.Item key="rank">
             <NavLink to="/ranking">
               <Icon type="bars" />
-              <span>Ranking</span>
+              <span style={{ fontSize: '150%' }}>Ranking</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="team">
             <NavLink to="/team">
               <Icon type="team" />
-              <span>Team</span>
+              <span style={{ fontSize: '150%' }}>Team</span>
             </NavLink>
           </Menu.Item>
         </Menu>

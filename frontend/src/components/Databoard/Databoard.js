@@ -41,6 +41,8 @@ class Databoard extends Component {
           )}
         />
         <Route path="/ranking" component={LeaderBoard} />
+        <Route path="/user/account" component={null} />
+        <Route path="/user/history" component={null} />
         <Redirect from="/" to="/charts" />
       </Switch>
     );

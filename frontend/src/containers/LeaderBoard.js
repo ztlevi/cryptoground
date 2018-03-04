@@ -83,15 +83,9 @@ class LeaderBoard extends Component {
           <span style={{ marginLeft: '18%', marginRight: '10%' }}>
             Username
           </span>
-          <span style={{ marginLeft: '1%', marginRight: '5%' }}>
-            USD balance
-          </span>
-          <span style={{ marginLeft: '7%', marginRight: '5%' }}>
-            BCT balance
-          </span>
-          <span style={{ marginLeft: '5%', marginRight: '3%' }}>
-            Total balance
-          </span>
+          <span style={{ marginLeft: '1%', marginRight: '5%' }}>USD</span>
+          <span style={{ marginLeft: '7%', marginRight: '5%' }}>BCT</span>
+          <span style={{ marginLeft: '5%', marginRight: '3%' }}>ROI</span>
         </p>
         <List
           style={{ width: '100%', margin: '10 10 10 10' }}
