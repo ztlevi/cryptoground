@@ -2,6 +2,7 @@ import * as admin from 'firebase-admin';
 
 // Fetch the service account key JSON file contents
 let serviceAccount = require('../res/service_account.json');
+import { suspendedList } from '../utils/suspendedList';
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -12,58 +13,26 @@ admin.initializeApp({
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 const db = admin.database();
 
-const INFO_TYPE = {
-  name: 'name',
-  email: 'email',
-  imageURL: 'imageURL',
-};
-
-// set user's name, email, imageURL
-// firebase update node's children data
-// https://firebase.google.com/docs/database/web/read-and-write?authuser=0#updating_or_deleting_data
-const setUserInfo = (userId, type, info) => {
-  if (!INFO_TYPE.type) {
-    console.log('No such type found!');
-    return;
-  }
-
+export const uploadSuspendedList = suspendedList => {
   return new Promise((resolve, reject) => {
-    let infoEntry = db
-      .ref('users/' + userId + '/profile')
-      .child(INFO_TYPE.type)
-      .push().key;
-
-    let updates = {};
-    updates['users/' + userId + '/profile/' + INFO_TYPE.type] = info;
-
     db
-      .ref('users/' + userId + '/profile')
-      .update(updates)
+      .ref('suspendedList')
+      .set(suspendedList)
       .then(() => {
-        // set returns non-null firebase.Promise containing void
-        // https://firebase.google.com/docs/reference/js/firebase.database.Reference?authuser=0#set
         resolve(1);
       })
-      .catch(e => {
-        reject(e);
-      });
+      .catch(e => reject(e));
   });
 };
 
-// get user's profile
-const getUserInfo = (userId, type) => {
-  if (!INFO_TYPE.type) {
-    console.log('No such type found!');
-    return;
-  }
-
+export const fetchSuspendedList = () => {
   return new Promise((resolve, reject) => {
     db
-      .ref('users/' + userId + '/profile')
+      .ref('suspendedList')
       .once('value')
-      .then(profile => {
-        if (!profile) reject(new Error(`No user profile found!`));
-        resolve(profile);
+      .then(response => {
+        let result = response.val();
+        resolve(result);
       })
       .catch(e => {
         reject(e);
@@ -71,23 +40,13 @@ const getUserInfo = (userId, type) => {
   });
 };
 
-// handle trading request
-// append a new trading to the existing trading history
-export const setTrading = (userId, tradingId, tradingData) => {
-  console.log('Push new trading to firebase...');
-
+export const updateUserTradingStatus = (uid, key, status) => {
   return new Promise((resolve, reject) => {
-    let tradingEntry = db
-      .ref('users/' + userId + '/trading')
-      .child(INFO_TYPE.type)
-      .push().key;
-
-    let updates = {};
-    updates['users/' + userId + '/profile/' + INFO_TYPE.type] = info;
-
+    console.log('updateUserTradingStatus!!!!!');
+    console.log(uid, key, status);
     db
-      .ref('users/' + userId + '/profile')
-      .update(updates)
+      .ref('users/' + uid + '/trading/' + key + '/status')
+      .set(status)
       .then(() => {
         resolve(1);
       })
@@ -97,10 +56,26 @@ export const setTrading = (userId, tradingId, tradingData) => {
   });
 };
 
-export const fetchTrading = userId => {
+export const pushUserTradingList = (uid, newTradingData) => {
+  return new Promise((resolve, reject) => {
+    let key = db.ref('users/' + uid + '/trading').push().key;
+
+    db
+      .ref('users/' + uid + '/trading/' + key)
+      .set(newTradingData)
+      .then(() => {
+        resolve(key);
+      })
+      .catch(e => {
+        reject(e);
+      });
+  });
+};
+
+export const fetchUserTradingList = uid => {
   return new Promise((resolve, reject) => {
     db
-      .ref('users/' + userId + '/trading')
+      .ref('users/' + uid + '/trading')
       .once('value')
       .then(data => {
         if (!data) reject(new Error('No trading history found!'));
@@ -142,7 +117,7 @@ export const verifyIdToken = idToken => {
       .auth()
       .verifyIdToken(idToken)
       .then(decodedToken => {
-        var uid = decodedToken.uid;
+        let uid = decodedToken.uid;
         resolve(uid);
       })
       .catch(error => {

@@ -88,6 +88,9 @@ function onListening() {
 }
 
 // update local caching price every minite
+updateCurrencyPrice().then(() => {
+  console.log(cachedCryptoPrice);
+});
 setInterval(() => {
   updateCurrencyPrice().then(() => {
     console.log(cachedCryptoPrice);
@@ -95,6 +98,10 @@ setInterval(() => {
 }, 5000);
 
 // resolve suspendedList, see if we can proceed some request or delete the expire request
+// resolveSuspendedList();
+// setInterval(() => {
+//   resolveSuspendedList();
+// }, 60000);
 setInterval(() => {
   resolveSuspendedList();
-}, 5000);
+}, 10000);

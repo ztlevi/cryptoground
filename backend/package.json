@@ -3,11 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev":
-      "nodemon --exec babel-node --presets=env --ignore='node_modules' -- ./src/bin/www",
+    "dev": "nodemon --exec babel-node --presets=env --ignore='node_modules' -- ./src/bin/www",
     "clean": "rm -rf dist",
-    "build":
-      "npm run clean && mkdir dist && babel src -s --copy-files -d dist && babel src/bin/www -s -o dist/bin/www",
+    "build": "npm run clean && mkdir dist && babel src -s --copy-files -d dist && babel src/bin/www -s -o dist/bin/www",
     "production": "npm run build && node dist/bin/www",
     "start": "node -r babel-register ./src/bin/www"
   },
@@ -20,6 +18,7 @@
     "firebase": "^4.10.1",
     "firebase-admin": "^5.9.1",
     "jade": "~1.11.0",
+    "md5": "^2.2.1",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
   },

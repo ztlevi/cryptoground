@@ -13,7 +13,6 @@ export const updateCurrencyPrice = () => {
       .get(cryptoRealtimeRequestUrl(cryptoType, toSyms))
       .then(response => {
         if (response.status === 200) {
-          console.log('Fetch cryptocurrency price succeed!!!');
           cachedCryptoPrice = response.data;
           resolve(1);
         } else {

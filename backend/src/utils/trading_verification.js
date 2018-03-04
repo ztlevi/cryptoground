@@ -1,23 +1,19 @@
 const TRADING_TYPE = { BUY: 'BUY', SELL: 'SELL' };
 
-// import { cachedCryptoPrice } from '../dao/api';
-
-// console.log(cachedCryptoPrice);
-
-export function verifyTradingRequest(
+export const verifyTradingRequest = (
   trading_request,
   userBalance,
   cachedCryptoPrice,
-) {
-  var from = trading_request.tradingFromSym;
-  var to = trading_request.tradingToSym;
-  var price = trading_request.tradingPrice;
-  var amount = trading_request.tradingAmount;
-  var action = trading_request.tradingType;
-  var re = {};
+) => {
+  let from = trading_request.tradingFromSym;
+  let to = trading_request.tradingToSym;
+  let price = trading_request.tradingPrice;
+  let amount = trading_request.tradingAmount;
+  let action = trading_request.tradingType;
+  let re = {};
 
-  var marketPrice = 0;
-  var newBalance = userBalance;
+  let marketPrice = 0;
+  let newBalance = userBalance;
   if (action === TRADING_TYPE.SELL) {
     marketPrice = cachedCryptoPrice[from];
     if (marketPrice[to] <= price) {
@@ -54,4 +50,4 @@ export function verifyTradingRequest(
     re['status'] = 'failed';
   }
   return re;
-}
+};
