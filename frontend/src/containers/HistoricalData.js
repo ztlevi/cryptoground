@@ -170,8 +170,9 @@ class HistoricalData extends Component {
     };
 
     return (
-      <div id="#historicalData">
+      <div>
         <h4 style={{ textAlign: 'center' }}>Historical Dataflow</h4>
+
         <AmCharts.React
           style={{ width: '100%', height: '350px' }}
           options={config}

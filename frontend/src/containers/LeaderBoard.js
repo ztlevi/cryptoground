@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
-
-import { List, Avatar, Button, Spin } from 'antd';
+import { List, Avatar, Button } from 'antd';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,25 +15,33 @@ class LeaderBoard extends Component {
       loadingMore: false,
       showLoadingMore: true,
       leaderBoard: [],
-      length: 20,
+      length: 10,
     };
   }
 
   componentDidMount() {
     this.props.onLoadLeaderBoard();
+    this.setState({
+      loading: false,
+    });
   }
 
   onLoadMore = () => {
     console.log(this.props.leaderBoard);
     console.log('loading more');
-    this.setState({
-      //loadingMore: true,
-      length: this.state.length + 20,
-      leaderBoard: this.props.leaderBoard.slice(
-        0,
-        Math.min(this.state.length + 20, this.props.leaderBoard.length)
-      ),
-    });
+    this.setState(
+      {
+        loadingMore: true,
+        length: this.state.length + 5,
+        leaderBoard: this.props.leaderBoard.slice(
+          0,
+          Math.min(this.state.length + 5, this.props.leaderBoard.length)
+        ),
+      },
+      () => {
+        window.dispatchEvent(new Event('resize'));
+      }
+    );
   };
 
   render() {
@@ -53,22 +60,65 @@ class LeaderBoard extends Component {
       </div>
     ) : null;
     return (
-      <List
-        style={{ width: '100%', margin: '10 10 10 10' }}
-        loading={loading}
-        itemLayout="horizontal"
-        loadMore={loadMore}
-        dataSource={leaderBoard}
-        renderItem={item => (
-          <List.Item>
-            <List.Item.Meta
-              title={<span>{item.userName}</span>}
-              description={item.userName}
-            />
-            <div>content</div>
-          </List.Item>
-        )}
-      />
+      <div
+        style={{
+          width: '85%',
+          margin: '10px',
+          boxAlign: 'center',
+          position: 'relative',
+          left: '5%',
+        }}
+      >
+        <p style={{ fontSize: '40px', textAlign: 'center' }}>Leading Board</p>
+        <List
+          style={{ width: '100%', margin: '10 10 10 10' }}
+          loading={loading}
+          itemLayout="horizontal"
+          loadMore={loadMore}
+          dataSource={leaderBoard}
+          renderItem={item => (
+            <List.Item>
+              <List.Item.Meta title={item.userName} />
+              <div
+                style={{
+                  fontSize: '20px',
+                  marginLeft: '20%',
+                  marginRight: '20%',
+                }}
+              >
+                {item.userName}
+              </div>
+              <div
+                style={{
+                  fontSize: '20px',
+                  marginLeft: '15%',
+                  marginRight: '15%',
+                }}
+              >
+                Content
+              </div>
+              <div
+                style={{
+                  fontSize: '20px',
+                  marginLeft: '15%',
+                  marginRight: '15%',
+                }}
+              >
+                Content
+              </div>
+              <div
+                style={{
+                  fontSize: '20px',
+                  marginLeft: '15%',
+                  marginRight: '15%',
+                }}
+              >
+                Content
+              </div>
+            </List.Item>
+          )}
+        />
+      </div>
     );
   }
 }

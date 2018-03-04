@@ -191,7 +191,7 @@ class IntraDay extends Component {
     };
 
     return (
-      <div id="intrayDay">
+      <div id="intraDay">
         <h4 style={{ textAlign: 'center' }}>Intra-day Dataflow</h4>
         <AmCharts.React
           style={{ width: '100%', height: '350px' }}
