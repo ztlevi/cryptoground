@@ -14,10 +14,10 @@ class Transaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buyPrice: 0.0,
-      buyAmount: 0.0,
-      sellPrice: 0.0,
-      sellAmount: 0.0,
+      buyPrice: 1000,
+      buyAmount: 1,
+      sellPrice: 1000,
+      sellAmount: 1,
       buyFromSym: 'USD',
       buyToSym: 'BTC',
       sellFromSym: 'BTC',
@@ -29,24 +29,28 @@ class Transaction extends Component {
     this.setState({
       buyPrice: value,
     });
+    console.log('onChangeBuyPrice', value);
   }
 
   onChangeBuyAmount(value) {
     this.setState({
       buyAmount: value,
     });
+    console.log('onChangeBuyAmount', value);
   }
 
   onChangeSellPrice(value) {
     this.setState({
       sellPrice: value,
     });
+    console.log('onChangeSellPrice', value);
   }
 
   onChangeSellAmount(value) {
     this.setState({
       sellAmount: value,
     });
+    console.log('onChangeSellAmount', value);
   }
 
   onBuy() {
@@ -190,9 +194,11 @@ class Transaction extends Component {
               <InputNumber
                 style={{ width: '50%', fontSize: '20px' }}
                 key="0"
-                min={0.0001}
                 defaultValue={10000}
-                value={this.state.buyPrice}
+                formatter={value =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                }
+                min={0.0001}
                 onChange={value => this.onChangeBuyPrice(value)}
               />
             </div>
@@ -203,9 +209,8 @@ class Transaction extends Component {
               <InputNumber
                 style={{ width: '50%', fontSize: '20px' }}
                 key="1"
-                min={0.0001}
                 defaultValue={1}
-                value={this.state.buyAmount}
+                min={0.0001}
                 onChange={value => this.onChangeBuyAmount(value)}
               />
             </div>
@@ -243,8 +248,8 @@ class Transaction extends Component {
               onClick={() => this.onBuy()}
               disabled={
                 !this.props.idToken ||
-                !this.state.buyAmount ||
-                !this.state.buyPrice
+                this.state.buyAmount <= 0 ||
+                this.state.buyPrice <= 0
               }
             >
               Buy
@@ -294,9 +299,11 @@ class Transaction extends Component {
               <InputNumber
                 style={{ width: '50%', fontSize: '20px' }}
                 key="0"
-                min={0.0001}
                 defaultValue={10000}
-                value={this.state.sellPrice}
+                min={0.0001}
+                formatter={value =>
+                  `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                }
                 onChange={value => this.onChangeSellPrice(value)}
               />
             </div>
@@ -305,12 +312,11 @@ class Transaction extends Component {
             >
               <span style={{ width: '40%', fontSize: '20px' }}>Amount</span>
               <InputNumber
-                style={{ width: '50%', fontSize: '20px' }}
-                key="1"
-                min={0.0001}
                 defaultValue={1}
-                value={this.state.sellAmount}
+                min={0.0001}
+                key="1"
                 onChange={value => this.onChangeSellAmount(value)}
+                style={{ width: '50%', fontSize: '20px' }}
               />
             </div>
             <div
@@ -348,8 +354,8 @@ class Transaction extends Component {
               onClick={() => this.onSell()}
               disabled={
                 !this.props.idToken ||
-                !this.state.sellAmount ||
-                !this.state.sellPrice
+                this.state.sellAmount <= 0 ||
+                this.state.sellPrice <= 0
               }
             >
               Sell

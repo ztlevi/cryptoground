@@ -16,6 +16,7 @@ class LeaderBoard extends Component {
       loadingMore: false,
       showLoadingMore: true,
       leaderBoard: [],
+      rank: -1,
       length: 10,
     };
   }
@@ -45,6 +46,7 @@ class LeaderBoard extends Component {
     console.log('leaderBoard', nextProps.leaderBoard, nextProps.rank);
     this.setState({
       leaderBoard: this.generateData(nextProps.leaderBoard),
+      rank: nextProps.rank,
     });
   }
 
@@ -69,6 +71,11 @@ class LeaderBoard extends Component {
     return (
       <div style={{ marginLeft: 10, marginTop: 15 }}>
         <h4 style={{ textAlign: 'center' }}>Leader Board</h4>
+        <h5 style={{ textAlign: 'left', color: 'rgb(23, 118, 250)' }}>
+          {this.state.rank == -1
+            ? 'Please log in to check your rank.'
+            : 'Your rank:' + this.state.rank}
+        </h5>
         <table className="table" style={{ fontSize: 15, textAlign: 'center' }}>
           <thead>
             <tr>
@@ -81,7 +88,17 @@ class LeaderBoard extends Component {
           </thead>
           <tbody>
             {this.state.leaderBoard.map(item => (
-              <tr key={item.key}>
+              <tr
+                key={item.key}
+                style={{
+                  color:
+                    item.key == this.state.rank - 1
+                      ? 'rgb(23, 118, 250)'
+                      : 'rgb(66, 66, 68)',
+                  fontWeight:
+                    item.key == this.state.rank - 1 ? 'bold' : 'normal',
+                }}
+              >
                 <td> {item.key + 1} </td>
                 <td> {item.userName} </td>
                 <td> {item.USD.toFixed(4)} </td>

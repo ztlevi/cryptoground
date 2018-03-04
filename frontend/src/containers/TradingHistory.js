@@ -92,7 +92,6 @@ class TradingHistory extends Component {
         <table className="table" style={{ fontSize: 15, textAlign: 'center' }}>
           <thead>
             <tr>
-              <th> Key </th>
               <th> Time </th>
               <th> Type </th>
               <th> Amount </th>
@@ -107,7 +106,6 @@ class TradingHistory extends Component {
           <tbody>
             {this.state.dataProvider.map(item => (
               <tr key={item.key}>
-                <td> {item.key} </td>
                 <td> {new Date(item.timestamp * 1000).toString()} </td>
                 <td> {item.tradingType} </td>
                 <td> {item.amount} </td>
@@ -126,7 +124,7 @@ class TradingHistory extends Component {
                     disabled={item.status != 'suspend'}
                     onClick={() => this.delete(item.timestamp)}
                   >
-                    Cancle
+                    Cancel
                   </Button>
                 </td>
               </tr>
