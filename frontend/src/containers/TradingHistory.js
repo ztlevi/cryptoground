@@ -51,6 +51,10 @@ class TradingHistory extends Component {
     };
   }
 
+  handleOk() {
+    this.props.toggleTradingResponseModal(null, false);
+  }
+
   componentDidMount() {
     this.props.onLoadTradingList();
   }
@@ -89,6 +93,15 @@ class TradingHistory extends Component {
     console.log(this.state.dataProvider);
     return (
       <div style={{ marginLeft: 10, marginTop: 15 }}>
+        <Modal
+          visible={this.props.isModalOpen}
+          onOk={e => this.handleOk(e)}
+          onCancel={e => this.handleOk(e)}
+          footer={null}
+          wrapClassName="vertical-center-modal"
+        >
+          {this.props.text}
+        </Modal>
         <h4 style={{ textAlign: 'center' }}>Trading List</h4>
         <table className="table" style={{ fontSize: 15, textAlign: 'center' }}>
           <thead>
@@ -141,11 +154,16 @@ TradingHistory.propTypes = {
   tradingList: PropTypes.object,
   onLoadTradingList: PropTypes.func,
   onCancelTradingRequest: PropTypes.func,
+  toggleTradingResponseModal: PropTypes.func,
+  isModalOpen: PropTypes.bool,
+  text: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
     tradingList: state.trading.tradingList,
+    isModalOpen: state.modal.tradingResponseModal.isOpen,
+    text: state.modal.tradingResponseModal.text,
   };
 };
 
@@ -154,6 +172,8 @@ const mapDispatchToProps = dispatch => {
     onCancelTradingRequest: payload =>
       dispatch(userActions.sagaCancelTradingRequest(payload)),
     onLoadTradingList: () => dispatch(userActions.sagaSyncTradingList()),
+    toggleTradingResponseModal: (text, isOpen) =>
+      dispatch(userActions.toggleTradingResponseModal(text, isOpen)),
   };
 };
 
