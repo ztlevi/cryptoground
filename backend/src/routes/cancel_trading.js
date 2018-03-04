@@ -26,7 +26,7 @@ router.post('/', function(req, res, next) {
       let key = suspendedList[uid][i].key;
       if (key && key === cancelKey) {
         console.log(key);
-        suspendedList.slice(i, 1);
+        suspendedList[uid] = suspendedList[uid].slice(i, 1);
         firebase
           .updateUserTradingStatus(uid, key, 'cancelled')
           .then(res => {
