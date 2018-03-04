@@ -3,7 +3,7 @@ const TRADING_TYPE = { BUY: 'BUY', SELL: 'SELL' };
 export const verifyTradingRequest = (
   trading_request,
   userBalance,
-  cachedCryptoPrice,
+  cachedCryptoPrice
 ) => {
   let from = trading_request.tradingFromSym;
   let to = trading_request.tradingToSym;

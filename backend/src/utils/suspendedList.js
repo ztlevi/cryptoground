@@ -20,7 +20,6 @@ export const addToSuspendedList = (uid, key, trading_request) => {
   if (!suspendedList[uid]) suspendedList[uid] = [];
   // suspendedList[uid][key].push(trading_request);
   suspendedList[uid].push({ key: key, data: trading_request });
-  console.log(suspendedList);
 };
 
 // resolve request remains in the suspendedList every miniute
@@ -43,6 +42,12 @@ export const resolveSuspendedList = () => {
   }
 
   suspendedList = newSuspendedList;
+
+  console.log('Update suspendedList!!!!!');
+  console.log(suspendedList);
+  firebase.uploadSuspendedList(suspendedList).then(response => {
+    console.log(response);
+  });
 
   // process trading request
   for (let uid in suspendedList) {
@@ -97,6 +102,4 @@ export const resolveSuspendedList = () => {
     }
     suspendedList[uid] = newList;
   }
-
-  firebase.uploadSuspendedList(suspendedList);
 };

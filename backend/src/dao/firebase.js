@@ -16,7 +16,7 @@ const db = admin.database();
 export const uploadSuspendedList = suspendedList => {
   return new Promise((resolve, reject) => {
     db
-      .ref('suspendedList')
+      .ref('suspendedList/')
       .set(suspendedList)
       .then(() => {
         resolve(1);
@@ -28,7 +28,7 @@ export const uploadSuspendedList = suspendedList => {
 export const fetchSuspendedList = () => {
   return new Promise((resolve, reject) => {
     db
-      .ref('suspendedList')
+      .ref('suspendedList/')
       .once('value')
       .then(response => {
         let result = response.val();
