@@ -266,7 +266,6 @@ class Transaction extends Component {
                 {this.state.buyFromSym}
               </Dropdown.Button>
             </div>
-
             <div
               style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
             >
@@ -277,6 +276,16 @@ class Transaction extends Component {
                 {this.state.buyToSym}
               </Dropdown.Button>
             </div>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}
+            >
+              <span style={{ width: '40%' }}>USD balance</span>
+
+              <span style={{ width: '50%', fontSize: '20px' }}>
+                {'$' + this.props.balance['USD']}
+              </span>
+            </div>
+
             <Button
               style={{
                 margin: '8px',
@@ -380,6 +389,15 @@ class Transaction extends Component {
                 {this.state.buyToSym}
               </Dropdown.Button>
             </div>
+            <div
+              style={{ display: 'flex', flexDirection: 'row', margin: '8px' }}
+            >
+              <span style={{ width: '40%' }}>BTC balance</span>
+
+              <span style={{ width: '50%', fontSize: '20px' }}>
+                {this.props.balance['BTC'] + '  BTC'}
+              </span>
+            </div>
 
             <Button
               style={{
@@ -412,6 +430,7 @@ Transaction.propTypes = {
   isModalOpen: PropTypes.bool,
   text: PropTypes.string,
   toggleTradingResponseModal: PropTypes.func,
+  balance: PropTypes.object,
 };
 
 const mapStateToProps = state => {
@@ -419,6 +438,7 @@ const mapStateToProps = state => {
     idToken: state.auth.idToken,
     isModalOpen: state.modal.tradingResponseModal.isOpen,
     text: state.modal.tradingResponseModal.text,
+    balance: state.user.balance,
   };
 };
 
