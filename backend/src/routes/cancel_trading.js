@@ -24,7 +24,7 @@ router.post('/', function(req, res, next) {
     let i = 0;
     while (i < suspendedList[uid].length) {
       let key = suspendedList[uid][i].key;
-      if (key === cancelKey) {
+      if (key && key === cancelKey) {
         console.log(key);
         suspendedList.slice(i, 1);
         firebase
@@ -48,6 +48,11 @@ router.post('/', function(req, res, next) {
       }
       i++;
     }
+    res.jsonp({
+      status: 'failed',
+      message:
+        'Cannot cancel because the suspended request is not in suspendedList',
+    });
   });
 });
 
