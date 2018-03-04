@@ -125,3 +125,29 @@ export const verifyIdToken = idToken => {
       });
   });
 };
+
+export const listAllUsers = (uidToEmailList) => {
+  // List batch of users, 1000 at a time.
+  return new Promise((resolve, reject) =>{
+    admin
+      .auth()
+      .listUsers(1000)
+      .then(listUsersResult => {
+        let users = listUsersResult.users;
+        for(let i in users){
+          let userRecord = users[i];
+          uidToEmailList.push({
+            uid: userRecord.uid,
+            email: userRecord.email
+          })
+        }
+        resolve(uidToEmailList);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  })
+};
+
+
+

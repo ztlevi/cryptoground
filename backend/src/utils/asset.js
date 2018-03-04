@@ -1,5 +1,7 @@
 import * as cryptoConfigs from '../res/cryptoConfigs';
 import { queryRateTable, cachedCryptoPrice } from '../dao/api';
+import { listAllUsers, fetchUserBalance } from '../dao/firebase';
+import thenjs from 'thenjs';
 export const initialUSD = 10000;
 
 /**
@@ -37,3 +39,32 @@ export const computeTotals = balances => {
       .catch(err => reject(err));
   });
 };
+
+export const genLeaderBoard = () => {
+  let list = [];
+  listAllUsers(list)
+    .then(uidEmailList => {
+      thenjs.each(uidEmailList, (defer, obj) => {
+        fetchUserBalance(obj.uid)
+          .then(res => {
+            defer(null, res);
+          }).catch(err => defer(err, res))
+      }).then((defer, result) => {
+        console.log('balance', result);
+        computeTotals(result)
+          .then(userAssets => {
+            let structuredData = [];
+            for(let i in userAssets){
+              structuredData.push({
+                uid: uidEmailList[i].uid,
+                email: uidEmailList[i].email,
+                assets: userAssets[i]
+              });
+            }
+            console.log(structuredData);
+          })
+      }).fail((defer, err) =>{
+        console.log(err);
+      })
+    })
+}

@@ -10,6 +10,8 @@ var http = require('http');
 
 import { cachedCryptoPrice, updateCurrencyPrice } from '../dao/api';
 import { resolveSuspendedList } from '../utils/suspendedList';
+import { listAllUsers } from '../dao/firebase';
+import { genLeaderBoard} from '../utils/asset';
 /**
  * Get port from environment and store in Express.
  */
@@ -102,6 +104,10 @@ setInterval(() => {
 // setInterval(() => {
 //   resolveSuspendedList();
 // }, 60000);
+
+let uidToEmailDict = {}
 setInterval(() => {
   resolveSuspendedList();
 }, 10000);
+
+genLeaderBoard();

@@ -19,7 +19,8 @@
     "firebase-admin": "^5.9.1",
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "thenjs": "^2.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

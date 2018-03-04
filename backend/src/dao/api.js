@@ -6,7 +6,7 @@ import { cryptoRealtimeRequestUrl } from '../utils/cryptoDataUrls';
 export let cachedCryptoPrice = {};
 
 export const queryRateTable = () => {
-  let url = crypto(
+  let url = cryptoRealtimeRequestUrl(
     [...cryptoType, ...currencyType],
     [...cryptoType, ...currencyType]
   );
@@ -15,7 +15,7 @@ export const queryRateTable = () => {
       .get(url)
       .then(response => {
         if (response.status === 200) {
-          resolve(1);
+          resolve(response.data);
         } else {
           reject(0);
         }
