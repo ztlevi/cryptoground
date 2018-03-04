@@ -20,10 +20,10 @@ class LeaderBoard extends Component {
   }
 
   generateData(props) {
-    console.log('generate', props.length, props);
+    //console.log('generate', props.length, props);
     var dataList = [];
     for (var i = 0; i < props.length; i += 1) {
-      console.log(i, props[i].assets);
+      //console.log(i, props[i].assets);
       dataList.push({
         key: i,
         userName: props[i].email,
@@ -41,15 +41,15 @@ class LeaderBoard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('leaderBoard from component!', nextProps.leaderBoard);
+    //console.log('leaderBoard from component!', nextProps.leaderBoard);
     this.setState({
       leaderBoard: this.generateData(nextProps.leaderBoard),
     });
   }
 
   onLoadMore = () => {
-    console.log(this.props.leaderBoard);
-    console.log('loading more');
+    //console.log(this.props.leaderBoard);
+    //console.log('loading more');
     this.setState({
       loadingMore: true,
       length: this.state.length + 5,
@@ -77,7 +77,7 @@ class LeaderBoard extends Component {
           <tbody>
             {this.state.leaderBoard.map(item => (
               <tr key={item.key}>
-                <td> {item.rank} </td>
+                <td> {item.key + 1} </td>
                 <td> {item.userName} </td>
                 <td> {item.USD.toFixed(4)} </td>
                 <td> {item.BTC.toFixed(4)} </td>
