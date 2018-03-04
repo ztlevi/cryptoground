@@ -3,6 +3,8 @@ export const localhostUrl =
   'https://cryptoground-backend.herokuapp.com/get_price';
 export const localhostTradingRequestUrl =
   'https://cryptoground-backend.herokuapp.com/trading_request';
+export const localhostCancelTradingUrl =
+  'https://cryptoground-backend.herokuapp.com/cancel_trading';
 /**
  * generate crypto request to fetch multiple symbols price
  * @param fromSyms: Array

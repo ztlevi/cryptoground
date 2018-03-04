@@ -81,14 +81,41 @@ export function* sagaRequestTrading(action) {
     const tradingList = yield call(userApi.fetchUserTradingList, uid, idToken);
 
     // Update local trading list
-    console.log('tradingList', tradingList);
+    //console.log('tradingList', tradingList);
     yield put(userActions.updateTradingList(tradingList));
   } catch (err) {
     console.log(err);
   }
 }
 
-const fakeLeaderBoard = () => {
+export function* sagaCancelTrading(action) {
+  try {
+    const state = yield select();
+    const { uid, idToken } = state.auth;
+    if (!uid || !idToken) {
+      return;
+    }
+
+    console.log('Start cancel trading');
+    const res = yield call(tradingApi.cancelTrading, action.payload);
+
+    yield put(userActions.toggleTradingResponseModal(res.message, true));
+
+    console.log('Cancel result', res);
+    // Update balance account
+    yield call(sagaSyncUserBalance);
+
+    // Fetch trading list from firebase
+    const tradingList = yield call(userApi.fetchUserTradingList, uid, idToken);
+
+    // Update local trading list
+    //console.log('tradingList', tradingList);
+    yield put(userActions.updateTradingList(tradingList));
+  } catch (err) {
+    console.log(err);
+  }
+}
+export const fakeLeaderBoard = () => {
   let leaderBoard = [];
   for (let i = 0; i < 200; ++i) {
     leaderBoard.push({ userName: i.toString() });
@@ -111,14 +138,12 @@ export function* sagaSyncLeaderBoard() {
 
       const leaderBoard = yield call(userApi.fetchLeaderBoard, idToken);
       //console.log('saga leaderBoard', leaderBoard);
-      console.log('email', email);
       yield put(
         userActions.updateLeaderBoard({
           email: email,
           leaderBoard: leaderBoard,
         })
       );
-      console.log(state.leaderBoard);
       yield call(delay, 60 * 1000 * 2);
     }
   } catch (err) {
@@ -136,4 +161,5 @@ export default [
   takeEvery(actionTypes.SAGA_REQUEST_TRADING, sagaRequestTrading),
   takeEvery(actionTypes.SAGA_SYNC_USER_TRADINGS, sagaSyncTradingList),
   //takeEvery(actionTypes.SAGA_SYNC_LEADER_BOARD, sagaSyncLeaderBoard),
+  takeEvery(actionTypes.SAGA_CANCEL_TRADING, sagaCancelTrading),
 ];

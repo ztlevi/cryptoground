@@ -47,6 +47,7 @@ class TradingHistory extends Component {
 
     this.state = {
       dataProvider: [],
+      alteredData: {},
     };
   }
 
@@ -55,21 +56,32 @@ class TradingHistory extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('tradinglist', nextProps.tradingList);
+    console.log('tradinglist keys', nextProps.tradingList);
+    let alteredData = {};
+    for (let k in nextProps.tradingList) {
+      let obj = nextProps.tradingList[k];
+      const { idToken, timestamp } = obj;
+      alteredData[timestamp] = {
+        idToken: idToken,
+        key: k,
+      };
+    }
     this.setState({
       dataProvider: this.generateData(nextProps.tradingList),
+      alteredData: alteredData,
     });
   }
 
-  delete(item) {
-    var dataList = [...this.state.dataProvider];
-    //var index = dataList.indexOf(item);
-    //dataList.splice(index, 1);
-    dataList = dataList.filter(i => i !== item);
-    this.setState({
-      dataProvider: dataList,
-    });
-    console.log('delete dataList', dataList);
+  delete(timestamp) {
+    // var dataList = [...this.state.dataProvider];
+    // //var index = dataList.indexOf(item);
+    // //dataList.splice(index, 1);
+    // dataList = dataList.filter(i => i !== item);
+    // this.setState({
+    //   dataProvider: dataList,
+    // });
+    // console.log('delete dataList', dataList);
+    console.log(this.state.alteredData[timestamp]);
   }
 
   render() {
@@ -112,7 +124,7 @@ class TradingHistory extends Component {
                   <Button
                     type="danger"
                     disabled={item.status != 'suspend'}
-                    onClick={() => this.delete(item)}
+                    onClick={() => this.delete(item.timestamp)}
                   >
                     Cancle
                   </Button>
@@ -127,7 +139,7 @@ class TradingHistory extends Component {
 }
 
 TradingHistory.propTypes = {
-  tradingList: PropTypes.array,
+  tradingList: PropTypes.object,
   onLoadTradingList: PropTypes.func,
 };
 
@@ -139,6 +151,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onCancelTradingRequest: payload =>
+      dispatch(userActions.sagaCancelTradingRequest(payload)),
     onLoadTradingList: () => dispatch(userActions.sagaSyncTradingList()),
   };
 };

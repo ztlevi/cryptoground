@@ -66,3 +66,17 @@ export const toggleTradingResponseModal = (info, isOpen) => {
     isOpen: isOpen,
   };
 };
+
+export const sagaCancelTradingRequest = payload => {
+  return {
+    type: actionTypes.SAGA_CANCEL_TRADING,
+    payload: payload,
+  };
+};
+
+export const cancelTradingRequest = payload => {
+  return {
+    type: actionTypes.CANCEL_TRADING,
+    payload: payload,
+  };
+};

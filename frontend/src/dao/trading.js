@@ -14,3 +14,13 @@ export const requestTrading = payload => {
       .catch(err => reject(err));
   });
 };
+
+export const cancelTrading = payload => {
+  let url = cryptoUrls.localhostCancelTradingUrl;
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, payload)
+      .then(res => resolve(res))
+      .catch(err => reject(err));
+  });
+};
