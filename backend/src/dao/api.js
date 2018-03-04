@@ -1,9 +1,28 @@
 import * as axios from 'axios';
 
-import { cryptoType } from '../res/cryptoConfigs';
+import { cryptoType, currencyType } from '../res/cryptoConfigs';
 import { cryptoRealtimeRequestUrl } from '../utils/cryptoDataUrls';
 
 export let cachedCryptoPrice = {};
+
+export const queryRateTable = () => {
+  let url = crypto(
+    [...cryptoType, ...currencyType],
+    [...cryptoType, ...currencyType]
+  );
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(response => {
+        if (response.status === 200) {
+          resolve(1);
+        } else {
+          reject(0);
+        }
+      })
+      .catch(e => reject(e));
+  });
+};
 
 export const updateCurrencyPrice = () => {
   let toSyms = ['USD', 'EUR'];

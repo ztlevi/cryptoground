@@ -1,5 +1,12 @@
 export const cryptoRootUrl = 'https://min-api.cryptocompare.com/data';
 
+export const cryptoRealTimeSinglePriceUrl = (
+  fromSym: string,
+  toSym: string
+) => {
+  return `${cryptoRootUrl}/price?fsym=${fromSym}&tsyms=${toSym}`;
+};
+
 /**
  * generate crypto request to fetch multiple symbols price
  * @param fromSyms: Array
