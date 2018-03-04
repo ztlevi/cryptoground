@@ -14,6 +14,8 @@ const db = admin.database();
 
 export const uploadSuspendedList = suspendedList => {
   return new Promise((resolve, reject) => {
+    if (!suspendedList) console.log('No suspendedList!!!! Reference error!!!');
+
     db
       .ref('suspendedList/')
       .set(suspendedList)
