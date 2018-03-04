@@ -70,6 +70,7 @@ export function* sagaRequestTrading(action) {
     // Request trading
     const res = yield call(tradingApi.requestTrading, action.payload);
 
+    console.log('response of trading request', res);
     // Update balance account
     yield call(sagaSyncUserBalance);
 

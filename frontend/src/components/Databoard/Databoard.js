@@ -16,7 +16,7 @@ class Databoard extends Component {
         <Route
           path="/charts/intraday"
           render={() => (
-            <div>
+            <div style={{ margin: '20px 10px 20px 10px' }}>
               <CurrentCurrency />
               <IntraDay />
             </div>
@@ -25,7 +25,7 @@ class Databoard extends Component {
         <Route
           path="/charts/histoday"
           render={() => (
-            <div>
+            <div style={{ margin: '20px 10px 20px 10px' }}>
               <CurrentCurrency />
               <HistoricalData />
             </div>
@@ -34,13 +34,14 @@ class Databoard extends Component {
         <Route
           path="/trading"
           render={() => (
-            <div>
+            <div style={{ margin: '20px 10px 20px 10px' }}>
               <CurrentCurrency />
               <Transaction />
             </div>
           )}
         />
         <Route path="/ranking" component={LeaderBoard} />
+        <Redirect from="/" to="/charts" />
       </Switch>
     );
   }
