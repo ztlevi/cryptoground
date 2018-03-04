@@ -99,7 +99,7 @@ setInterval(() => {
 
 setInterval(() => {
   resolveSuspendedList();
-}, 10000);
+}, 30000);
 
 // generate the leaader board
 setInterval(() => {
@@ -116,7 +116,7 @@ setInterval(() => {
     uploadLeaderBoard(res)
       .then(res => {
         if (!res) {
-          console.log('Upload leardboard to firebase failed!!!');
+          console.log('Upload leaderboard to firebase failed!!!');
           return;
         }
       })

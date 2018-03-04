@@ -9,10 +9,10 @@ firebase
     suspendedList = data.val();
   })
   .catch(e => {
-    firebase.uploadSuspendedList(suspendedList).then(re => {
-      if (!re) return;
-      console.log('Upload an empty suspended list');
-    });
+    // firebase.uploadSuspendedList(suspendedList).then(re => {
+    //   if (!re) return;
+    //   console.log('Upload an empty suspended list');
+    // });
     return;
   });
 
@@ -43,9 +43,13 @@ export const resolveSuspendedList = () => {
 
   suspendedList = newSuspendedList;
 
-  firebase.uploadSuspendedList(suspendedList).then(response => {
-    console.log('Update suspendedList!!!!!');
-  });
+  if (suspendedList) {
+    firebase.uploadSuspendedList(suspendedList).then(response => {
+      console.log('Update suspendedList!!!!!');
+    });
+  } else {
+    console.log('No suspendedList!!!! Reference error!!!');
+  }
 
   // process trading request
   for (let uid in suspendedList) {
