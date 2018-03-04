@@ -41,30 +41,32 @@ export const computeTotals = balances => {
 };
 
 export const genLeaderBoard = () => {
-  let list = [];
-  listAllUsers(list)
-    .then(uidEmailList => {
-      thenjs.each(uidEmailList, (defer, obj) => {
-        fetchUserBalance(obj.uid)
-          .then(res => {
-            defer(null, res);
-          }).catch(err => defer(err, res))
-      }).then((defer, result) => {
-        console.log('balance', result);
-        computeTotals(result)
-          .then(userAssets => {
-            let structuredData = [];
-            for(let i in userAssets){
-              structuredData.push({
-                uid: uidEmailList[i].uid,
-                email: uidEmailList[i].email,
-                assets: userAssets[i]
+  return new Promise((resolve, reject) => {
+    let list = [];
+    listAllUsers(list)
+      .then(uidEmailList => {
+        thenjs.each(uidEmailList, (defer, obj) => {
+          fetchUserBalance(obj.uid)
+            .then(res => {
+              defer(null, res);
+            }).catch(err => defer(err, res))
+        }).then((defer, result) => {
+          console.log('balance', result);
+          computeTotals(result)
+            .then(userAssets => {
+              let structuredData = userAssets.map((item,i)=>{
+                return {
+                  uid: uidEmailList[i].uid,
+                  email: uidEmailList[i].email,
+                  assets: item
+                }
               });
-            }
-            console.log(structuredData);
-          })
-      }).fail((defer, err) =>{
-        console.log(err);
+              console.log('final assets list', structuredData)
+              resolve(structuredData)
+            })
+        }).fail((defer, err) =>{
+          reject(err);
+        })
       })
-    })
+  })
 }
