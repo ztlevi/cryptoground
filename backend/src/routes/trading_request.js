@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var firebase = require('../dao/firebase');
-var md5 = require('md5');
 const EXPIRATION = 259200;
 import { cachedCryptoPrice } from '../dao/api';
 import { verifyTradingRequest } from '../utils/trading_verification';
@@ -20,8 +19,6 @@ router.post('/', function(req, res, next) {
     req.timestamp = new Date().getTime() / 1000;
     req.expiration = EXPIRATION;
 
-    let md5Str = md5(req.timestamp + uid);
-    let tradingId = md5Str.substring(0, 6);
     let tradingObject = req;
     // let tradingObject = {
     //   tradingId: req,
