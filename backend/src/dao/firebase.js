@@ -12,36 +12,6 @@ admin.initializeApp({
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 const db = admin.database();
 
-export const uploadSuspendedList = suspendedList => {
-  return new Promise((resolve, reject) => {
-    if (!suspendedList) console.log('No suspendedList!!!! Reference error!!!');
-
-    db
-      .ref('suspendedList/')
-      .set(JSON.stringify(suspendedList))
-      .then(() => {
-        resolve(1);
-      })
-      .catch(e => reject(e));
-  });
-};
-
-export const fetchSuspendedList = () => {
-  return new Promise((resolve, reject) => {
-    db
-      .ref('suspendedList/')
-      .once('value')
-      .then(response => {
-        let result = JSON.parse(response.val());
-        if (!result) resolve(0);
-        resolve(result);
-      })
-      .catch(e => {
-        reject(e);
-      });
-  });
-};
-
 export const updateUserTradingStatus = (uid, key, status) => {
   return new Promise((resolve, reject) => {
     console.log('updateUserTradingStatus!!!!!');
@@ -151,17 +121,5 @@ export const listAllUsers = uidToEmailList => {
       .catch(error => {
         reject(error);
       });
-  });
-};
-
-export const uploadLeaderBoard = board => {
-  return new Promise((resolve, reject) => {
-    db
-      .ref('leaderboard/')
-      .set(board)
-      .then(() => {
-        resolve(1);
-      })
-      .catch(e => reject(e));
   });
 };

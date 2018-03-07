@@ -1,15 +1,19 @@
 import { verifyTradingRequest } from './trading_verification';
 var firebase = require('../dao/firebase');
 import { cachedCryptoPrice } from '../dao/api';
+import { fetchSuspendedList, setSuspendedList } from '../dao/redis';
 
 export var suspendedList = {}; // uid => key => data
-export let firstUpdateSuspendedList = () => {
+
+export const firstUpdateSuspendedList = () => {
   console.log('First fetch suspendedList!!!');
 
-  firebase
-    .fetchSuspendedList()
+  fetchSuspendedList()
     .then(data => {
-      if (!data) console.log('SuspendedList is empty!');
+      if (!data) {
+        console.log('SuspendedList is empty!');
+        return;
+      }
       suspendedList = data;
       console.log(suspendedList);
     })
@@ -29,12 +33,12 @@ export const addToSuspendedList = (uid, key, trading_request) => {
 };
 
 // resolve request remains in the suspendedList every miniute
-export const resolveSuspendedList = () => {
+export const resolveSuspendedList = list => {
   let newSuspendedList = {};
-  for (let uid in suspendedList) {
-    for (let i = 0; i < suspendedList[uid].length; i++) {
-      if (suspendedList[uid][i]) {
-        let item = suspendedList[uid][i];
+  for (let uid in list) {
+    for (let i = 0; i < list[uid].length; i++) {
+      if (list[uid][i]) {
+        let item = list[uid][i];
         let request = item.data;
         let key = item.key;
 
@@ -50,9 +54,7 @@ export const resolveSuspendedList = () => {
   suspendedList = newSuspendedList;
 
   if (suspendedList) {
-    firebase.uploadSuspendedList(suspendedList).then(response => {
-      console.log('Update suspendedList!!!!!');
-    });
+    setSuspendedList(suspendedList);
   } else {
     console.log('No suspendedList!!!! Reference error!!!');
   }
@@ -73,7 +75,7 @@ export const resolveSuspendedList = () => {
         let verifyResult = verifyTradingRequest(
           req,
           response,
-          cachedCryptoPrice,
+          cachedCryptoPrice
         );
         if (verifyResult.status === 'complete') {
           // update Firebase's balance
@@ -85,7 +87,7 @@ export const resolveSuspendedList = () => {
             .then(response => {
               if (!response)
                 console.log(
-                  "Cannot update user's new balance or push to the new trading record, request failed!",
+                  "Cannot update user's new balance or push to the new trading record, request failed!"
                 );
               console.log('Trading request has been approved!');
             })

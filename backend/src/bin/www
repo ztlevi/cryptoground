@@ -10,9 +10,12 @@ var http = require('http');
 
 import { cachedCryptoPrice, updateCurrencyPrice } from '../dao/api';
 import { resolveSuspendedList } from '../utils/suspendedList';
-import { uploadLeaderBoard, fetchSuspendedList } from '../dao/firebase';
+import { uploadLeaderBoard, setSuspendedList } from '../dao/redis';
 import { genLeaderBoard } from '../utils/asset';
-import { firstUpdateSuspendedList } from '../utils/suspendedList';
+import {
+  firstUpdateSuspendedList,
+  suspendedList,
+} from '../utils/suspendedList';
 /**
  * Get port from environment and store in Express.
  */
@@ -102,7 +105,7 @@ setInterval(() => {
 // resolve suspendedList, see if we can proceed some request or delete the expire request
 
 setInterval(() => {
-  resolveSuspendedList();
+  resolveSuspendedList(suspendedList);
 }, 30000);
 
 // generate the leaader board
@@ -117,15 +120,6 @@ setInterval(() => {
       let vb = b.assets.USD ? b.assets.USD : 0;
       return vb - va;
     });
-    uploadLeaderBoard(res)
-      .then(res => {
-        if (!res) {
-          console.log('Upload leaderboard to firebase failed!!!');
-          return;
-        }
-      })
-      .catch(e => {
-        reject(e);
-      });
+    uploadLeaderBoard(res);
   });
 }, 30000);

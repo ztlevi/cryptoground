@@ -39,7 +39,10 @@ router.post('/', function(req, res, next) {
                 message: 'Cannot updateUserTradingStatus to cancel!!!',
               });
 
-            suspendedList[uid] = suspendedList[uid].slice(i, 1);
+            suspendedList[uid] = suspendedList[uid]
+              .slice(0, i)
+              .concat(suspendedList[uid].slice(i + 1));
+
             res.jsonp({
               status: 'cancelled',
               message: 'Cancel the suspended trading request successfully!',

@@ -13,14 +13,17 @@
     "axios": "^0.18.0",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "firebase": "^4.10.1",
     "firebase-admin": "^5.9.1",
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
+    "redis": "^2.8.0",
     "serve-favicon": "~2.4.5",
-    "thenjs": "^2.0.6"
+    "thenjs": "^2.0.6",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
