@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var trading_request = require('./routes/trading_request');
 var get_price = require('./routes/get_price');
+var leaderboard = require('./routes/leaderboard');
 var cancel_trading = require('./routes/cancel_trading');
 
 var app = express();
@@ -29,6 +30,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/trading_request', trading_request);
 app.use('/get_price', get_price);
+app.use('/leaderboard', leaderboard);
 app.use('/cancel_trading', cancel_trading);
 
 // catch 404 and forward to error handler
