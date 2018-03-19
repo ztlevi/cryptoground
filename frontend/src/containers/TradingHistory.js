@@ -56,7 +56,7 @@ class TradingHistory extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('tradinglist keys', nextProps.tradingList);
+    //console.log('tradinglist keys', nextProps.tradingList);
     let alteredData = {};
     for (let k in nextProps.tradingList) {
       let obj = nextProps.tradingList[k];
@@ -74,19 +74,19 @@ class TradingHistory extends Component {
 
   delete(timestamp) {
     // var dataList = [...this.state.dataProvider];
-    // //var index = dataList.indexOf(item);
-    // //dataList.splice(index, 1);
+    //var index = dataList.indexOf(item);
+    //dataList.splice(index, 1);
     // dataList = dataList.filter(i => i !== item);
     // this.setState({
     //   dataProvider: dataList,
     // });
-    // console.log('delete dataList', dataList);
-    console.log(this.state.alteredData[timestamp]);
+    //console.log('delete dataList', dataList);
+    //console.log(this.state.alteredData[timestamp]);
     this.props.onCancelTradingRequest(this.state.alteredData[timestamp]);
   }
 
   render() {
-    console.log(this.state.dataProvider);
+    //console.log(this.state.dataProvider);
     return (
       <div style={{ marginLeft: 10, marginTop: 15 }}>
         <Modal

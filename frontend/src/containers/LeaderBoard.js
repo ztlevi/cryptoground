@@ -40,7 +40,7 @@ class LeaderBoard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('leaderBoard', nextProps.leaderBoard, nextProps.rank);
+    //console.log('leaderBoard', nextProps.leaderBoard, nextProps.rank);
     this.setState({
       leaderBoard: this.generateData(nextProps.leaderBoard),
       rank: nextProps.rank,

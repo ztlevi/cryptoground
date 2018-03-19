@@ -53,7 +53,7 @@ const authFail = (state, action) => {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_INIT:
-      console.log('reducer init');
+      //console.log('reducer init');
       return authInit(state, action);
     case actionTypes.AUTH_START:
       return authStart(state, action);

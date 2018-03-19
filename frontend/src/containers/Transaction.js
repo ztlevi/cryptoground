@@ -31,28 +31,28 @@ class Transaction extends Component {
     this.setState({
       buyPrice: value,
     });
-    console.log('onChangeBuyPrice', value);
+    //console.log('onChangeBuyPrice', value);
   }
 
   onChangeBuyAmount(value) {
     this.setState({
       buyAmount: value,
     });
-    console.log('onChangeBuyAmount', value);
+    //console.log('onChangeBuyAmount', value);
   }
 
   onChangeSellPrice(value) {
     this.setState({
       sellPrice: value,
     });
-    console.log('onChangeSellPrice', value);
+    //console.log('onChangeSellPrice', value);
   }
 
   onChangeSellAmount(value) {
     this.setState({
       sellAmount: value,
     });
-    console.log('onChangeSellAmount', value);
+    //console.log('onChangeSellAmount', value);
   }
 
   onBuy() {
@@ -105,28 +105,28 @@ class Transaction extends Component {
   }
 
   onBuyFromChange(key) {
-    console.log(key);
+    //console.log(key);
     this.setState({
       buyFromSym: key,
     });
   }
 
   onBuyToChange(key) {
-    console.log(key);
+    //console.log(key);
     this.setState({
       buyToSym: key,
     });
   }
 
   onSellFromChange(key) {
-    console.log(key);
+    //console.log(key);
     this.setState({
       sellFromSym: key,
     });
   }
 
   onSellToChange(key) {
-    console.log(key);
+    //console.log(key);
     this.setState({
       sellToSym: key,
     });

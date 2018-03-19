@@ -8,11 +8,11 @@ import * as userApi from '../dao/user';
 
 export function* sagaSignUp(action: Object) {
   try {
-    console.log('sign up...');
+    //console.log('sign up...');
     const { userName, passWord } = action.payload;
     yield put(authActions.authStart());
     const authData = yield call(authApi.signUpNewUser, userName, passWord);
-    console.log('authData', authData);
+    //console.log('authData', authData);
     yield put(authActions.authSuccess(authData));
     yield put(
       userActions.updateUserInfo({
@@ -29,7 +29,7 @@ export function* sagaSignUp(action: Object) {
     );
     yield put(userActions.updateUserBalance({ balance: balanceData }));
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     yield put(
       authActions.authFail({
         error: err,
@@ -41,11 +41,11 @@ export function* sagaSignUp(action: Object) {
 
 export function* sagaSignIn(action: Object) {
   try {
-    console.log('sign in...');
+    //console.log('sign in...');
     const { userName, passWord } = action.payload;
     yield put(authActions.authStart());
     const authData = yield call(authApi.verifyPassword, userName, passWord);
-    console.log('authData', authData);
+    //console.log('authData', authData);
     yield put(authActions.authSuccess(authData));
     yield put(
       userActions.updateUserInfo({
@@ -59,7 +59,7 @@ export function* sagaSignIn(action: Object) {
     );
     yield put(userActions.updateUserBalance({ balance: balanceData }));
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     yield put(
       authActions.authFail({
         error: err,

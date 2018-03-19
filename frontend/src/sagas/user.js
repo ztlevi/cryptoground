@@ -9,7 +9,7 @@ import * as tradingApi from '../dao/trading';
 export function* sagaSyncUserBalance() {
   try {
     const state = yield select();
-    console.log('saga Sync user balance');
+    //console.log('saga Sync user balance');
     if (state.auth.uid && state.auth.idToken) {
       const balanceData = yield call(
         userApi.fetchUserBalance,
@@ -21,7 +21,7 @@ export function* sagaSyncUserBalance() {
       return;
     }
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   }
 }
 
@@ -39,10 +39,10 @@ export function* sagaSyncTradingList() {
     const tradingList = yield call(userApi.fetchUserTradingList, uid, idToken);
 
     // Update local trading list
-    console.log('tradingList', tradingList);
+    //console.log('tradingList', tradingList);
     yield put(userActions.updateTradingList(tradingList));
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   }
 }
 
@@ -53,12 +53,12 @@ export function* sagaRequestTrading(action) {
     if (!uid || !idToken) {
       return;
     }
-    console.log('post trading request', action.payload);
+    //console.log('post trading request', action.payload);
     yield 1;
     // Request trading
     const res = yield call(tradingApi.requestTrading, action.payload);
 
-    console.log('response of trading request', res);
+    //console.log('response of trading request', res);
 
     yield put(userActions.toggleTradingResponseModal(res.message, true));
 
@@ -72,7 +72,7 @@ export function* sagaRequestTrading(action) {
     //console.log('tradingList', tradingList);
     yield put(userActions.updateTradingList(tradingList));
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   }
 }
 
@@ -84,12 +84,12 @@ export function* sagaCancelTrading(action) {
       return;
     }
 
-    console.log('Start cancel trading');
+    //console.log('Start cancel trading');
     const res = yield call(tradingApi.cancelTrading, action.payload);
 
     yield put(userActions.toggleTradingResponseModal(res.data.message, true));
 
-    console.log('Cancel result', res);
+    //console.log('Cancel result', res);
     // Update balance account
     yield call(sagaSyncUserBalance);
 
@@ -100,7 +100,7 @@ export function* sagaCancelTrading(action) {
     //console.log('tradingList', tradingList);
     yield put(userActions.updateTradingList(tradingList));
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   }
 }
 export const fakeLeaderBoard = () => {
@@ -114,12 +114,12 @@ export const fakeLeaderBoard = () => {
 export function* sagaSyncLeaderBoard() {
   try {
     while (true) {
-      console.log('saga loading leader board');
+      //console.log('saga loading leader board');
       const state = yield select();
       const { idToken } = state.auth;
       const { email } = state.user;
       // if (!uid || !idToken) {
-      //   console.log('no token');
+      //   //console.log('no token');
       //   return;
       // }
       //const leaderBoard = fakeLeaderBoard();
@@ -138,10 +138,10 @@ export function* sagaSyncLeaderBoard() {
       yield call(delay, 60 * 1000 * 2);
     }
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   } finally {
     if (yield cancelled()) {
-      console.log('Task finished');
+      //console.log('Task finished');
     }
   }
 }
