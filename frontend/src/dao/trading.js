@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as cryptoUrls from '../res/cryptoDataUrls';
 
 export const requestTrading = payload => {
-  let url = cryptoUrls.localhostTradingRequestUrl;
+  let url = cryptoUrls.herokuTradingRequestUrl;
   return new Promise((resolve, reject) => {
     axios
       .post(url, payload)
@@ -13,8 +13,7 @@ export const requestTrading = payload => {
 };
 
 export const cancelTrading = payload => {
-  let url = cryptoUrls.localhostCancelTradingUrl;
-  console.log('payload', payload);
+  let url = cryptoUrls.herokuCancelTradingUrl;
   return new Promise((resolve, reject) => {
     axios
       .post(url, payload)

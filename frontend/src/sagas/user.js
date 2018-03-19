@@ -124,7 +124,10 @@ export function* sagaSyncLeaderBoard() {
       // }
       //const leaderBoard = fakeLeaderBoard();
 
-      const leaderBoard = yield call(userApi.fetchLeaderBoard, idToken);
+      const leaderBoard = yield call(
+        userApi.fetchLeaderBoardFromFirebase,
+        idToken
+      );
       //console.log('saga leaderBoard', leaderBoard);
       yield put(
         userActions.updateLeaderBoard({

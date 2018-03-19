@@ -3,7 +3,7 @@ import * as ApiUrls from '../res/cryptoDataUrls';
 import * as cryptoConfigs from '../res/cryptoConfigs';
 
 export const fetchRealTimePriceFromBackend = () => {
-  let url = ApiUrls.localhostUrl;
+  let url = ApiUrls.herokuUrlGetPriceUrl;
   return new Promise((resolve, reject) => {
     axios
       .get(url)
@@ -31,7 +31,7 @@ export const fetchDailyBatchDataFromApi = (fromSym, toSym, numOfYears) => {
     cryptoConfigs.intervalType.dayly,
     numOfDays
   );
-  console.log(url);
+  //console.log(url);
   return new Promise((resolve, reject) => {
     axios
       .get(url)
@@ -48,7 +48,7 @@ export const fetchIntradayBatchDataFromApi = (fromSym, toSym, numOfDays) => {
     cryptoConfigs.intervalType.minute,
     numOfMinutes
   );
-  console.log(url);
+  //console.log(url);
   return new Promise((resolve, reject) => {
     axios
       .get(url)

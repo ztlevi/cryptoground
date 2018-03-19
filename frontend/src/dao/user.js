@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import * as ApiUrl from '../res/cryptoDataUrls';
 import * as cryptoConfigs from '../res/cryptoConfigs';
 import * as firebaseUrls from '../res/firebaseUrls';
 
@@ -8,13 +9,11 @@ export const fetchUserBalance = (uid, idToken) => {
     ['users', uid, 'balance'],
     idToken
   );
-  console.log('fetch balance');
   return new Promise((resolve, reject) => {
     axios
       .get(endpoint)
       .then(res => {
         if (res && res.data) {
-          console.log('balance', res.data);
           resolve(res.data);
         } else {
           reject(0);
@@ -29,7 +28,6 @@ export const initUserBalance = (uid, idToken) => {
     ['users', uid, 'balance'],
     idToken
   );
-  console.log('init balance');
   let initialBalance = {};
   const { cryptoType, currencyType } = cryptoConfigs;
   for (let idx in cryptoType) {
@@ -39,7 +37,6 @@ export const initUserBalance = (uid, idToken) => {
     initialBalance[currencyType[idx]] = 0;
   }
   initialBalance['USD'] = 10000;
-  console.log('initalBalance', initialBalance);
   return new Promise((resolve, reject) => {
     axios
       .put(endpoint, initialBalance)
@@ -55,7 +52,7 @@ export const fetchUserTradingList = (uid, idToken) => {
       .get(url)
       .then(res => {
         if (res && res.data) {
-          console.log('tradingList', res.data);
+          //console.log('tradingList', res.data);
           resolve(res.data);
         } else {
           reject(0);
@@ -65,15 +62,30 @@ export const fetchUserTradingList = (uid, idToken) => {
   });
 };
 
-export const fetchLeaderBoard = idToken => {
+export const fetchLeaderBoardFromFirebase = idToken => {
   let url = firebaseUrls.fetchFirebaseDbUrl(['leaderboard'], idToken);
   return new Promise((resolve, reject) => {
     axios
       .get(url)
       .then(res => {
         if (res && res.data) {
-          console.log('leaderboard', res.data);
           resolve(res.data);
+        } else {
+          reject(0);
+        }
+      })
+      .catch(err => reject(err));
+  });
+};
+
+export const fetchLeaderBoardFromBackend = () => {
+  let url = ApiUrl.herokuLeaderBoardUrl;
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(res => {
+        if (res) {
+          resolve(res);
         } else {
           reject(0);
         }

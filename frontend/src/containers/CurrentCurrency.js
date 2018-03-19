@@ -41,7 +41,7 @@ class CurrentCurrency extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('next', nextProps.data.realTimePrice)
+    //console.log('next', nextProps.data.realTimePrice)
     this.setState({
       dataProvider: this.generateData(nextProps),
     });
@@ -57,7 +57,7 @@ class CurrentCurrency extends Component {
   }
 
   render() {
-    // console.log(this.state.dataProvider);
+    //console.log(this.state.dataProvider);
     return (
       <div style={{ marginLeft: 10, marginTop: 15 }}>
         <h4 style={{ textAlign: 'center' }}>Cryptocurrency Market</h4>

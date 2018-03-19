@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 
 export const authInit = () => {
-  console.log('init');
   return {
     type: actionTypes.AUTH_INIT,
   };

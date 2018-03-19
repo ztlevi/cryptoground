@@ -11,7 +11,7 @@ class TradingHistory extends Component {
     var traList = [];
     var i = 0;
     var data = props;
-    console.log('initial', data);
+    //console.log('initial', data);
     for (var key in data) {
       traList.push({
         key: i,
@@ -26,7 +26,7 @@ class TradingHistory extends Component {
       });
       i += 1;
     }
-    console.log('List', traList);
+    //console.log('List', traList);
     //sort traList by timestamp
     traList.sort(function(a, b) {
       var timeA = new Date(a.timestamp),

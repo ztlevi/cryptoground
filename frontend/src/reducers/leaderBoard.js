@@ -7,7 +7,6 @@ const initialState = {
 };
 
 const updateLeaderBoard = (state, action) => {
-  console.log('in reducer', action.payload.leaderBoard);
   return {
     ...state,
     leaderBoard: [...action.payload.leaderBoard],

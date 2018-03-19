@@ -36,7 +36,7 @@ class HistoricalData extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('next', nextProps.data.batchData);
+    //console.log('next', nextProps.data.batchData);
 
     this.setState({
       // Update the chart dataProvider

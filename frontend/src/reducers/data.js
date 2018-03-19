@@ -23,7 +23,7 @@ for (let i in cryptoType) {
   }
 }
 
-console.log('initial state', initialState);
+//console.log('initial state', initialState);
 const recurUpdateRealTimePrice = (realTimePrice, payload) => {
   for (let cryp in payload) {
     for (let cur in payload[cryp]) {
