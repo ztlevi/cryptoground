@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
-import { List, Avatar, Button } from 'antd';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as userActions from '../actions/user';
 import * as dataActions from '../actions/data';
 
 class LeaderBoard extends Component {

@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 //import axios from 'axios';
 import { connect } from 'react-redux';
-import { Row, Button, Col, Layout, Menu, Breadcrumb, Icon } from 'antd';
-const { Header, Content, Sider } = Layout;
-import { buttonStyle } from '../styles/GlobalStyles';
 
 import AmCharts from '@amcharts/amcharts3-react';
 import * as dataActions from '../actions/data';

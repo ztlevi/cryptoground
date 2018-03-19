@@ -21,7 +21,7 @@ function* realTimePricingSyncBackend() {
       const data = yield call(dataApi.fetchRealTimePriceFromBackend);
       // console.log(data);
       yield put(dataActions.updateRealTimePricing(data));
-      const state = yield select();
+      // const state = yield select();
       // console.log(state);
       // console.log('state', state.data.realTimePrice);
       yield call(delay, 5000);
@@ -47,7 +47,7 @@ function* realTimePricingSyncApi() {
       );
       //console.log(data);
       yield put(dataActions.updateRealTimePricing(data));
-      const state = yield select();
+      //const state = yield select();
       //console.log('state', state.data.realTimePrice);
       yield call(delay, 5000);
     }
@@ -78,7 +78,7 @@ function* batchDataDaylySyncApi() {
       postData[fromSym][toSym][cryptoConfigs.intervalType.dayly] = data;
       //console.log('postdata', postData);
       yield put(dataActions.updateBatchData(postData));
-      const state = yield select();
+      //const state = yield select();
       //console.log('post state', state.data.batchData);
       yield call(delay, 1000 * 3600);
     }

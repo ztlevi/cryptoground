@@ -9,11 +9,11 @@ const initialState = {
   loading: false,
 };
 
-const authInit = (state, action) => {
+const authInit = () => {
   return { ...initialState };
 };
 
-const authStart = (state, action) => {
+const authStart = state => {
   return {
     ...state,
     error: null,

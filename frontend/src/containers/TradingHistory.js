@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { InputNumber, Button, Dropdown, Menu, Modal } from 'antd';
+import { Button, Modal } from 'antd';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as userActions from '../actions/user';
-import * as cryptoConfigs from '../res/cryptoConfigs';
-
-const cryptoType = cryptoConfigs.cryptoType;
-const currencyType = cryptoConfigs.currencyType;
 
 class TradingHistory extends Component {
   generateData(props) {

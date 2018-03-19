@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import IntraDay from '../../containers/IntraDay';
 import HistoricalData from '../../containers/HistoricalData';

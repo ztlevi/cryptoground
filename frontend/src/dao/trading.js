@@ -1,9 +1,6 @@
 import axios from 'axios';
 
 import * as cryptoUrls from '../res/cryptoDataUrls';
-import * as cryptoConfigs from '../res/cryptoConfigs';
-import * as firebaseConfigs from '../res/firebaseConfigs';
-import * as firebaseUrls from '../res/firebaseUrls';
 
 export const requestTrading = payload => {
   let url = cryptoUrls.localhostTradingRequestUrl;

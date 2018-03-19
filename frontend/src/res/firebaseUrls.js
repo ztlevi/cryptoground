@@ -28,5 +28,7 @@ export const fetchFirebaseDbUrl = (dirs: Array, idToken: String) => {
 };
 
 export const GET_FIREBASE_ERROR_MSG = err => {
-  return err.response.data.error.message;
+  return (
+    err && err.response && err.response.data && err.response.data.error.message
+  );
 };

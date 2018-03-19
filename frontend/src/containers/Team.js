@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
-import { List, Avatar, Button } from 'antd';
 
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import zhouting from '../assets/zhouting.jpg';
 import liwei from '../assets/liwei.jpg';
 import shijian from '../assets/shijian.png';
 import wangjunzhi from '../assets/wangjunzhi.jpg';
 import classes from './team.css';
-
-import * as userActions from '../actions/user';
 
 export default class LeaderBoard extends Component {
   constructor(props) {

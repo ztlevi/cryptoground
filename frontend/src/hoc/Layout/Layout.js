@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import { Router, Switch, NavLink, Redirect } from 'react-router-dom';
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+import { Layout } from 'antd';
 
 import Navigation from '../../components/Navigation/Navigation';
 import Databoard from '../../components/Databoard/Databoard';

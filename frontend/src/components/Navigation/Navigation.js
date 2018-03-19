@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Input, Row, Button, Col, Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Input, Button, Layout, Menu, Icon } from 'antd';
 import PropTypes from 'prop-types';
 //import axios from 'axios';
 import { connect } from 'react-redux';
 
 import * as authActions from '../../actions/auth';
-const { Header, Content, Sider } = Layout;
+const { Header } = Layout;
 
 class Navigation extends Component {
   constructor(props) {

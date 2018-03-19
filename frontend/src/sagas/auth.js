@@ -1,20 +1,6 @@
-import {
-  take,
-  put,
-  call,
-  fork,
-  cancel,
-  cancelled,
-  select,
-  takeEvery,
-} from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { put, call, takeEvery } from 'redux-saga/effects';
 
-import * as dataActions from '../actions/data';
-import * as dataApi from '../dao/data';
 import * as actionTypes from '../actions/actionTypes';
-import * as cryptoConfigs from '../res/cryptoConfigs';
-import * as firebaseConfigs from '../res/firebaseConfigs';
 import * as authApi from '../dao/auth';
 import * as authActions from '../actions/auth';
 import * as userActions from '../actions/user';

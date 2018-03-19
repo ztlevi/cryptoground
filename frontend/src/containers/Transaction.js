@@ -14,9 +14,9 @@ class Transaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buyPrice: 1000,
+      buyPrice: 10000,
       buyAmount: 1,
-      sellPrice: 1000,
+      sellPrice: 10000,
       sellAmount: 1,
       buyFromSym: 'USD',
       buyToSym: 'BTC',
@@ -241,6 +241,7 @@ class Transaction extends Component {
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
                 min={0.0001}
+                value={this.state.buyPrice}
                 onChange={value => this.onChangeBuyPrice(value)}
               />
             </div>
@@ -353,6 +354,7 @@ class Transaction extends Component {
                 formatter={value =>
                   `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                 }
+                value={this.state.sellPrice}
                 onChange={value => this.onChangeSellPrice(value)}
               />
             </div>
@@ -372,10 +374,10 @@ class Transaction extends Component {
               style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
             >
               <span style={{ width: '40%', fontSize: '20px' }}>
-                Using balance
+                Cryptocurrency type
               </span>
-              <Dropdown.Button overlay={buyFromMenu}>
-                {this.state.buyFromSym}
+              <Dropdown.Button overlay={sellFromMenu}>
+                {this.state.sellFromSym}
               </Dropdown.Button>
             </div>
 
@@ -383,10 +385,10 @@ class Transaction extends Component {
               style={{ display: 'flex', flexDirection: 'row', margin: '10px' }}
             >
               <span style={{ width: '40%', fontSize: '20px' }}>
-                Cryptocurrency type
+                Using balance
               </span>
-              <Dropdown.Button overlay={buyToMenu}>
-                {this.state.buyToSym}
+              <Dropdown.Button overlay={sellToMenu}>
+                {this.state.sellToSym}
               </Dropdown.Button>
             </div>
             <div

@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 //import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
 import * as dataActions from '../actions/data';
-import { buttonStyle } from '../styles/GlobalStyles';
 
 class CurrentCurrency extends Component {
   generateData(props) {

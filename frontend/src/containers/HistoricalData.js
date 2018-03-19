@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 //import axios from 'axios';
 import * as dataActions from '../actions/data';
 import AmCharts from '@amcharts/amcharts3-react';
-import { Button } from 'antd';
-
-import { buttonStyle } from '../styles/GlobalStyles';
 
 // Component which contains the dynamic state for the chart
 class HistoricalData extends Component {
